@@ -44,6 +44,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,6 +128,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTabbedPane2.addTab("tab1", jPanel1);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setText("BUSCAR CLIENTE");
+        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 180, 50));
+
+        jLabel1.setText("NUEVO CLIENTE");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 170, 50));
+
+        jLabel2.setText("NOMBRE Y APELLIDOS");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 370, 60));
+
+        jLabel3.setText("DNI");
+        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 150, 40));
+
+        jLabel4.setText("Nº Teléfono");
+        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 160, 40));
+
+        jLabel16.setText("DIRECCIÓN (CALLE)");
+        jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 440, 40));
+
+        jLabel17.setText("POBLACIÓN");
+        jLabel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, 190, 40));
+
+        jLabel18.setText("CÓDIGO POSTAL");
+        jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 160, 40));
+
+        jLabel19.setText("EMAIL");
+        jLabel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 190, 40));
+
         jTabbedPane2.addTab("tab2", jPanel2);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -165,12 +211,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -183,5 +237,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
