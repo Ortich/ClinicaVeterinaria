@@ -27,10 +27,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField7 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
+        jTextField10 = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jDialog2 = new javax.swing.JDialog();
+        jTextField11 = new javax.swing.JTextField();
+        jTextField12 = new javax.swing.JTextField();
+        jTextField13 = new javax.swing.JTextField();
+        jTextField14 = new javax.swing.JTextField();
+        jTextField15 = new javax.swing.JTextField();
+        jTextField16 = new javax.swing.JTextField();
+        jTextField17 = new javax.swing.JTextField();
+        jTextField18 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel22 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -55,6 +76,64 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
+        jDialog1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextField3.setText("jTextField3");
+        jDialog1.getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 220, 40));
+
+        jTextField4.setText("jTextField4");
+        jDialog1.getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 360, 40));
+
+        jTextField5.setText("jTextField5");
+        jDialog1.getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 350, 30));
+
+        jTextField6.setText("jTextField6");
+        jDialog1.getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 250, 40));
+
+        jTextField7.setText("jTextField7");
+        jDialog1.getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, 320, 30));
+
+        jTextField8.setText("jTextField8");
+        jDialog1.getContentPane().add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, 420, 40));
+
+        jTextField9.setText("jTextField9");
+        jDialog1.getContentPane().add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 690, 330, 40));
+
+        jTextField10.setText("jTextField10");
+        jDialog1.getContentPane().add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 760, 430, 30));
+
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosMascota.png"))); // NOI18N
+        jDialog1.getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
+
+        jDialog2.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextField11.setText("jTextField3");
+        jDialog2.getContentPane().add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 220, 40));
+
+        jTextField12.setText("jTextField4");
+        jDialog2.getContentPane().add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 360, 40));
+
+        jTextField13.setText("jTextField5");
+        jDialog2.getContentPane().add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, 270, 30));
+
+        jTextField14.setText("jTextField6");
+        jDialog2.getContentPane().add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 250, 40));
+
+        jTextField15.setText("jTextField7");
+        jDialog2.getContentPane().add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, 320, 30));
+
+        jTextField16.setText("jTextField8");
+        jDialog2.getContentPane().add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, 420, 40));
+
+        jTextField17.setText("jTextField9");
+        jDialog2.getContentPane().add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 690, 330, 40));
+
+        jTextField18.setText("jTextField10");
+        jDialog2.getContentPane().add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 760, 430, 30));
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosCliente.png"))); // NOI18N
+        jDialog2.getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -75,9 +154,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 750, 510, 110));
 
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/huella.png"))); // NOI18N
+        jLabel22.setText("jLabel22");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 90, 90));
+
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("NUEVA MASCOTA");
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
+            }
+        });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, 140, 50));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -132,6 +220,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setText("NUEVO CLIENTE");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, 170, 50));
 
         jLabel2.setText("NOMBRE Y APELLIDOS");
@@ -175,6 +268,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+        jDialog1.setVisible(true);
+    }//GEN-LAST:event_jLabel5MousePressed
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        jDialog2.setVisible(true);
+    }//GEN-LAST:event_jLabel1MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -211,6 +312,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -223,6 +326,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -237,6 +343,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
