@@ -20,6 +20,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	initComponents();
 	this.setSize(1035, 700);
 	this.setResizable(false);
+	
+	ventanaMascotaNueva.setSize(1030, 700);
+	ventanaMascotaNueva.setResizable(false);
+	
+	ventanaClienteNuevo.setSize(1035, 700);
+	ventanaClienteNuevo.setResizable(false);
     }
 
     /**
@@ -31,17 +37,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        ventanaMascotaNueva = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
         jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
         jTextField10 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jDialog2 = new javax.swing.JDialog();
+        jTextField3 = new javax.swing.JTextField();
+        ventanaClienteNuevo = new javax.swing.JDialog();
         jTextField11 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
@@ -81,63 +89,69 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
-        jDialog1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        ventanaMascotaNueva.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField3.setText("jTextField3");
-        jDialog1.getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 220, 40));
-
-        jTextField4.setText("jTextField4");
-        jDialog1.getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 360, 40));
-
-        jTextField5.setText("jTextField5");
-        jDialog1.getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 350, 30));
-
-        jTextField6.setText("jTextField6");
-        jDialog1.getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 250, 40));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField7.setText("jTextField7");
-        jDialog1.getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, 320, 30));
-
-        jTextField8.setText("jTextField8");
-        jDialog1.getContentPane().add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, 420, 40));
-
-        jTextField9.setText("jTextField9");
-        jDialog1.getContentPane().add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 690, 330, 40));
+        jPanel4.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, 320, 30));
 
         jTextField10.setText("jTextField10");
-        jDialog1.getContentPane().add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 760, 430, 30));
+        jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 760, 430, 30));
+
+        jTextField8.setText("jTextField8");
+        jPanel4.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, 420, 40));
+
+        jTextField6.setText("jTextField6");
+        jPanel4.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 250, 40));
+
+        jTextField4.setText("jTextField4");
+        jPanel4.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 360, 40));
+
+        jTextField9.setText("jTextField9");
+        jPanel4.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 690, 330, 40));
+
+        jTextField5.setText("jTextField5");
+        jPanel4.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 350, 30));
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosMascota.png"))); // NOI18N
-        jDialog1.getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
+        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
 
-        jDialog2.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jTextField3.setText("jTextField3");
+        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 670, 220, 40));
+
+        jScrollPane3.setViewportView(jPanel4);
+
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 750));
+
+        ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField11.setText("jTextField3");
-        jDialog2.getContentPane().add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 220, 40));
+        ventanaClienteNuevo.getContentPane().add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 220, 40));
 
         jTextField12.setText("jTextField4");
-        jDialog2.getContentPane().add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 360, 40));
+        ventanaClienteNuevo.getContentPane().add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 360, 40));
 
         jTextField13.setText("jTextField5");
-        jDialog2.getContentPane().add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, 270, 30));
+        ventanaClienteNuevo.getContentPane().add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, 270, 30));
 
         jTextField14.setText("jTextField6");
-        jDialog2.getContentPane().add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 250, 40));
+        ventanaClienteNuevo.getContentPane().add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, 250, 40));
 
         jTextField15.setText("jTextField7");
-        jDialog2.getContentPane().add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, 320, 30));
+        ventanaClienteNuevo.getContentPane().add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, 320, 30));
 
         jTextField16.setText("jTextField8");
-        jDialog2.getContentPane().add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, 420, 40));
+        ventanaClienteNuevo.getContentPane().add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, 420, 40));
 
         jTextField17.setText("jTextField9");
-        jDialog2.getContentPane().add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 690, 330, 40));
+        ventanaClienteNuevo.getContentPane().add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 690, 330, 40));
 
         jTextField18.setText("jTextField10");
-        jDialog2.getContentPane().add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 760, 430, 30));
+        ventanaClienteNuevo.getContentPane().add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 760, 430, 30));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosCliente.png"))); // NOI18N
-        jDialog2.getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
+        ventanaClienteNuevo.getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1010, 700));
@@ -281,11 +295,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cuadroNuevaMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMousePressed
-        jDialog1.setVisible(true);
+        ventanaMascotaNueva.setVisible(true);
     }//GEN-LAST:event_cuadroNuevaMascotaMousePressed
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-        jDialog2.setVisible(true);
+        ventanaClienteNuevo.setVisible(true);
     }//GEN-LAST:event_jLabel1MousePressed
 
     /**
@@ -335,8 +349,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroSexo;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel huella;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -351,8 +363,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
@@ -373,5 +387,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JDialog ventanaClienteNuevo;
+    private javax.swing.JDialog ventanaMascotaNueva;
     // End of variables declaration//GEN-END:variables
 }
