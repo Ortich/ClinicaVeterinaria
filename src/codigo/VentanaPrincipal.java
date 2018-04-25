@@ -5,6 +5,8 @@
  */
 package codigo;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Usuario
@@ -16,6 +18,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
 	initComponents();
+	this.setSize(1035, 700);
+	this.setResizable(false);
     }
 
     /**
@@ -47,21 +51,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField17 = new javax.swing.JTextField();
         jTextField18 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        huella = new javax.swing.JLabel();
+        cuadroNuevaMascota = new javax.swing.JLabel();
+        cuadroNombre = new javax.swing.JLabel();
+        cuadroRaza = new javax.swing.JLabel();
+        cuadroEspecie = new javax.swing.JLabel();
+        cuadroSexo = new javax.swing.JLabel();
+        cuadroNacimiento = new javax.swing.JLabel();
+        cuadroChip = new javax.swing.JLabel();
+        cuadroPropietario = new javax.swing.JLabel();
+        cuadroFoto = new javax.swing.JLabel();
+        fondo = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
@@ -135,8 +140,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jDialog2.getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1010, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTabbedPane2.setMinimumSize(new java.awt.Dimension(1012, 700));
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(1002, 700));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -154,57 +163,57 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 750, 510, 110));
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/huella.png"))); // NOI18N
-        jLabel22.setText("jLabel22");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 90, 90));
+        huella.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/huella.png"))); // NOI18N
+        huella.setText("jLabel22");
+        jPanel1.add(huella, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 90, 90));
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("NUEVA MASCOTA");
-        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        cuadroNuevaMascota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuadroNuevaMascota.setText("NUEVA MASCOTA");
+        cuadroNuevaMascota.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cuadroNuevaMascota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel5MousePressed(evt);
+                cuadroNuevaMascotaMousePressed(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, 140, 50));
+        jPanel1.add(cuadroNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 240, 140, 50));
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("NOMBRE MASCOTA");
-        jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 250, 60));
+        cuadroNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuadroNombre.setText("NOMBRE MASCOTA");
+        cuadroNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 250, 60));
 
-        jLabel8.setText("RAZA");
-        jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 600, 100, 30));
+        cuadroRaza.setText("RAZA");
+        cuadroRaza.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 600, 100, 30));
 
-        jLabel9.setText("ESPECIE");
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, 100, 30));
+        cuadroEspecie.setText("ESPECIE");
+        cuadroEspecie.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroEspecie, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, 100, 30));
 
-        jLabel10.setText("SEXO");
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 660, 100, 30));
+        cuadroSexo.setText("SEXO");
+        cuadroSexo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 660, 100, 30));
 
-        jLabel11.setText("FECHA NACIMIENTO");
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 530, 110, 30));
+        cuadroNacimiento.setText("FECHA NACIMIENTO");
+        cuadroNacimiento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 530, 110, 30));
 
-        jLabel12.setText("Nº CHIP");
-        jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 110, 30));
+        cuadroChip.setText("Nº CHIP");
+        cuadroChip.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroChip, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 110, 30));
 
-        jLabel13.setText("PROPIETARIO");
-        jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 660, 110, 30));
+        cuadroPropietario.setText("PROPIETARIO");
+        cuadroPropietario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 660, 110, 30));
 
-        jLabel14.setText("FOTO (¿?)");
-        jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 100, 90));
+        cuadroFoto.setText("FOTO (¿?)");
+        cuadroFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 100, 90));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgMascotas.png"))); // NOI18N
-        jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel6.setMaximumSize(new java.awt.Dimension(400, 400));
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 970));
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgMascotas.png"))); // NOI18N
+        fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fondo.setMaximumSize(new java.awt.Dimension(400, 400));
+        jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 970));
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("BUSCAR MASCOTA");
@@ -212,6 +221,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("tab1", jPanel1);
 
+        jPanel2.setMinimumSize(new java.awt.Dimension(1010, 700));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -263,14 +273,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jTabbedPane2.addTab("tab2", jPanel3);
 
-        getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 1000));
+        jScrollPane2.setViewportView(jTabbedPane2);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+    private void cuadroNuevaMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMousePressed
         jDialog1.setVisible(true);
-    }//GEN-LAST:event_jLabel5MousePressed
+    }//GEN-LAST:event_cuadroNuevaMascotaMousePressed
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         jDialog2.setVisible(true);
@@ -312,14 +324,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cuadroChip;
+    private javax.swing.JLabel cuadroEspecie;
+    private javax.swing.JLabel cuadroFoto;
+    private javax.swing.JLabel cuadroNacimiento;
+    private javax.swing.JLabel cuadroNombre;
+    private javax.swing.JLabel cuadroNuevaMascota;
+    private javax.swing.JLabel cuadroPropietario;
+    private javax.swing.JLabel cuadroRaza;
+    private javax.swing.JLabel cuadroSexo;
+    private javax.swing.JLabel fondo;
+    private javax.swing.JLabel huella;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -328,18 +346,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
