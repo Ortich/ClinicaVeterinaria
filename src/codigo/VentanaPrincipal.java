@@ -5,7 +5,12 @@
  */
 package codigo;
 
-import javax.swing.JFrame;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  *
@@ -13,6 +18,44 @@ import javax.swing.JFrame;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    // Variables de conexion a la base de datos
+    private Statement estado;
+    private ResultSet resultadoConsulta;
+    private Connection conexion;
+    
+    //Variables para almacenar datos
+    HashMap<String, Mascota> listaMascota = new HashMap();
+    HashMap<String, Cliente> listaCliente = new HashMap();
+    HashMap<String, Veterinario> listaVeterinario = new HashMap();
+    HashMap<String, Cita> listaCita = new HashMap();
+    
+    // Metodos
+    private void escribeDatos(){
+	Mascota m = listaMascota.get(String.valueOf(1));
+	if(m != null){
+	    cuadroChip.setText(String.valueOf(m.chip));
+	    cuadroNombre.setText(m.nombre);
+	    cuadroSexo.setText(devuelveSexo(m.Sexo));
+	    cuadroEspecie.setText(m.especie);
+	    cuadroRaza.setText(m.raza);
+	    cuadroNacimiento.setText(m.fecha_nacimiento);
+	    cuadroCliente.setText(m.cliente);
+	}
+    }
+    
+    private String devuelveSexo(int n){
+	switch(n){
+	    case 0:
+		return "Hembra";
+	    case 1:
+		return "Macho";
+	    case 2:
+		return "Hermafrodita";
+	    default:
+		return "No determinado";
+	}
+    }
+    
     /**
      * Creates new form VentanaPrincipal
      */
@@ -26,6 +69,70 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	
 	ventanaClienteNuevo.setSize(1035, 700);
 	ventanaClienteNuevo.setResizable(false);
+	
+	/* ---------------- Conexiones a la base de datos ------------------- */
+	try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    // Mascotas
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+	    // Almacena la consulta en un HashMap
+	    while (resultadoConsulta.next()) {
+		Mascota m = new Mascota();
+		m.chip = resultadoConsulta.getInt(1);
+		m.nombre = resultadoConsulta.getString(2);
+		m.Sexo = resultadoConsulta.getInt(3);
+		m.especie = resultadoConsulta.getString(4);
+		m.raza = resultadoConsulta.getString(5);
+		m.fecha_nacimiento = resultadoConsulta.getString(6);
+		m.cliente = resultadoConsulta.getString(7);
+		listaMascota.put(resultadoConsulta.getString(1), m);
+	    }
+
+	    // Clientes
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
+	    // Almacena la consulta en un HashMap
+	    while (resultadoConsulta.next()) {
+		Cliente c = new Cliente();
+		c.dni = resultadoConsulta.getString(1);
+		c.nombre = resultadoConsulta.getString(2);
+		c.apellido = resultadoConsulta.getString(3);
+		c.direccion = resultadoConsulta.getString(4);
+		c.cp = resultadoConsulta.getInt(5);
+		c.telefono = resultadoConsulta.getInt(6);
+		listaCliente.put(resultadoConsulta.getString(1), c);
+	    }
+
+	    // Veterinarios
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.veterinario");
+	    // Almacena la consulta en un HashMap
+	    while (resultadoConsulta.next()) {
+		Veterinario v = new Veterinario();
+		v.dni = resultadoConsulta.getString(1);
+		v.nombre = resultadoConsulta.getString(2);
+		v.apellido = resultadoConsulta.getString(3);
+		v.pass = resultadoConsulta.getString(4);
+		listaVeterinario.put(resultadoConsulta.getString(1), v);
+	    }
+
+	    // Citas
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+	    // Almacena la consulta en un HashMap
+	    while (resultadoConsulta.next()) {
+		Cita cita = new Cita();
+		cita.id = resultadoConsulta.getInt(1);
+		cita.fecha_cita = resultadoConsulta.getString(2);
+		cita.descripcion = resultadoConsulta.getString(3);
+		cita.mascota = resultadoConsulta.getInt(4);
+		cita.veterinario = resultadoConsulta.getString(5);
+		listaCita.put(resultadoConsulta.getString(1), cita);
+	    }
+	} catch (Exception e) {
+	    e.getMessage();
+	}
+	escribeDatos();
+	
     }
 
     /**
@@ -74,7 +181,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroSexo = new javax.swing.JLabel();
         cuadroNacimiento = new javax.swing.JLabel();
         cuadroChip = new javax.swing.JLabel();
-        cuadroPropietario = new javax.swing.JLabel();
+        cuadroCliente = new javax.swing.JLabel();
         cuadroFoto = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         fondo = new javax.swing.JLabel();
@@ -91,7 +198,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
+        ventanaMascotaNueva.setSize(new java.awt.Dimension(1020, 850));
         ventanaMascotaNueva.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane3.setOpaque(false);
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(1030, 700));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -132,7 +243,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 830));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -243,9 +354,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroChip.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(cuadroChip, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 590, 160, 40));
 
-        cuadroPropietario.setText("PROPIETARIO");
-        cuadroPropietario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(cuadroPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 660, 160, 30));
+        cuadroCliente.setText("PROPIETARIO");
+        cuadroCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(cuadroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 660, 160, 30));
 
         cuadroFoto.setText("FOTO (¿?)");
         cuadroFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -368,12 +479,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cuadroChip;
+    private javax.swing.JLabel cuadroCliente;
     private javax.swing.JLabel cuadroEspecie;
     private javax.swing.JLabel cuadroFoto;
     private javax.swing.JLabel cuadroNacimiento;
     private javax.swing.JLabel cuadroNombre;
     private javax.swing.JLabel cuadroNuevaMascota;
-    private javax.swing.JLabel cuadroPropietario;
     private javax.swing.JLabel cuadroRaza;
     private javax.swing.JLabel cuadroSexo;
     private javax.swing.JLabel fondo;
