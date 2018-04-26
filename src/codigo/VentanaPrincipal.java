@@ -208,23 +208,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jTextField7.setBackground(new java.awt.Color(204, 204, 255));
         jTextField7.setText("jTextField7");
-        jPanel4.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 547, 338, 35));
+        jPanel4.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 547, 440, 35));
 
         jTextField10.setBackground(new java.awt.Color(204, 204, 255));
         jTextField10.setText("jTextField10");
-        jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 758, 452, 35));
+        jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 758, 441, 35));
 
         jTextField8.setBackground(new java.awt.Color(204, 204, 255));
         jTextField8.setText("jTextField8");
-        jPanel4.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 625, 447, 35));
+        jPanel4.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 625, 440, 35));
 
         jTextField6.setBackground(new java.awt.Color(204, 204, 255));
         jTextField6.setText("jTextField6");
-        jPanel4.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 472, 272, 35));
+        jPanel4.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 472, 440, 35));
 
         jTextField3.setBackground(new java.awt.Color(204, 204, 255));
         jTextField3.setText("jTextField3");
-        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 254, 324, 35));
+        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 254, 440, 35));
 
         jTextField4.setBackground(new java.awt.Color(204, 204, 255));
         jTextField4.setText("jTextField4");
@@ -232,18 +232,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jTextField9.setBackground(new java.awt.Color(204, 204, 255));
         jTextField9.setText("jTextField9");
-        jPanel4.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 694, 351, 35));
+        jPanel4.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 691, 440, 35));
 
         jTextField5.setBackground(new java.awt.Color(204, 204, 255));
         jTextField5.setText("jTextField5");
-        jPanel4.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 397, 447, 35));
+        jPanel4.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 397, 440, 35));
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosMascota.png"))); // NOI18N
         jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -254,42 +254,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jTextField11.setBackground(new java.awt.Color(204, 204, 255));
         jTextField11.setText("jTextField3");
-        jPanel5.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 256, 322, 35));
+        jPanel5.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 256, 440, 35));
 
         jTextField12.setBackground(new java.awt.Color(204, 204, 255));
         jTextField12.setText("jTextField4");
-        jPanel5.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 325, 438, 35));
+        jPanel5.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 323, 440, 35));
 
         jTextField13.setBackground(new java.awt.Color(204, 204, 255));
         jTextField13.setText("jTextField5");
-        jPanel5.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 402, 326, 35));
+        jPanel5.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 399, 440, 35));
 
         jTextField14.setBackground(new java.awt.Color(204, 204, 255));
         jTextField14.setText("jTextField6");
-        jPanel5.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 474, 443, 35));
+        jPanel5.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 473, 440, 35));
 
         jTextField15.setBackground(new java.awt.Color(204, 204, 255));
         jTextField15.setText("jTextField7");
-        jPanel5.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 549, 443, 35));
+        jPanel5.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 548, 440, 35));
 
         jTextField16.setBackground(new java.awt.Color(204, 204, 255));
         jTextField16.setText("jTextField8");
-        jPanel5.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 627, 446, 35));
+        jPanel5.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 624, 440, 35));
 
         jTextField17.setBackground(new java.awt.Color(204, 204, 255));
         jTextField17.setText("jTextField9");
-        jPanel5.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 695, 351, 35));
+        jPanel5.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 690, 440, 35));
 
         jTextField18.setBackground(new java.awt.Color(204, 204, 255));
         jTextField18.setText("jTextField10");
-        jPanel5.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 761, 450, 35));
+        jPanel5.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 760, 440, 35));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosCliente.png"))); // NOI18N
         jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 1000, 1000));
 
         jScrollPane4.setViewportView(jPanel5);
 
-        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
+        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1010, 700));
