@@ -5,10 +5,14 @@
  */
 package codigo;
 
+import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -28,6 +32,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     HashMap<String, Cliente> listaCliente = new HashMap();
     HashMap<String, Veterinario> listaVeterinario = new HashMap();
     HashMap<String, Cita> listaCita = new HashMap();
+    
+    //Variables de datos cliente
+    
+    String dni;
+    String nombre;
+    String apellido;
+    int telefono;
+    String direccion;
+    int postal;
+    String email;
+    String poblacion;
+    
+   //Variables de datos mascota
+    
+    int chip;
+    String nombreM;
+    int sexo;
+    String especie;
+    String raza;
+    Date nacimiento;
+    String cliente;
+    
     
     // Metodos
     private void escribeDatos(){
@@ -56,6 +82,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     }
     
+    public void insertaDatos(String dni, String nombre, String apellido, int telefono, String direccion, int postal){
+      try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    // Clientes
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
+            
+            
+            estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+")");
+      }
+      catch (Exception e) {
+	    e.getMessage();
+	}
+    
+    }
+    
+    public void insertaDatosM(int chip, String nombreM, int sexo, String especie, String raza, Date nacimiento, String cliente){
+         try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    // Mascotas
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+            
+            
+            estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES("+chip+",'"+nombreM+"', "+sexo+", '"+especie+"','"+raza+"','"+nacimiento+"','"+cliente+"')");
+      }
+      catch (Exception e) {
+	    e.getMessage();
+	}
+    
+    }
+    
+    
+    
+    
+    
     /**
      * Creates new form VentanaPrincipal
      */
@@ -77,6 +141,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    estado = conexion.createStatement();
 	    // Mascotas
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+            
+            
+           // estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+")");
+            
+              
+            
+            
 	    // Almacena la consulta en un HashMap
 	    while (resultadoConsulta.next()) {
 		Mascota m = new Mascota();
@@ -155,6 +226,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         ventanaClienteNuevo = new javax.swing.JDialog();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -167,6 +239,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField16 = new javax.swing.JTextField();
         jTextField17 = new javax.swing.JTextField();
         jTextField18 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -238,12 +311,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField5.setText("jTextField5");
         jPanel4.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 397, 440, 35));
 
+        jLabel6.setText("jLabel6");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel6MousePressed(evt);
+            }
+        });
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 860, 220, 60));
+
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosMascota.png"))); // NOI18N
         jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 520));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -261,7 +342,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 323, 440, 35));
 
         jTextField13.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField13.setText("jTextField5");
         jPanel5.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 399, 440, 35));
 
         jTextField14.setBackground(new java.awt.Color(204, 204, 255));
@@ -284,12 +364,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField18.setText("jTextField10");
         jPanel5.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 760, 440, 35));
 
+        jLabel5.setText("jLabel5");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
+            }
+        });
+        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 864, 220, 50));
+
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgDatosCliente.png"))); // NOI18N
         jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 1000, 1000));
 
         jScrollPane4.setViewportView(jPanel5);
 
-        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
+        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 460));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1010, 700));
@@ -442,6 +530,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaClienteNuevo.setVisible(true);
     }//GEN-LAST:event_jLabel1MousePressed
 
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+        
+        dni=jTextField13.getText();
+        nombre=jTextField11.getText();
+        apellido=jTextField12.getText();
+        telefono=Integer.valueOf(jTextField14.getText());
+        direccion=jTextField15.getText();
+        postal=Integer.valueOf(jTextField17.getText());
+        email=jTextField18.getText();
+        poblacion=jTextField16.getText();
+        
+      insertaDatos(dni,nombre,apellido,telefono,direccion,postal);
+
+    }//GEN-LAST:event_jLabel5MousePressed
+
+    private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
+         chip=Integer.valueOf(jTextField8.getText());
+         nombreM=jTextField3.getText();
+         sexo=Integer.valueOf(jTextField6.getText());
+         especie=jTextField4.getText();
+         raza=jTextField5.getText();
+         nacimiento=Date.valueOf(jTextField7.getText());
+         cliente=jTextField9.getText();
+         
+         System.out.println(nacimiento);
+         
+         insertaDatosM(chip,nombreM,sexo,especie,raza,nacimiento,cliente);
+    }//GEN-LAST:event_jLabel6MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -500,6 +617,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
