@@ -82,6 +82,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     }
     
+    //Inserción de datos de cliente en la BBDD.
+    
     public void insertaDatos(String dni, String nombre, String apellido, int telefono, String direccion, int postal){
       try {
 	    Class.forName("com.mysql.jdbc.Driver");
@@ -98,6 +100,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     
     }
+    
+    //Inserción de datos de mascota en la BBDD.
     
     public void insertaDatosM(int chip, String nombreM, int sexo, String especie, String raza, Date nacimiento, String cliente){
          try {
@@ -324,7 +328,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 520));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 610));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -401,7 +405,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 750, 510, 110));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 800, 510, 110));
 
         huella.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/huella.png"))); // NOI18N
         huella.setText("jLabel22");
