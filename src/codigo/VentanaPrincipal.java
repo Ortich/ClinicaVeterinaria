@@ -54,6 +54,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     Date nacimiento;
     String cliente;
     
+    //Variables de datos citas
+    
+    int id;
+    Date fechaCita;
+    String descripcion;
+    int mascota;
+    String veterinario;
+    
     
     // Metodos
     private void escribeDatos(){
@@ -117,6 +125,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
       catch (Exception e) {
 	    e.getMessage();
 	}
+    
+    }
+    
+    public void insertaDatosCita(int id, Date fechaCita, String descripcion, int mascota, String veterinario){
+        try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    // Mascotas
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+            
+            
+            estado.executeUpdate("INSERT INTO clinicaufvet.cita VALUES("+id+",'"+fechaCita+"', '"+descripcion+"', "+mascota+",'"+veterinario+"')");
+      }
+      catch (Exception e) {
+	    e.getMessage();
+	}
+    
     
     }
     
@@ -260,6 +286,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroChip = new javax.swing.JLabel();
         cuadroCliente = new javax.swing.JLabel();
         cuadroFoto = new javax.swing.JLabel();
+        insertaCita = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         fondo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -412,7 +439,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.add(huella, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 90, 90));
 
         cuadroNuevaMascota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cuadroNuevaMascota.setText("NUEVA MASCOTA");
         cuadroNuevaMascota.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         cuadroNuevaMascota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -454,6 +480,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(cuadroFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 140, 140));
 
+        insertaCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                insertaCitaMousePressed(evt);
+            }
+        });
+        jPanel1.add(insertaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 744, 160, 40));
+
         jTextField1.setBackground(new java.awt.Color(204, 204, 255));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("BUSCAR MASCOTA");
@@ -474,7 +507,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField2.setText("BUSCAR CLIENTE");
         jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 220, 50));
 
-        jLabel1.setText("NUEVO CLIENTE");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -521,7 +553,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1030, 720));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1030, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -562,6 +594,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          
          insertaDatosM(chip,nombreM,sexo,especie,raza,nacimiento,cliente);
     }//GEN-LAST:event_jLabel6MousePressed
+
+    private void insertaCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMousePressed
+        id=0;
+        //fechaCita=fechaCita.getTime();
+        descripcion="Descripción de prueba";
+        mascota=2;
+        veterinario="00000004V";
+        
+        insertaDatosCita(id,fechaCita,descripcion,mascota,veterinario);
+    }//GEN-LAST:event_insertaCitaMousePressed
 
     /**
      * @param args the command line arguments
@@ -610,6 +652,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroSexo;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel huella;
+    private javax.swing.JLabel insertaCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
