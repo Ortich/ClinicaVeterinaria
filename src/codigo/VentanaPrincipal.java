@@ -5,17 +5,16 @@
  */
 package codigo;
 
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -27,15 +26,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private Statement estado;
     private ResultSet resultadoConsulta;
     private Connection conexion;
-    
+
     //Variables para almacenar datos
-    HashMap<String, Mascota> listaMascota = new HashMap();
-    HashMap<String, Cliente> listaCliente = new HashMap();
-    HashMap<String, Veterinario> listaVeterinario = new HashMap();
-    HashMap<String, Cita> listaCita = new HashMap();
-    
+    ArrayList<Mascota> listaMascota = new ArrayList();
+    ArrayList<Cliente> listaCliente = new ArrayList();
+    ArrayList<Veterinario> listaVeterinario = new ArrayList();
+    ArrayList<Cita> listaCita = new ArrayList();
+
     //Variables de datos cliente
-    
     String dni;
     String nombre;
     String apellido;
@@ -44,9 +42,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     int postal;
     String poblacion;
     String email;
-    
-   //Variables de datos mascota
-    
+
+    //Variables de datos mascota
     int chip;
     String nombreM;
     int sexo;
@@ -54,20 +51,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     String raza;
     Date nacimiento;
     String cliente;
-    
+
     //Variables de datos citas
-    
     int id;
     Date fechaCita;
     String descripcion;
     int mascota;
     String veterinario;
-    
-    
+
     // Metodos
-    private void escribeDatos(){
-	Mascota m = listaMascota.get(String.valueOf(1));
-	if(m != null){
+    private void escribeDatosMascota(int _chip) {
+	Mascota m = listaMascota.get(0);
+	for(int i = 0; i < listaMascota.size(); i++){
+	    if(listaMascota.get(i).chip == _chip){
+		m = listaMascota.get(i);
+	    }
+	}
+	if (m != null) {
 	    cuadroChip.setText(String.valueOf(m.chip));
 	    cuadroNombre.setText(m.nombre);
 	    cuadroSexo.setText(devuelveSexo(m.Sexo));
@@ -77,9 +77,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    cuadroCliente.setText(m.cliente);
 	}
     }
-    
-    private String devuelveSexo(int n){
-	switch(n){
+
+    private String devuelveSexo(int n) {
+	switch (n) {
 	    case 0:
 		return "Hembra";
 	    case 1:
@@ -90,81 +90,78 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		return "No determinado";
 	}
     }
-    
+
     //Inserción de datos de cliente en la BBDD.
-    
-    public void insertaDatos(String dni, String nombre, String apellido, int telefono, String direccion, int postal, String poblacion, String email){
-      try {
+    public void insertaDatos(String dni, String nombre, String apellido, int telefono, String direccion, int postal, String poblacion, String email) {
+	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
 	    estado = conexion.createStatement();
 	    // Clientes
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
-            
-            
-            estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+",'"+poblacion+"','"+email+"')");
-      }
-      catch (Exception e) {
+
+	    estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + dni + "','" + nombre + "', '" + apellido + "', '" + direccion + "'," + postal + "," + telefono + ",'" + poblacion + "','" + email + "')");
+	} catch (Exception e) {
 	    e.getMessage();
 	}
-    
+
     }
-    
+
     //Inserción de datos de mascota en la BBDD.
-    
-    public void insertaDatosM(int chip, String nombreM, int sexo, String especie, String raza, Date nacimiento, String cliente){
-         try {
+    public void insertaDatosM(int chip, String nombreM, int sexo, String especie, String raza, Date nacimiento, String cliente) {
+	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
 	    estado = conexion.createStatement();
 	    // Mascotas
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-            
-            
-            estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES("+chip+",'"+nombreM+"', "+sexo+", '"+especie+"','"+raza+"','"+nacimiento+"','"+cliente+"')");
-      }
-      catch (Exception e) {
+
+	    estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + chip + ",'" + nombreM + "', " + sexo + ", '" + especie + "','" + raza + "','" + nacimiento + "','" + cliente + "')");
+	} catch (Exception e) {
 	    e.getMessage();
 	}
-    
+
     }
-    
-    public void insertaDatosCita(int id, Date fechaCita, String descripcion, int mascota, String veterinario){
-        try {
+
+    public void insertaDatosCita(int id, Date fechaCita, String descripcion, int mascota, String veterinario) {
+	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
 	    estado = conexion.createStatement();
 	    // Mascotas
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-            
-            
-            estado.executeUpdate("INSERT INTO clinicaufvet.cita VALUES("+id+",'"+fechaCita+"', '"+descripcion+"', "+mascota+",'"+veterinario+"')");
-      }
-      catch (Exception e) {
+
+	    estado.executeUpdate("INSERT INTO clinicaufvet.cita VALUES(" + id + ",'" + fechaCita + "', '" + descripcion + "', " + mascota + ",'" + veterinario + "')");
+	} catch (Exception e) {
 	    e.getMessage();
 	}
-    
-    
+
     }
-    
-    
-    
-    
-    
-    /**
-     * Creates new form VentanaPrincipal
-     */
-    public VentanaPrincipal() {
-	initComponents();
-	this.setSize(1035, 700);
-	this.setResizable(false);
-	
-	ventanaMascotaNueva.setSize(1030, 700);
-	ventanaMascotaNueva.setResizable(false);
-	
-	ventanaClienteNuevo.setSize(1035, 700);
-	ventanaClienteNuevo.setResizable(false);
-	
+
+    public void buscaMascota(String busqueda) {
+	DefaultTableModel model = (DefaultTableModel) tablaBusquedaMascota.getModel();
+	model.getDataVector().removeAllElements();
+	for (int i = 0; i < listaMascota.size(); i++) {
+	    if (listaMascota.get(i).nombre.contains(busqueda)) {
+		try {
+		    String nombreCliente = "";
+		    String apellidoCliente = "";
+		    String dniCliente = listaMascota.get(i).cliente.toString();
+		    for (int j = 0; j < listaCliente.size(); j++) {
+			if (listaCliente.get(j).dni.toString().equals(dniCliente)) {
+			    nombreCliente = listaCliente.get(j).nombre;
+			    apellidoCliente = listaCliente.get(j).apellido;
+			}
+		    }
+		    model.addRow(new Object[]{listaMascota.get(i).chip, listaMascota.get(i).nombre, nombreCliente + " " + apellidoCliente});
+		} catch (Exception e) {
+		    System.err.println(e.getMessage());
+		}
+	    }
+	}
+    }
+
+    public void conexionBBDD() {
 	/* ---------------- Conexiones a la base de datos ------------------- */
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
@@ -172,13 +169,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    estado = conexion.createStatement();
 	    // Mascotas
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-            
-            
-           // estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+")");
-            
-              
-            
-            
+
+	    // estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+")");
 	    // Almacena la consulta en un HashMap
 	    while (resultadoConsulta.next()) {
 		Mascota m = new Mascota();
@@ -189,7 +181,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		m.raza = resultadoConsulta.getString(5);
 		m.fecha_nacimiento = resultadoConsulta.getString(6);
 		m.cliente = resultadoConsulta.getString(7);
-		listaMascota.put(resultadoConsulta.getString(1), m);
+		listaMascota.add(m);
 	    }
 
 	    // Clientes
@@ -203,9 +195,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		c.direccion = resultadoConsulta.getString(4);
 		c.cp = resultadoConsulta.getInt(5);
 		c.telefono = resultadoConsulta.getInt(6);
-                c.poblacion = resultadoConsulta.getString(7);
-                c.email = resultadoConsulta.getString(8);
-		listaCliente.put(resultadoConsulta.getString(1), c);
+		c.poblacion = resultadoConsulta.getString(7);
+		c.email = resultadoConsulta.getString(8);
+		listaCliente.add(c);
 	    }
 
 	    // Veterinarios
@@ -217,7 +209,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		v.nombre = resultadoConsulta.getString(2);
 		v.apellido = resultadoConsulta.getString(3);
 		v.pass = resultadoConsulta.getString(4);
-		listaVeterinario.put(resultadoConsulta.getString(1), v);
+		listaVeterinario.add(v);
 	    }
 
 	    // Citas
@@ -230,13 +222,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		cita.descripcion = resultadoConsulta.getString(3);
 		cita.mascota = resultadoConsulta.getInt(4);
 		cita.veterinario = resultadoConsulta.getString(5);
-		listaCita.put(resultadoConsulta.getString(1), cita);
+		listaCita.add(cita);
 	    }
 	} catch (Exception e) {
 	    e.getMessage();
 	}
-	escribeDatos();
-	
+    }
+
+    /**
+     * Creates new form VentanaPrincipal
+     */
+    public VentanaPrincipal() {
+	initComponents();
+	this.setSize(1035, 700);
+	this.setResizable(false);
+
+	ventanaMascotaNueva.setSize(1030, 700);
+	ventanaMascotaNueva.setResizable(false);
+
+	ventanaClienteNuevo.setSize(1035, 700);
+	ventanaClienteNuevo.setResizable(false);
+
+	ventanaBusquedaMascota.setSize(500, 500);
+	ventanaBusquedaMascota.setResizable(false);
+
+	conexionBBDD();
+	escribeDatosMascota(0);
+
     }
 
     /**
@@ -274,6 +286,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField18 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        ventanaBusquedaMascota = new javax.swing.JDialog();
+        buttonBusquedaMascota = new javax.swing.JButton();
+        fieldBusquedaMascota = new javax.swing.JTextField();
+        scrollTablaBusquedaMascota = new javax.swing.JScrollPane();
+        tablaBusquedaMascota = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -413,6 +431,59 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 460));
 
+        ventanaBusquedaMascota.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        buttonBusquedaMascota.setText("Buscar");
+        buttonBusquedaMascota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonBusquedaMascotaMouseClicked(evt);
+            }
+        });
+        ventanaBusquedaMascota.getContentPane().add(buttonBusquedaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+
+        fieldBusquedaMascota.setText("Nombre Mascota");
+        fieldBusquedaMascota.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fieldBusquedaMascotaKeyPressed(evt);
+            }
+        });
+        ventanaBusquedaMascota.getContentPane().add(fieldBusquedaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 130, 30));
+
+        tablaBusquedaMascota.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Chip", "Nombre", "Cliente"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollTablaBusquedaMascota.setViewportView(tablaBusquedaMascota);
+
+        ventanaBusquedaMascota.getContentPane().add(scrollTablaBusquedaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 370, 170));
+
+        jButton1.setText("Aceptar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
+        ventanaBusquedaMascota.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1010, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -493,6 +564,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(204, 204, 255));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("BUSCAR MASCOTA");
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextField1MousePressed(evt);
+            }
+        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
@@ -567,57 +643,77 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cuadroNuevaMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMousePressed
-        ventanaMascotaNueva.setVisible(true);
+	ventanaMascotaNueva.setVisible(true);
     }//GEN-LAST:event_cuadroNuevaMascotaMousePressed
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-        ventanaClienteNuevo.setVisible(true);
+	ventanaClienteNuevo.setVisible(true);
     }//GEN-LAST:event_jLabel1MousePressed
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        
-        dni=jTextField13.getText();
-        nombre=jTextField11.getText();
-        apellido=jTextField12.getText();
-        telefono=Integer.valueOf(jTextField14.getText());
-        direccion=jTextField15.getText();
-        postal=Integer.valueOf(jTextField17.getText());
-        email=jTextField18.getText();
-        poblacion=jTextField16.getText();
-        
-      insertaDatos(dni,nombre,apellido,telefono,direccion,postal,poblacion,email);
+
+	dni = jTextField13.getText();
+	nombre = jTextField11.getText();
+	apellido = jTextField12.getText();
+	telefono = Integer.valueOf(jTextField14.getText());
+	direccion = jTextField15.getText();
+	postal = Integer.valueOf(jTextField17.getText());
+	email = jTextField18.getText();
+	poblacion = jTextField16.getText();
+
+	insertaDatos(dni, nombre, apellido, telefono, direccion, postal, poblacion, email);
 
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
-         chip=Integer.valueOf(jTextField8.getText());
-         nombreM=jTextField3.getText();
-         sexo=Integer.valueOf(jTextField6.getText());
-         especie=jTextField4.getText();
-         raza=jTextField5.getText();
-         nacimiento=Date.valueOf(jTextField7.getText());
-         cliente=jTextField9.getText();
-         
-         System.out.println(nacimiento);
-         
-         insertaDatosM(chip,nombreM,sexo,especie,raza,nacimiento,cliente);
+	chip = Integer.valueOf(jTextField8.getText());
+	nombreM = jTextField3.getText();
+	sexo = Integer.valueOf(jTextField6.getText());
+	especie = jTextField4.getText();
+	raza = jTextField5.getText();
+	nacimiento = Date.valueOf(jTextField7.getText());
+	cliente = jTextField9.getText();
+
+	System.out.println(nacimiento);
+
+	insertaDatosM(chip, nombreM, sexo, especie, raza, nacimiento, cliente);
     }//GEN-LAST:event_jLabel6MousePressed
 
     private void insertaCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMousePressed
-        id=0;
-        //fechaCita=fechaCita.getTime();
-        descripcion="Descripción de prueba";
-        mascota=2;
-        veterinario="00000004V";
-        
-        insertaDatosCita(id,fechaCita,descripcion,mascota,veterinario);
+	id = 0;
+	//fechaCita=fechaCita.getTime();
+	descripcion = "Descripción de prueba";
+	mascota = 2;
+	veterinario = "00000004V";
+
+	insertaDatosCita(id, fechaCita, descripcion, mascota, veterinario);
     }//GEN-LAST:event_insertaCitaMousePressed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-           escribeDatos();
-        }
+	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	    escribeDatosMascota(0);
+	}
     }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void buttonBusquedaMascotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBusquedaMascotaMouseClicked
+	buscaMascota(fieldBusquedaMascota.getText());
+    }//GEN-LAST:event_buttonBusquedaMascotaMouseClicked
+
+    private void jTextField1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MousePressed
+	ventanaBusquedaMascota.setVisible(true);
+    }//GEN-LAST:event_jTextField1MousePressed
+
+    private void fieldBusquedaMascotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBusquedaMascotaKeyPressed
+	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	    buscaMascota(fieldBusquedaMascota.getText());
+	}
+    }//GEN-LAST:event_fieldBusquedaMascotaKeyPressed
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+        TableModel model = (TableModel)tablaBusquedaMascota.getModel();
+	int chip = Integer.valueOf(model.getValueAt((tablaBusquedaMascota.getSelectedRow()), 0).toString());
+	escribeDatosMascota(chip);
+    }//GEN-LAST:event_jButton1MousePressed
 
     /**
      * @param args the command line arguments
@@ -655,6 +751,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonBusquedaMascota;
     private javax.swing.JLabel cuadroChip;
     private javax.swing.JLabel cuadroCliente;
     private javax.swing.JLabel cuadroEspecie;
@@ -664,9 +761,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroNuevaMascota;
     private javax.swing.JLabel cuadroRaza;
     private javax.swing.JLabel cuadroSexo;
+    private javax.swing.JTextField fieldBusquedaMascota;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel huella;
     private javax.swing.JLabel insertaCita;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -709,6 +808,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JScrollPane scrollTablaBusquedaMascota;
+    private javax.swing.JTable tablaBusquedaMascota;
+    private javax.swing.JDialog ventanaBusquedaMascota;
     private javax.swing.JDialog ventanaClienteNuevo;
     private javax.swing.JDialog ventanaMascotaNueva;
     // End of variables declaration//GEN-END:variables
