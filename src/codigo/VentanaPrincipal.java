@@ -6,6 +6,7 @@
 package codigo;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -41,8 +42,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     int telefono;
     String direccion;
     int postal;
-    String email;
     String poblacion;
+    String email;
     
    //Variables de datos mascota
     
@@ -92,7 +93,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     //Inserción de datos de cliente en la BBDD.
     
-    public void insertaDatos(String dni, String nombre, String apellido, int telefono, String direccion, int postal){
+    public void insertaDatos(String dni, String nombre, String apellido, int telefono, String direccion, int postal, String poblacion, String email){
       try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
@@ -101,7 +102,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
             
             
-            estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+")");
+            estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+",'"+poblacion+"','"+email+"')");
       }
       catch (Exception e) {
 	    e.getMessage();
@@ -202,6 +203,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		c.direccion = resultadoConsulta.getString(4);
 		c.cp = resultadoConsulta.getInt(5);
 		c.telefono = resultadoConsulta.getInt(6);
+                c.poblacion = resultadoConsulta.getString(7);
+                c.email = resultadoConsulta.getString(8);
 		listaCliente.put(resultadoConsulta.getString(1), c);
 	    }
 
@@ -490,6 +493,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(204, 204, 255));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("BUSCAR MASCOTA");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 220, 50));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pgMascotas.png"))); // NOI18N
@@ -577,7 +585,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         email=jTextField18.getText();
         poblacion=jTextField16.getText();
         
-      insertaDatos(dni,nombre,apellido,telefono,direccion,postal);
+      insertaDatos(dni,nombre,apellido,telefono,direccion,postal,poblacion,email);
 
     }//GEN-LAST:event_jLabel5MousePressed
 
@@ -604,6 +612,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         insertaDatosCita(id,fechaCita,descripcion,mascota,veterinario);
     }//GEN-LAST:event_insertaCitaMousePressed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           escribeDatos();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments

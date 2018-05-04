@@ -17,4 +17,6 @@ public class Cliente {
     public String direccion = "";
     public int cp = 0;
     public int telefono = 0;
+    public String poblacion="";
+    public String email="";
 }
