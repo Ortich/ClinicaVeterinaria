@@ -308,6 +308,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    e.getMessage();
 	}
     }
+    
+   //Método para modificar los datos ya insertados en la BBDD. 
+    
+    public void cambiaDatosMascota(int chip, String nombreM, int sexo, String especie, String raza, String nacimiento, String cliente){
+        try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+            
+            String sql="UPDATE clinicaufvet.mascota "
+                     +" SET nombre='"+nombreM+"',sexo="+sexo+",especie='"+especie+"',raza='"+raza+"',fecha_nacimiento='"+nacimiento+"',cliente='"+cliente+"'" 
+                     +" WHERE chip="+chip+"";
+            
+	    estado.executeUpdate(sql);
+            System.out.println("funciona");
+	} catch (Exception e) {
+	    e.getMessage();
+            System.out.println("no funciona");
+	}
+    
+    }
 
     /**
      * Creates new form VentanaPrincipal
@@ -566,7 +588,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 610));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 540));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -803,6 +825,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.add(buscarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
 
         jButton1.setText("boton secreto de marta");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
 
         fondoMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotas.png"))); // NOI18N
@@ -936,7 +963,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -973,7 +1000,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	nacimiento = cuadroFNacimientoNM.getText();
 	cliente = cuadroPropietarioNM.getText();
 
-	System.out.println(nacimiento);
+	//System.out.println(nacimiento);
 
 	insertaDatosMascota(chip, nombreM, sexo, especie, raza, nacimiento, cliente);
     }//GEN-LAST:event_botonGuardarNMMousePressed
@@ -1004,7 +1031,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarBMMousePressed
 
     private void botonEditarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMousePressed
-	// TODO add your handling code here:
+	//Botón que cambia los datos en la ventana de mascotas. Obtenemos los datos que hemos sacado de la ventana principal
+        // Y los guardamos en las variables que vamos a usar en el método.
+        
+        chip = Integer.valueOf(cuadroChipNM.getText());
+	nombreM = cuadroNombreNM.getText();
+	sexo = Integer.valueOf(cuadroSexoNM.getText());
+	especie = cuadroEspecieNM.getText();
+	raza = cuadroRazaNM.getText();
+	nacimiento = cuadroFNacimientoNM.getText();
+	cliente = cuadroPropietarioNM.getText();
+        
+        
+        cambiaDatosMascota(chip,nombreM,sexo,especie,raza,nacimiento,cliente);
     }//GEN-LAST:event_botonEditarNMMousePressed
 
     private void cuadroFotoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroFotoTNMMousePressed
@@ -1048,6 +1087,40 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    escribeDatosCliente(cuadroBusquedaCliente.getText());
 	}
     }//GEN-LAST:event_cuadroBusquedaClienteKeyPressed
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+    //Obtenemos los datos y los guardamos en variables.
+        String chip2 = cuadroChip.getText();
+        nombreM = cuadroNombre.getText();
+
+        if (cuadroSexo.getText().equals("hermafrodita")) {
+            sexo = 2;
+        } else if (cuadroSexo.getText().equals("macho")) {
+            sexo = 1;
+        } else if (cuadroSexo.getText().equals("hembra")) {
+            sexo = 0;
+        }
+        especie = cuadroEspecie.getText();
+        raza = cuadroRaza.getText();
+        nacimiento = cuadroNacimiento.getText();
+        cliente = cuadroCliente.getText();
+
+     //Abrimos la ventana de inserción de datos.
+     
+       ventanaMascotaNueva.setVisible(true);
+       
+      cuadroNombreNM.setText(nombreM);
+      cuadroEspecieNM.setText(especie);
+      cuadroRazaNM.setText(raza);
+      cuadroSexoNM.setText(String.valueOf(sexo));
+      cuadroFNacimientoNM.setText(nacimiento);
+      cuadroPropietarioNM.setText(cliente);
+      cuadroChipNM.setText(chip2);
+       
+      //Método que nos va a permitir modificar datos en la BBDD.
+ 
+    
+    }//GEN-LAST:event_jButton1MousePressed
 
     /**
      * @param args the command line arguments
