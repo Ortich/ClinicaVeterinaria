@@ -243,7 +243,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	ventanaClienteNuevo.setSize(1035, 700);
 	ventanaClienteNuevo.setResizable(false);
 
-	ventanaBusquedaMascota.setSize(500, 500);
+	ventanaBusquedaMascota.setSize(480, 390);
 	ventanaBusquedaMascota.setResizable(false);
 
 	conexionBBDD();
@@ -296,11 +296,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         fondoNC = new javax.swing.JLabel();
         ventanaBusquedaMascota = new javax.swing.JDialog();
-        buttonBusquedaMascota = new javax.swing.JButton();
-        fieldBusquedaMascota = new javax.swing.JTextField();
+        botonBuscarBM = new javax.swing.JButton();
+        cuadroTextoBM = new javax.swing.JTextField();
         scrollTablaBusquedaMascota = new javax.swing.JScrollPane();
         tablaBusquedaMascota = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        botonAceptarBM = new javax.swing.JButton();
+        fondoBM = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -330,7 +331,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroClienteT = new javax.swing.JLabel();
         cuadroFoto = new javax.swing.JLabel();
         insertaCita = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        buscarMascota = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         fondoMascotas = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         cuadroBusquedaCliente = new javax.swing.JTextField();
@@ -355,6 +357,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroEmail = new javax.swing.JLabel();
         cuadroEmailF = new javax.swing.JLabel();
         cuadroEmailT = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         fondoClientes = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
@@ -536,25 +539,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(jPanel5);
 
-        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 460));
+        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 610));
 
         ventanaBusquedaMascota.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        buttonBusquedaMascota.setText("Buscar");
-        buttonBusquedaMascota.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonBuscarBM.setText("Buscar");
+        botonBuscarBM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonBusquedaMascotaMouseClicked(evt);
+                botonBuscarBMMouseClicked(evt);
             }
         });
-        ventanaBusquedaMascota.getContentPane().add(buttonBusquedaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+        ventanaBusquedaMascota.getContentPane().add(botonBuscarBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, -1));
 
-        fieldBusquedaMascota.setText("Nombre Mascota");
-        fieldBusquedaMascota.addKeyListener(new java.awt.event.KeyAdapter() {
+        cuadroTextoBM.setText("Nombre Mascota");
+        cuadroTextoBM.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                fieldBusquedaMascotaKeyPressed(evt);
+                cuadroTextoBMKeyPressed(evt);
             }
         });
-        ventanaBusquedaMascota.getContentPane().add(fieldBusquedaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 130, 30));
+        ventanaBusquedaMascota.getContentPane().add(cuadroTextoBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 130, 30));
 
         tablaBusquedaMascota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -581,15 +584,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         scrollTablaBusquedaMascota.setViewportView(tablaBusquedaMascota);
 
-        ventanaBusquedaMascota.getContentPane().add(scrollTablaBusquedaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 370, 170));
+        ventanaBusquedaMascota.getContentPane().add(scrollTablaBusquedaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 370, 170));
 
-        jButton1.setText("Aceptar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonAceptarBM.setText("Aceptar");
+        botonAceptarBM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton1MousePressed(evt);
+                botonAceptarBMMousePressed(evt);
             }
         });
-        ventanaBusquedaMascota.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+        ventanaBusquedaMascota.getContentPane().add(botonAceptarBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, -1, -1));
+
+        fondoBM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/pgBusqueda2.png"))); // NOI18N
+        ventanaBusquedaMascota.getContentPane().add(fondoBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1010, 700));
@@ -706,20 +712,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(insertaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 744, 160, 40));
 
-        jTextField1.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("BUSCAR MASCOTA");
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+        buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png"))); // NOI18N
+        buscarMascota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTextField1MousePressed(evt);
+                buscarMascotaMousePressed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
-            }
-        });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 220, 50));
+        jPanel1.add(buscarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
+
+        jButton1.setText("boton secreto de marta");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
 
         fondoMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotas.png"))); // NOI18N
         fondoMascotas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -821,6 +823,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroEmailT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteEmailLetras.png"))); // NOI18N
         jPanel2.add(cuadroEmailT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 760, -1, -1));
 
+        jButton2.setText("boton secreto de marta");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
+
         fondoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgCliente.png"))); // NOI18N
         jPanel2.add(fondoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 1010, 1000));
 
@@ -883,31 +888,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	insertaDatosCita(id, fechaCita, descripcion, mascota, veterinario);
     }//GEN-LAST:event_insertaCitaMousePressed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void botonBuscarBMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarBMMouseClicked
+	buscaMascota(cuadroTextoBM.getText());
+    }//GEN-LAST:event_botonBuscarBMMouseClicked
+
+    private void cuadroTextoBMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cuadroTextoBMKeyPressed
 	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-	    escribeDatosMascota(0);
+	    buscaMascota(cuadroTextoBM.getText());
 	}
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_cuadroTextoBMKeyPressed
 
-    private void buttonBusquedaMascotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBusquedaMascotaMouseClicked
-	buscaMascota(fieldBusquedaMascota.getText());
-    }//GEN-LAST:event_buttonBusquedaMascotaMouseClicked
-
-    private void jTextField1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MousePressed
-	ventanaBusquedaMascota.setVisible(true);
-    }//GEN-LAST:event_jTextField1MousePressed
-
-    private void fieldBusquedaMascotaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBusquedaMascotaKeyPressed
-	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-	    buscaMascota(fieldBusquedaMascota.getText());
-	}
-    }//GEN-LAST:event_fieldBusquedaMascotaKeyPressed
-
-    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+    private void botonAceptarBMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAceptarBMMousePressed
         TableModel model = (TableModel)tablaBusquedaMascota.getModel();
 	int chip = Integer.valueOf(model.getValueAt((tablaBusquedaMascota.getSelectedRow()), 0).toString());
 	escribeDatosMascota(chip);
-    }//GEN-LAST:event_jButton1MousePressed
+    }//GEN-LAST:event_botonAceptarBMMousePressed
 
     private void botonEditarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMousePressed
         // TODO add your handling code here:
@@ -945,6 +940,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cuadroFNAciemientoTNMMousePressed
 
+    private void buscarMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMousePressed
+        ventanaBusquedaMascota.setVisible(true);
+    }//GEN-LAST:event_buscarMascotaMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -981,9 +980,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAceptarBM;
+    private javax.swing.JButton botonBuscarBM;
     private javax.swing.JLabel botonEditarNM;
     private javax.swing.JLabel botonGuardarNM;
-    private javax.swing.JButton buttonBusquedaMascota;
+    private javax.swing.JLabel buscarMascota;
     private javax.swing.JTextField cuadroBusquedaCliente;
     private javax.swing.JLabel cuadroCPostal;
     private javax.swing.JLabel cuadroCPostalF;
@@ -1044,7 +1045,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroTelefono;
     private javax.swing.JLabel cuadroTelefonoF;
     private javax.swing.JLabel cuadroTelefonoT;
-    private javax.swing.JTextField fieldBusquedaMascota;
+    private javax.swing.JTextField cuadroTextoBM;
+    private javax.swing.JLabel fondoBM;
     private javax.swing.JLabel fondoClientes;
     private javax.swing.JLabel fondoMascotas;
     private javax.swing.JLabel fondoNC;
@@ -1052,6 +1054,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel huella;
     private javax.swing.JLabel insertaCita;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1064,7 +1067,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
