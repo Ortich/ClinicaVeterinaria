@@ -7,21 +7,21 @@ package codigo;
 
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
+ * Practica Clinica Veterinaria 3EV - DAM.
  *
- * @author Usuario
+ * @author Grupo DAM - Marco Girbau, Alejandro Luna, Marta Marquez, Daniel Ortiz
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    /* ----------------------------- Variables ------------------------------ */
     // Variables de conexion a la base de datos
     private Statement estado;
     private ResultSet resultadoConsulta;
@@ -49,35 +49,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     int sexo;
     String especie;
     String raza;
-    Date nacimiento;
+    String nacimiento;
     String cliente;
-
     //Variables de datos citas
+
     int id;
-    Date fechaCita;
+    String fechaCita;
     String descripcion;
     int mascota;
     String veterinario;
 
-    // Metodos
-    private void escribeDatosMascota(int _chip) {
-	Mascota m = listaMascota.get(0);
-	for(int i = 0; i < listaMascota.size(); i++){
-	    if(listaMascota.get(i).chip == _chip){
-		m = listaMascota.get(i);
-	    }
-	}
-	if (m != null) {
-	    cuadroChip.setText(String.valueOf(m.chip));
-	    cuadroNombre.setText(m.nombre);
-	    cuadroSexo.setText(devuelveSexo(m.Sexo));
-	    cuadroEspecie.setText(m.especie);
-	    cuadroRaza.setText(m.raza);
-	    cuadroNacimiento.setText(m.fecha_nacimiento);
-	    cuadroCliente.setText(m.cliente);
-	}
-    }
-
+    /* ------------------------------ Metodos ------------------------------- */
+    ////////////////////////////////////////////////////////////////////////////
+    /////                          Otros Metodos                           /////
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Devuelve, a partir de un parametro de entrada numerico, un String con el
+     * sexo de la mascota.
+     *
+     * @param n - int
+     * @return - String
+     */
     private String devuelveSexo(int n) {
 	switch (n) {
 	    case 0:
@@ -91,53 +83,73 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     }
 
-    //Inserción de datos de cliente en la BBDD.
-    public void insertaDatos(String dni, String nombre, String apellido, int telefono, String direccion, int postal, String poblacion, String email) {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
-	    estado = conexion.createStatement();
-	    // Clientes
-	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
-
-	    estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + dni + "','" + nombre + "', '" + apellido + "', '" + direccion + "'," + postal + "," + telefono + ",'" + poblacion + "','" + email + "')");
-	} catch (Exception e) {
-	    e.getMessage();
+    ////////////////////////////////////////////////////////////////////////////
+    /////                  Metodos de Escritura de Datos                   /////
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Escribe los datos de la mascota con el chip pasado como parametro.
+     *
+     * @param _chip - int
+     */
+    private void escribeDatosMascota(int _chip) {
+	Mascota m = null;
+	for (int i = 0; i < listaMascota.size(); i++) {
+	    if (listaMascota.get(i).chip == _chip) {
+		m = listaMascota.get(i);
+		break;
+	    }
 	}
+	if (m != null) {
+	    cuadroChip.setText(String.format("%015d", m.chip));
+	    cuadroNombre.setText(m.nombre);
+	    cuadroSexo.setText(devuelveSexo(m.Sexo));
+	    cuadroEspecie.setText(m.especie);
+	    cuadroRaza.setText(m.raza);
+	    cuadroNacimiento.setText(m.fecha_nacimiento);
+	    cuadroCliente.setText(m.cliente);
+	    escribeCitas(_chip);
+	}
+    }
+
+    /**
+     * Escribe los datos del cliente con el dni pasado como parametro.
+     *
+     * @param dni - String
+     */
+    private void escribeDatosCliente(String _dni) {
+	Cliente c = null;
+	for (int i = 0; i < listaCliente.size(); i++) {
+	    if (listaCliente.get(i).dni.equals(_dni)) {
+		c = listaCliente.get(i);
+		break;
+	    }
+	}
+
+	if (c != null) {
+	    cuadroNombreApellidos.setText(c.nombre + " " + c.apellido);
+	    cuadroDNI.setText(c.dni);
+	    cuadroTelefono.setText(String.valueOf(c.telefono));
+	    cuadroDireccion.setText(c.direccion);
+	    cuadroPoblacion.setText(c.poblacion);
+	    cuadroCPostal.setText(String.valueOf(c.cp));
+	    cuadroEmail.setText(c.email);
+	}
+    }
+
+    // Escribe los datos de las citas de la mascota seleccionada en una tabla de citas.
+    private void escribeCitas(int _chip) {
 
     }
 
-    //Inserción de datos de mascota en la BBDD.
-    public void insertaDatosM(int chip, String nombreM, int sexo, String especie, String raza, Date nacimiento, String cliente) {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
-	    estado = conexion.createStatement();
-	    // Mascotas
-	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-
-	    estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + chip + ",'" + nombreM + "', " + sexo + ", '" + especie + "','" + raza + "','" + nacimiento + "','" + cliente + "')");
-	} catch (Exception e) {
-	    e.getMessage();
-	}
-
-    }
-
-    public void insertaDatosCita(int id, Date fechaCita, String descripcion, int mascota, String veterinario) {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
-	    estado = conexion.createStatement();
-	    // Mascotas
-	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-
-	    estado.executeUpdate("INSERT INTO clinicaufvet.cita VALUES(" + id + ",'" + fechaCita + "', '" + descripcion + "', " + mascota + ",'" + veterinario + "')");
-	} catch (Exception e) {
-	    e.getMessage();
-	}
-
-    }
-
+    ////////////////////////////////////////////////////////////////////////////
+    /////               Metodos de Busqueda en los ArrayList               /////
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Busca y muestra las mascotas con el mismo nombre junto con su chip y el
+     * nombre y apellido de su dueño en una tabla.
+     *
+     * @param busqueda - String
+     */
     public void buscaMascota(String busqueda) {
 	DefaultTableModel model = (DefaultTableModel) tablaBusquedaMascota.getModel();
 	model.getDataVector().removeAllElements();
@@ -161,17 +173,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    /////              Metodos de Conexion a la Base de Datos              /////
+    ////////////////////////////////////////////////////////////////////////////
+    /**
+     * Conecta con la Base de Datos y almacena todos los datos en distintos
+     * ArrayList.
+     */
     public void conexionBBDD() {
-	/* ---------------- Conexiones a la base de datos ------------------- */
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
 	    estado = conexion.createStatement();
-	    // Mascotas
-	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
 
-	    // estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('"+dni+"','"+nombre+"', '"+apellido+"', '"+direccion+"',"+postal+","+telefono+")");
-	    // Almacena la consulta en un HashMap
+	    /* ·························· Mascotas ·························· */
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
 	    while (resultadoConsulta.next()) {
 		Mascota m = new Mascota();
 		m.chip = resultadoConsulta.getInt(1);
@@ -184,9 +200,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		listaMascota.add(m);
 	    }
 
-	    // Clientes
+	    /* ·························· Clientes ·························· */
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
-	    // Almacena la consulta en un HashMap
 	    while (resultadoConsulta.next()) {
 		Cliente c = new Cliente();
 		c.dni = resultadoConsulta.getString(1);
@@ -200,9 +215,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		listaCliente.add(c);
 	    }
 
-	    // Veterinarios
+	    /* ························ Veterinarios ························ */
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.veterinario");
-	    // Almacena la consulta en un HashMap
 	    while (resultadoConsulta.next()) {
 		Veterinario v = new Veterinario();
 		v.dni = resultadoConsulta.getString(1);
@@ -212,9 +226,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		listaVeterinario.add(v);
 	    }
 
-	    // Citas
+	    /* ··························· Citas ···························· */
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
-	    // Almacena la consulta en un HashMap
 	    while (resultadoConsulta.next()) {
 		Cita cita = new Cita();
 		cita.id = resultadoConsulta.getInt(1);
@@ -224,6 +237,73 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		cita.veterinario = resultadoConsulta.getString(5);
 		listaCita.add(cita);
 	    }
+	} catch (Exception e) {
+	    e.getMessage();
+	}
+    }
+
+    /**
+     * Inserta datos de mascota en la Base de Datos.
+     *
+     * @param chip - int
+     * @param nombreM - String
+     * @param sexo - int
+     * @param especie - String
+     * @param raza - String
+     * @param nacimiento - String
+     * @param dniCliente - String
+     */
+    public void insertaDatosMascota(int chip, String nombreM, int sexo, String especie, String raza, String nacimiento, String dniCliente) {
+	try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+	    estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + chip + ",'" + nombreM + "', " + sexo + ", '" + especie + "','" + raza + "','" + nacimiento + "','" + dniCliente + "')");
+	} catch (Exception e) {
+	    e.getMessage();
+	}
+    }
+
+    /**
+     * Inserta datos de cita en la Base de Datos.
+     *
+     * @param fechaCita - String
+     * @param descripcion - String
+     * @param mascota - int
+     * @param veterinario - String
+     */
+    public void insertaDatosCita(String fechaCita, String descripcion, int mascota, String veterinario) {
+	try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+	    estado.executeUpdate("INSERT INTO clinicaufvet.cita(2,3,4,5) VALUES('" + fechaCita + "', '" + descripcion + "', " + mascota + ",'" + veterinario + "')");
+	} catch (Exception e) {
+	    e.getMessage();
+	}
+    }
+
+    /**
+     * Inserta datos de cliente en la Base de Datos.
+     *
+     * @param dni - String
+     * @param nombre - String
+     * @param apellido - String
+     * @param telefono - int
+     * @param direccion - String
+     * @param postal - int
+     * @param poblacion - String
+     * @param email - String
+     */
+    public void insertaDatosCliente(String dni, String nombre, String apellido, int telefono, String direccion, int postal, String poblacion, String email) {
+	try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
+	    estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + dni + "','" + nombre + "', '" + apellido + "', '" + direccion + "'," + postal + "," + telefono + ",'" + poblacion + "','" + email + "')");
 	} catch (Exception e) {
 	    e.getMessage();
 	}
@@ -601,6 +681,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1010, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(1030, 680));
+
         jTabbedPane2.setMinimumSize(new java.awt.Dimension(1012, 700));
 
         jPanel1.setMinimumSize(new java.awt.Dimension(1002, 700));
@@ -724,7 +806,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
 
         fondoMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotas.png"))); // NOI18N
-        fondoMascotas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fondoMascotas.setMaximumSize(new java.awt.Dimension(400, 400));
         jPanel1.add(fondoMascotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 970));
 
@@ -736,7 +817,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroBusquedaCliente.setBackground(new java.awt.Color(204, 204, 255));
         cuadroBusquedaCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cuadroBusquedaCliente.setText("BUSCAR CLIENTE");
-        jPanel2.add(cuadroBusquedaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 220, 50));
+        cuadroBusquedaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cuadroBusquedaClienteKeyPressed(evt);
+            }
+        });
+        jPanel2.add(cuadroBusquedaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 220, 50));
 
         cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoCliente.png"))); // NOI18N
         cuadroNuevoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -744,90 +830,104 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cuadroNuevoClienteMousePressed(evt);
             }
         });
-        jPanel2.add(cuadroNuevoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, -1, -1));
+        jPanel2.add(cuadroNuevoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, -1, -1));
 
         cuadroNombreApellidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombreApellidos.setText("NOMBRE Y APELLIDOS");
-        jPanel2.add(cuadroNombreApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 590, 80));
+        cuadroNombreApellidos.setPreferredSize(new java.awt.Dimension(634, 114));
+        jPanel2.add(cuadroNombreApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, -1));
 
         cuadroNombreApellidosF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteNombreApellidos.png"))); // NOI18N
-        jPanel2.add(cuadroNombreApellidosF, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
+        jPanel2.add(cuadroNombreApellidosF, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, -1));
 
         cuadroDNI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroDNI.setText("DNI");
-        jPanel2.add(cuadroDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 540, 180, 40));
+        cuadroDNI.setPreferredSize(new java.awt.Dimension(189, 43));
+        jPanel2.add(cuadroDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 505, -1, -1));
 
         cuadroDNIF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteDNI.png"))); // NOI18N
-        jPanel2.add(cuadroDNIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 540, -1, -1));
+        jPanel2.add(cuadroDNIF, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 505, -1, -1));
 
+        cuadroDNIT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroDNIT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteDNILetras.png"))); // NOI18N
-        jPanel2.add(cuadroDNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 540, -1, -1));
+        cuadroDNIT.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel2.add(cuadroDNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 510, -1, -1));
 
         cuadroTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroTelefono.setText("Nº Teléfono");
-        jPanel2.add(cuadroTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 530, 190, 40));
+        cuadroTelefono.setPreferredSize(new java.awt.Dimension(189, 43));
+        jPanel2.add(cuadroTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 505, -1, -1));
 
         cuadroTelefonoF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroTelefonoF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteDNI.png"))); // NOI18N
-        jPanel2.add(cuadroTelefonoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 530, -1, -1));
+        jPanel2.add(cuadroTelefonoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 505, -1, -1));
 
-        cuadroTelefonoT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuadroTelefonoT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroTelefonoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteTelefonoLetras.png"))); // NOI18N
-        jPanel2.add(cuadroTelefonoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 530, -1, -1));
+        cuadroTelefonoT.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel2.add(cuadroTelefonoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 510, -1, -1));
 
         cuadroDireccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroDireccion.setText("DIRECCIÓN (CALLE)");
-        jPanel2.add(cuadroDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 610, 520, 30));
+        cuadroDireccion.setPreferredSize(new java.awt.Dimension(551, 43));
+        jPanel2.add(cuadroDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 585, -1, -1));
 
         cuadroDireccionF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroDireccionF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteDireccion.png"))); // NOI18N
-        jPanel2.add(cuadroDireccionF, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 600, -1, -1));
+        jPanel2.add(cuadroDireccionF, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 585, -1, -1));
 
-        cuadroDireccionT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuadroDireccionT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroDireccionT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteDireccionLetras.png"))); // NOI18N
-        jPanel2.add(cuadroDireccionT, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 610, -1, -1));
+        cuadroDireccionT.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel2.add(cuadroDireccionT, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 590, -1, -1));
 
         cuadroPoblacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroPoblacion.setText("POBLACIÓN");
-        jPanel2.add(cuadroPoblacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 670, 160, 30));
+        cuadroPoblacion.setPreferredSize(new java.awt.Dimension(189, 43));
+        jPanel2.add(cuadroPoblacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 665, -1, -1));
 
         cuadroPoblacionF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroPoblacionF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClientePoblacion.png"))); // NOI18N
-        jPanel2.add(cuadroPoblacionF, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 660, -1, -1));
+        jPanel2.add(cuadroPoblacionF, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 665, -1, -1));
 
-        cuadroPoblacionT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuadroPoblacionT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroPoblacionT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClientePoblacionLetras.png"))); // NOI18N
-        jPanel2.add(cuadroPoblacionT, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 670, -1, -1));
+        cuadroPoblacionT.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel2.add(cuadroPoblacionT, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 670, -1, 30));
 
         cuadroCPostal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroCPostal.setText("CÓDIGO POSTAL");
-        jPanel2.add(cuadroCPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 660, 190, 30));
+        cuadroCPostal.setPreferredSize(new java.awt.Dimension(198, 43));
+        jPanel2.add(cuadroCPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 665, -1, -1));
 
         cuadroCPostalF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroCPostalF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
-        jPanel2.add(cuadroCPostalF, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 650, -1, -1));
+        jPanel2.add(cuadroCPostalF, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 665, -1, -1));
 
-        cuadroCPostalT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuadroCPostalT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroCPostalT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostalLetras.png"))); // NOI18N
-        jPanel2.add(cuadroCPostalT, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 660, -1, -1));
+        cuadroCPostalT.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel2.add(cuadroCPostalT, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 670, -1, -1));
 
         cuadroEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroEmail.setText("EMAIL");
-        jPanel2.add(cuadroEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 740, 520, 40));
+        cuadroEmail.setPreferredSize(new java.awt.Dimension(553, 43));
+        jPanel2.add(cuadroEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 745, -1, -1));
 
         cuadroEmailF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroEmailF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteEmail.png"))); // NOI18N
-        jPanel2.add(cuadroEmailF, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 740, -1, -1));
+        jPanel2.add(cuadroEmailF, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 745, -1, -1));
 
-        cuadroEmailT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuadroEmailT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroEmailT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteEmailLetras.png"))); // NOI18N
-        jPanel2.add(cuadroEmailT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 760, -1, -1));
+        cuadroEmailT.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel2.add(cuadroEmailT, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 750, -1, -1));
 
         jButton2.setText("boton secreto de marta");
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
 
         fondoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgCliente.png"))); // NOI18N
-        jPanel2.add(fondoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 1010, 1000));
+        jPanel2.add(fondoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -15, 1010, 1000));
 
         jTabbedPane2.addTab("tab2", jPanel2);
 
@@ -836,7 +936,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1030, 680));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -860,7 +960,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	email = jTextField18.getText();
 	poblacion = jTextField16.getText();
 
-	insertaDatos(dni, nombre, apellido, telefono, direccion, postal, poblacion, email);
+	insertaDatosCliente(dni, nombre, apellido, telefono, direccion, postal, poblacion, email);
 
     }//GEN-LAST:event_jLabel5MousePressed
 
@@ -870,22 +970,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	sexo = Integer.valueOf(cuadroSexoNM.getText());
 	especie = cuadroEspecieNM.getText();
 	raza = cuadroRazaNM.getText();
-	nacimiento = Date.valueOf(cuadroFNacimientoNM.getText());
+	nacimiento = cuadroFNacimientoNM.getText();
 	cliente = cuadroPropietarioNM.getText();
 
 	System.out.println(nacimiento);
 
-	insertaDatosM(chip, nombreM, sexo, especie, raza, nacimiento, cliente);
+	insertaDatosMascota(chip, nombreM, sexo, especie, raza, nacimiento, cliente);
     }//GEN-LAST:event_botonGuardarNMMousePressed
 
     private void insertaCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMousePressed
-	id = 0;
-	//fechaCita=fechaCita.getTime();
+	fechaCita = "1999-11-11";
 	descripcion = "Descripción de prueba";
 	mascota = 2;
 	veterinario = "00000004V";
 
-	insertaDatosCita(id, fechaCita, descripcion, mascota, veterinario);
+	insertaDatosCita(fechaCita, descripcion, mascota, veterinario);
     }//GEN-LAST:event_insertaCitaMousePressed
 
     private void botonBuscarBMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarBMMouseClicked
@@ -899,50 +998,57 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cuadroTextoBMKeyPressed
 
     private void botonAceptarBMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAceptarBMMousePressed
-        TableModel model = (TableModel)tablaBusquedaMascota.getModel();
+	TableModel model = (TableModel) tablaBusquedaMascota.getModel();
 	int chip = Integer.valueOf(model.getValueAt((tablaBusquedaMascota.getSelectedRow()), 0).toString());
 	escribeDatosMascota(chip);
     }//GEN-LAST:event_botonAceptarBMMousePressed
 
     private void botonEditarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_botonEditarNMMousePressed
 
     private void cuadroFotoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroFotoTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroFotoTNMMousePressed
 
     private void cuadroPropietarioTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroPropietarioTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroPropietarioTNMMousePressed
 
     private void cuadroEspecieTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEspecieTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroEspecieTNMMousePressed
 
     private void cuadroNombreTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNombreTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroNombreTNMMousePressed
 
     private void cuadroSexoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroSexoTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroSexoTNMMousePressed
 
     private void cuadroChipTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroChipTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroChipTNMMousePressed
 
     private void cuadroRazaTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroRazaTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroRazaTNMMousePressed
 
     private void cuadroFNAciemientoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroFNAciemientoTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroFNAciemientoTNMMousePressed
 
     private void buscarMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMousePressed
-        ventanaBusquedaMascota.setVisible(true);
+	ventanaBusquedaMascota.setVisible(true);
     }//GEN-LAST:event_buscarMascotaMousePressed
+
+    private void cuadroBusquedaClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cuadroBusquedaClienteKeyPressed
+	// TODO add your handling code here:
+	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	    escribeDatosCliente(cuadroBusquedaCliente.getText());
+	}
+    }//GEN-LAST:event_cuadroBusquedaClienteKeyPressed
 
     /**
      * @param args the command line arguments
