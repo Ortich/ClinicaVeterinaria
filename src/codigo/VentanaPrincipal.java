@@ -51,8 +51,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     String raza;
     String nacimiento;
     String cliente;
+    
     //Variables de datos citas
-
     int id;
     String fechaCita;
     String descripcion;
@@ -809,7 +809,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fondoMascotas.setMaximumSize(new java.awt.Dimension(400, 400));
         jPanel1.add(fondoMascotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 970));
 
-        jTabbedPane2.addTab("tab1", jPanel1);
+        jTabbedPane2.addTab("Mascota", jPanel1);
 
         jPanel2.setMinimumSize(new java.awt.Dimension(1010, 700));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -929,14 +929,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fondoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgCliente.png"))); // NOI18N
         jPanel2.add(fondoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -15, 1010, 1000));
 
-        jTabbedPane2.addTab("tab2", jPanel2);
+        jTabbedPane2.addTab("Cliente", jPanel2);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jTabbedPane2.addTab("tab2", jPanel3);
+        jTabbedPane2.addTab("Tienda?", jPanel3);
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1044,7 +1044,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarMascotaMousePressed
 
     private void cuadroBusquedaClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cuadroBusquedaClienteKeyPressed
-	// TODO add your handling code here:
 	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 	    escribeDatosCliente(cuadroBusquedaCliente.getText());
 	}
