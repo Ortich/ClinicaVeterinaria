@@ -388,14 +388,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
         jTextField11 = new javax.swing.JTextField();
+        cuadroNombreTNC = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
+        cuadroApellidosTNC = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
+        cuadroDNITNC = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
+        cuadroTelefonoTNC = new javax.swing.JLabel();
         jTextField15 = new javax.swing.JTextField();
+        cuadroDireccionTNC = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
+        cuadroPoblacionTNC = new javax.swing.JLabel();
         jTextField17 = new javax.swing.JTextField();
+        cuadroCPostalTNC = new javax.swing.JLabel();
         jTextField18 = new javax.swing.JTextField();
+        cuadroEmailTNC = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        botonGuardarGNC = new javax.swing.JLabel();
+        botonEditarGNC = new javax.swing.JLabel();
         fondoNC = new javax.swing.JLabel();
         ventanaBusquedaMascota = new javax.swing.JDialog();
         botonBuscarBM = new javax.swing.JButton();
@@ -433,6 +443,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroClienteT = new javax.swing.JLabel();
         cuadroFoto = new javax.swing.JLabel();
         insertaCita = new javax.swing.JLabel();
+        borrarCita = new javax.swing.JLabel();
         buscarMascota = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         fondoMascotas = new javax.swing.JLabel();
@@ -601,32 +612,56 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTextField11.setText("jTextField3");
         jPanel5.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 256, 440, 35));
 
+        cuadroNombreTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaNombreLetras.png"))); // NOI18N
+        jPanel5.add(cuadroNombreTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 250, 120, 40));
+
         jTextField12.setBackground(new java.awt.Color(204, 204, 255));
         jTextField12.setText("jTextField4");
         jPanel5.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 323, 440, 35));
 
+        cuadroApellidosTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteApellido.png"))); // NOI18N
+        jPanel5.add(cuadroApellidosTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 318, 140, 40));
+
         jTextField13.setBackground(new java.awt.Color(204, 204, 255));
         jPanel5.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 399, 440, 35));
+
+        cuadroDNITNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteDNILetras.png"))); // NOI18N
+        jPanel5.add(cuadroDNITNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 398, 60, 30));
 
         jTextField14.setBackground(new java.awt.Color(204, 204, 255));
         jTextField14.setText("jTextField6");
         jPanel5.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 473, 440, 35));
 
+        cuadroTelefonoTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteTelefonoLetras.png"))); // NOI18N
+        jPanel5.add(cuadroTelefonoTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 468, 140, 40));
+
         jTextField15.setBackground(new java.awt.Color(204, 204, 255));
         jTextField15.setText("jTextField7");
         jPanel5.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 548, 440, 35));
+
+        cuadroDireccionTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteDireccionLetras.png"))); // NOI18N
+        jPanel5.add(cuadroDireccionTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 544, 140, 40));
 
         jTextField16.setBackground(new java.awt.Color(204, 204, 255));
         jTextField16.setText("jTextField8");
         jPanel5.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 624, 440, 35));
 
+        cuadroPoblacionTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClientePoblacionLetras.png"))); // NOI18N
+        jPanel5.add(cuadroPoblacionTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 621, -1, 40));
+
         jTextField17.setBackground(new java.awt.Color(204, 204, 255));
         jTextField17.setText("jTextField9");
         jPanel5.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 690, 440, 35));
 
+        cuadroCPostalTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteCPostalLetras.png"))); // NOI18N
+        jPanel5.add(cuadroCPostalTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 686, 150, 40));
+
         jTextField18.setBackground(new java.awt.Color(204, 204, 255));
         jTextField18.setText("jTextField10");
         jPanel5.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 760, 440, 35));
+
+        cuadroEmailTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteEmailLetras.png"))); // NOI18N
+        jPanel5.add(cuadroEmailTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 756, 100, 40));
 
         jLabel5.setText("jLabel5");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -634,14 +669,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 jLabel5MousePressed(evt);
             }
         });
-        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 864, 220, 50));
+        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 863, 230, 50));
+
+        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardar.png"))); // NOI18N
+        botonGuardarGNC.setText("jLabel1");
+        jPanel5.add(botonGuardarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 860, 240, 60));
+
+        botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditar.png"))); // NOI18N
+        jPanel5.add(botonEditarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 860, 240, 60));
 
         fondoNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosCliente.png"))); // NOI18N
         jPanel5.add(fondoNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 1000, 1000));
 
         jScrollPane4.setViewportView(jPanel5);
 
-        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 610));
+        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         ventanaBusquedaMascota.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -736,15 +778,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cuadroNuevaMascotaMousePressed(evt);
             }
         });
-        jPanel1.add(cuadroNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 220, -1, -1));
+        jPanel1.add(cuadroNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, -1, -1));
 
         cuadroNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombre.setText("NOMBRE MASCOTA");
-        jPanel1.add(cuadroNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, 350, 80));
+        jPanel1.add(cuadroNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, 350, 90));
 
         cuadroNombre1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombre1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro2.png"))); // NOI18N
-        jPanel1.add(cuadroNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, -1, -1));
+        jPanel1.add(cuadroNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
 
         cuadroRaza.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroRaza.setText("RAZA");
@@ -764,7 +806,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.add(cuadroEspecieF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
 
         cuadroEspecieT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEspecie.png"))); // NOI18N
-        jPanel1.add(cuadroEspecieT, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 540, -1, -1));
+        jPanel1.add(cuadroEspecieT, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, -1, -1));
 
         cuadroSexo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroSexo.setText("SEXO");
@@ -774,7 +816,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.add(cuadroSexoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 650, -1, -1));
 
         cuadroSexoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasSexo.png"))); // NOI18N
-        jPanel1.add(cuadroSexoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 660, -1, -1));
+        jPanel1.add(cuadroSexoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 660, -1, -1));
 
         cuadroNacimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNacimiento.setText("FECHA NACIMIENTO");
@@ -788,33 +830,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroChip.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroChip.setText("Nº CHIP");
-        jPanel1.add(cuadroChip, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 610, 150, 30));
+        jPanel1.add(cuadroChip, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 600, 150, 30));
 
         cuadroChipF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
-        jPanel1.add(cuadroChipF, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 600, -1, -1));
+        jPanel1.add(cuadroChipF, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 590, -1, -1));
 
         cuadroChipT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasChip.png"))); // NOI18N
-        jPanel1.add(cuadroChipT, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 610, -1, -1));
+        jPanel1.add(cuadroChipT, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, -1, -1));
 
         cuadroCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroCliente.setText("PROPIETARIO");
-        jPanel1.add(cuadroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 670, 150, 30));
+        jPanel1.add(cuadroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 660, 150, 30));
 
         cuadroClienteF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
-        jPanel1.add(cuadroClienteF, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 660, -1, -1));
+        jPanel1.add(cuadroClienteF, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 650, -1, -1));
 
         cuadroClienteT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasPopietario.png"))); // NOI18N
-        jPanel1.add(cuadroClienteT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 660, -1, -1));
+        jPanel1.add(cuadroClienteT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 656, -1, -1));
 
         cuadroFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasFoto.png"))); // NOI18N
         jPanel1.add(cuadroFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, -1));
 
+        insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png"))); // NOI18N
         insertaCita.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 insertaCitaMousePressed(evt);
             }
         });
-        jPanel1.add(insertaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 744, 160, 40));
+        jPanel1.add(insertaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 744, 170, -1));
+
+        borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrar.png"))); // NOI18N
+        jPanel1.add(borrarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 744, 170, -1));
 
         buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png"))); // NOI18N
         buscarMascota.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -822,7 +868,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 buscarMascotaMousePressed(evt);
             }
         });
-        jPanel1.add(buscarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
+        jPanel1.add(buscarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
 
         jButton1.setText("boton secreto de marta");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -963,7 +1009,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 930));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1158,15 +1204,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel borrarCita;
     private javax.swing.JButton botonAceptarBM;
     private javax.swing.JButton botonBuscarBM;
+    private javax.swing.JLabel botonEditarGNC;
     private javax.swing.JLabel botonEditarNM;
+    private javax.swing.JLabel botonGuardarGNC;
     private javax.swing.JLabel botonGuardarNM;
     private javax.swing.JLabel buscarMascota;
+    private javax.swing.JLabel cuadroApellidosTNC;
     private javax.swing.JTextField cuadroBusquedaCliente;
     private javax.swing.JLabel cuadroCPostal;
     private javax.swing.JLabel cuadroCPostalF;
     private javax.swing.JLabel cuadroCPostalT;
+    private javax.swing.JLabel cuadroCPostalTNC;
     private javax.swing.JLabel cuadroChip;
     private javax.swing.JLabel cuadroChipF;
     private javax.swing.JTextField cuadroChipNM;
@@ -1178,12 +1229,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroDNI;
     private javax.swing.JLabel cuadroDNIF;
     private javax.swing.JLabel cuadroDNIT;
+    private javax.swing.JLabel cuadroDNITNC;
     private javax.swing.JLabel cuadroDireccion;
     private javax.swing.JLabel cuadroDireccionF;
     private javax.swing.JLabel cuadroDireccionT;
+    private javax.swing.JLabel cuadroDireccionTNC;
     private javax.swing.JLabel cuadroEmail;
     private javax.swing.JLabel cuadroEmailF;
     private javax.swing.JLabel cuadroEmailT;
+    private javax.swing.JLabel cuadroEmailTNC;
     private javax.swing.JLabel cuadroEspecie;
     private javax.swing.JLabel cuadroEspecieF;
     private javax.swing.JTextField cuadroEspecieNM;
@@ -1202,12 +1256,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroNombreApellidos;
     private javax.swing.JLabel cuadroNombreApellidosF;
     private javax.swing.JTextField cuadroNombreNM;
+    private javax.swing.JLabel cuadroNombreTNC;
     private javax.swing.JLabel cuadroNombreTNM;
     private javax.swing.JLabel cuadroNuevaMascota;
     private javax.swing.JLabel cuadroNuevoCliente;
     private javax.swing.JLabel cuadroPoblacion;
     private javax.swing.JLabel cuadroPoblacionF;
     private javax.swing.JLabel cuadroPoblacionT;
+    private javax.swing.JLabel cuadroPoblacionTNC;
     private javax.swing.JTextField cuadroPropietarioNM;
     private javax.swing.JLabel cuadroPropietarioTNM;
     private javax.swing.JLabel cuadroRaza;
@@ -1223,6 +1279,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroTelefono;
     private javax.swing.JLabel cuadroTelefonoF;
     private javax.swing.JLabel cuadroTelefonoT;
+    private javax.swing.JLabel cuadroTelefonoTNC;
     private javax.swing.JTextField cuadroTextoBM;
     private javax.swing.JLabel fondoBM;
     private javax.swing.JLabel fondoClientes;
