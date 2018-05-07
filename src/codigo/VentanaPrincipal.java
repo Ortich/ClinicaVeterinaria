@@ -420,6 +420,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tablaBusquedaMascota = new javax.swing.JTable();
         botonAceptarBM = new javax.swing.JButton();
         fondoBM = new javax.swing.JLabel();
+        ventanaInsercionCitas = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        mascotaCitasTexto = new javax.swing.JLabel();
+        labelMascotaCitas = new javax.swing.JTextField();
+        cajaMascotas = new javax.swing.JLabel();
+        descripcionCitasTexto = new javax.swing.JLabel();
+        labelDescripcionCitas = new javax.swing.JTextField();
+        cajaDescripcion = new javax.swing.JLabel();
+        fechaCitasTexto = new javax.swing.JLabel();
+        labelFechasCitas = new javax.swing.JTextField();
+        cajaFechas = new javax.swing.JLabel();
+        veterinarioCitasTexto = new javax.swing.JLabel();
+        labelVeterinarioCitas = new javax.swing.JTextField();
+        cajaVeterinario = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        fondoCitas = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -738,6 +754,62 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fondoBM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/pgBusqueda2.png"))); // NOI18N
         ventanaBusquedaMascota.getContentPane().add(fondoBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        ventanaInsercionCitas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        mascotaCitasTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/mascotaCita.png"))); // NOI18N
+        jPanel6.add(mascotaCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 100, 40));
+
+        labelMascotaCitas.setBackground(new java.awt.Color(204, 204, 255));
+        labelMascotaCitas.setText("jTextField1");
+        jPanel6.add(labelMascotaCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 84, 186, 33));
+
+        cajaMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
+        cajaMascotas.setText("jLabel1");
+        jPanel6.add(cajaMascotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 200, -1));
+
+        descripcionCitasTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/descripcionCitas.png"))); // NOI18N
+        jPanel6.add(descripcionCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 130, 40));
+
+        labelDescripcionCitas.setBackground(new java.awt.Color(204, 204, 255));
+        labelDescripcionCitas.setText("jTextField1");
+        jPanel6.add(labelDescripcionCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 144, 186, 33));
+
+        cajaDescripcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
+        cajaDescripcion.setText("jLabel1");
+        jPanel6.add(cajaDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 200, -1));
+
+        fechaCitasTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/fechasCitas.png"))); // NOI18N
+        jPanel6.add(fechaCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 70, 40));
+
+        labelFechasCitas.setBackground(new java.awt.Color(204, 204, 255));
+        labelFechasCitas.setText("jTextField1");
+        jPanel6.add(labelFechasCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 204, 186, 33));
+
+        cajaFechas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
+        cajaFechas.setText("jLabel1");
+        jPanel6.add(cajaFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 200, -1));
+
+        veterinarioCitasTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/veterinarioCitas.png"))); // NOI18N
+        jPanel6.add(veterinarioCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 130, 40));
+
+        labelVeterinarioCitas.setBackground(new java.awt.Color(204, 204, 255));
+        labelVeterinarioCitas.setText("jTextField1");
+        jPanel6.add(labelVeterinarioCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 264, 186, 33));
+
+        cajaVeterinario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
+        cajaVeterinario.setText("jLabel1");
+        jPanel6.add(cajaVeterinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 200, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png"))); // NOI18N
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 170, 40));
+
+        fondoCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/pgBusquedaCitas.png"))); // NOI18N
+        jPanel6.add(fondoCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 410));
+
+        ventanaInsercionCitas.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 520));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1010, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1044,14 +1116,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonGuardarNMMousePressed
 
     private void insertaCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMousePressed
-	Cita cita = new Cita();
+        ventanaInsercionCitas.setVisible(true);
 
-	cita.fecha_cita = "1999-11-11";
-	cita.descripcion = "Descripcion de prueba";
-	cita.mascota = 2;
-	cita.veterinario = "00000004V";
-
-	insertaDatosCita(cita);
+//	Cita cita = new Cita();
+//
+//	cita.fecha_cita = "1999-11-11";
+//	cita.descripcion = "Descripcion de prueba";
+//	cita.mascota = 2;
+//	cita.veterinario = "00000004V";
+//
+//	insertaDatosCita(cita);
     }//GEN-LAST:event_insertaCitaMousePressed
 
     private void botonBuscarBMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarBMMouseClicked
@@ -1226,6 +1300,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel botonGuardarGNC;
     private javax.swing.JLabel botonGuardarNM;
     private javax.swing.JLabel buscarMascota;
+    private javax.swing.JLabel cajaDescripcion;
+    private javax.swing.JLabel cajaFechas;
+    private javax.swing.JLabel cajaMascotas;
+    private javax.swing.JLabel cajaVeterinario;
     private javax.swing.JTextField cuadroApellidosLNC;
     private javax.swing.JLabel cuadroApellidosTNC;
     private javax.swing.JTextField cuadroBusquedaCliente;
@@ -1303,7 +1381,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroTelefonoTNC;
     private javax.swing.JTextField cuadroTextoBM;
     private javax.swing.JTextField cudroCPostalLNC;
+    private javax.swing.JLabel descripcionCitasTexto;
+    private javax.swing.JLabel fechaCitasTexto;
     private javax.swing.JLabel fondoBM;
+    private javax.swing.JLabel fondoCitas;
     private javax.swing.JLabel fondoClientes;
     private javax.swing.JLabel fondoMascotas;
     private javax.swing.JLabel fondoNC;
@@ -1312,21 +1393,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel insertaCita;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTextField labelDescripcionCitas;
+    private javax.swing.JTextField labelFechasCitas;
+    private javax.swing.JTextField labelMascotaCitas;
+    private javax.swing.JTextField labelVeterinarioCitas;
+    private javax.swing.JLabel mascotaCitasTexto;
     private javax.swing.JScrollPane scrollTablaBusquedaMascota;
     private javax.swing.JTable tablaBusquedaMascota;
     private javax.swing.JTable tablaCitas;
     private javax.swing.JDialog ventanaBusquedaMascota;
     private javax.swing.JDialog ventanaClienteNuevo;
+    private javax.swing.JDialog ventanaInsercionCitas;
     private javax.swing.JDialog ventanaMascotaNueva;
+    private javax.swing.JLabel veterinarioCitasTexto;
     // End of variables declaration//GEN-END:variables
 }
