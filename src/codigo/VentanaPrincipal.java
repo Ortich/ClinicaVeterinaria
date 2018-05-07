@@ -102,7 +102,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	if (m != null) {
 	    cuadroChip.setText(String.format("%015d", m.chip));
 	    cuadroNombre.setText(m.nombre);
-	    cuadroSexo.setText(devuelveSexo(m.Sexo));
+	    cuadroSexo.setText(devuelveSexo(m.sexo));
 	    cuadroEspecie.setText(m.especie);
 	    cuadroRaza.setText(m.raza);
 	    cuadroNacimiento.setText(m.fecha_nacimiento);
@@ -145,7 +145,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    if (listaCita.get(i).mascota == _chip) {
 		Veterinario vet = null;
 		for (int j = 0; j < listaVeterinario.size(); j++) {
-		    if(listaVeterinario.get(j).dni.equals(listaCita.get(i).veterinario)){
+		    if (listaVeterinario.get(j).dni.equals(listaCita.get(i).veterinario)) {
 			vet = listaVeterinario.get(j);
 			break;
 		    }
@@ -206,7 +206,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 		Mascota m = new Mascota();
 		m.chip = resultadoConsulta.getInt(1);
 		m.nombre = resultadoConsulta.getString(2);
-		m.Sexo = resultadoConsulta.getInt(3);
+		m.sexo = resultadoConsulta.getInt(3);
 		m.especie = resultadoConsulta.getString(4);
 		m.raza = resultadoConsulta.getString(5);
 		m.fecha_nacimiento = resultadoConsulta.getString(6);
@@ -259,71 +259,64 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Inserta datos de mascota en la Base de Datos.
      *
-     * @param chip - int
-     * @param nombreM - String
-     * @param sexo - int
-     * @param especie - String
-     * @param raza - String
-     * @param nacimiento - String
-     * @param dniCliente - String
+     * @param _mascota - Mascota(Objeto)
      */
-    public void insertaDatosMascota(int chip, String nombreM, int sexo, String especie, String raza, String nacimiento, String dniCliente) {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
-	    estado = conexion.createStatement();
-	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-	    estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + chip + ",'" + nombreM + "', " + sexo + ", '" + especie + "','" + raza + "','" + nacimiento + "','" + dniCliente + "')");
-	} catch (Exception e) {
-	    e.getMessage();
+    public void insertaDatosMascota(Mascota _mascota) {
+	if (_mascota != null) {
+	    try {
+		Class.forName("com.mysql.jdbc.Driver");
+		conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+		estado = conexion.createStatement();
+		resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+		estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + _mascota.chip + ",'" + _mascota.nombre + "', " + _mascota.sexo + ", '" + _mascota.especie + "','" + _mascota.raza + "','" + _mascota.fecha_nacimiento + "','" + _mascota.cliente + "')");
+		listaMascota.add(_mascota);
+	    } catch (Exception e) {
+		e.getMessage();
+	    }
 	}
     }
 
     /**
      * Inserta datos de cita en la Base de Datos.
      *
-     * @param fechaCita - String
-     * @param descripcion - String
-     * @param mascota - int
-     * @param veterinario - String
+     * @param _cita - Cita(Objeto)
      */
-    public void insertaDatosCita(String fechaCita, String descripcion, int mascota, String veterinario) {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
-	    estado = conexion.createStatement();
-	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
-	    estado.executeUpdate("INSERT INTO clinicaufvet.cita(2,3,4,5) VALUES('" + fechaCita + "', '" + descripcion + "', " + mascota + ",'" + veterinario + "')");
-	} catch (Exception e) {
-	    e.getMessage();
+    public void insertaDatosCita(Cita _cita) {
+	if (_cita != null) {
+	    try {
+		Class.forName("com.mysql.jdbc.Driver");
+		conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+		estado = conexion.createStatement();
+		resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+		estado.executeUpdate("INSERT INTO clinicaufvet.cita(2,3,4,5) VALUES('" + _cita.fecha_cita + "', '" + _cita.descripcion + "', " + _cita.mascota + ",'" + _cita.veterinario + "')");
+		listaCita.add(_cita);
+	    } catch (Exception e) {
+		e.getMessage();
+	    }
 	}
     }
 
     /**
      * Inserta datos de cliente en la Base de Datos.
      *
-     * @param dni - String
-     * @param nombre - String
-     * @param apellido - String
-     * @param telefono - int
-     * @param direccion - String
-     * @param postal - int
-     * @param poblacion - String
-     * @param email - String
+     * @param _cliente - Cliente(Objeto)
      */
-    public void insertaDatosCliente(String dni, String nombre, String apellido, int telefono, String direccion, int postal, String poblacion, String email) {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
-	    estado = conexion.createStatement();
-	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
-	    estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + dni + "','" + nombre + "', '" + apellido + "', '" + direccion + "'," + postal + "," + telefono + ",'" + poblacion + "','" + email + "')");
-	} catch (Exception e) {
-	    e.getMessage();
+    private void insertaDatosCliente(Cliente _cliente) {
+	if (_cliente != null) {
+	    try {
+		Class.forName("com.mysql.jdbc.Driver");
+		conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+		estado = conexion.createStatement();
+		resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
+		estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + _cliente.dni + "','" + _cliente.nombre + "', '" + _cliente.apellido + "', '" + _cliente.direccion + "'," + _cliente.cp + "," + _cliente.telefono + ",'" + _cliente.poblacion + "','" + _cliente.email + "')");
+		listaCliente.add(_cliente);
+	    } catch (Exception e) {
+		e.getMessage();
+	    }
 	}
     }
 
-    //Método para modificar los datos ya insertados en la BBDD. 
+    // Método para modificar los datos ya insertados en la BBDD. 
     public void cambiaDatosMascota(int chip, String nombreM, int sexo, String especie, String raza, String nacimiento, String cliente) {
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
@@ -401,23 +394,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaClienteNuevo = new javax.swing.JDialog();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
-        jTextField11 = new javax.swing.JTextField();
+        cuadroNombreLNC = new javax.swing.JTextField();
         cuadroNombreTNC = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        cuadroApellidosLNC = new javax.swing.JTextField();
         cuadroApellidosTNC = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        cuadroDNILNC = new javax.swing.JTextField();
         cuadroDNITNC = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        cuadroTelefonoLNC = new javax.swing.JTextField();
         cuadroTelefonoTNC = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        cuadroDireccionLNC = new javax.swing.JTextField();
         cuadroDireccionTNC = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        cuadroPoblacionLNC = new javax.swing.JTextField();
         cuadroPoblacionTNC = new javax.swing.JLabel();
-        jTextField17 = new javax.swing.JTextField();
+        cudroCPostalLNC = new javax.swing.JTextField();
         cuadroCPostalTNC = new javax.swing.JLabel();
-        jTextField18 = new javax.swing.JTextField();
+        cuadroEmailLNC = new javax.swing.JTextField();
         cuadroEmailTNC = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         botonGuardarGNC = new javax.swing.JLabel();
         botonEditarGNC = new javax.swing.JLabel();
         fondoNC = new javax.swing.JLabel();
@@ -492,12 +484,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaMascotaNueva.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane3.setOpaque(false);
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(1030, 700));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(1040, 600));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cuadroFNacimientoNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroFNacimientoNM.setText("jTextField7");
         jPanel4.add(cuadroFNacimientoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 547, 440, 35));
 
         cuadroFNAciemientoTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaNacimientoLetras.png"))); // NOI18N
@@ -509,7 +500,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(cuadroFNAciemientoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, -1, -1));
 
         cuadroFotoNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroFotoNM.setText("jTextField10");
+        cuadroFotoNM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuadroFotoNMActionPerformed(evt);
+            }
+        });
         jPanel4.add(cuadroFotoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 760, 441, 30));
 
         cuadroFotoTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaFotoLetras.png"))); // NOI18N
@@ -521,7 +516,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(cuadroFotoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 760, -1, -1));
 
         cuadroChipNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroChipNM.setText("jTextField8");
         jPanel4.add(cuadroChipNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 625, 440, 35));
 
         cuadroChipTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaChipLetras.png"))); // NOI18N
@@ -530,10 +524,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cuadroChipTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroChipTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 640, -1, -1));
+        jPanel4.add(cuadroChipTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 630, -1, -1));
 
         cuadroSexoNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroSexoNM.setText("jTextField6");
         jPanel4.add(cuadroSexoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 472, 440, 35));
 
         cuadroSexoTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaSexoLetras.png"))); // NOI18N
@@ -545,7 +538,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(cuadroSexoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, -1, -1));
 
         cuadroNombreNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroNombreNM.setText("jTextField3");
         jPanel4.add(cuadroNombreNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 254, 440, 35));
 
         cuadroNombreTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaNombreLetras.png"))); // NOI18N
@@ -557,7 +549,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(cuadroNombreTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, -1));
 
         cuadroEspecieNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroEspecieNM.setText("jTextField4");
         jPanel4.add(cuadroEspecieNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 323, 440, 35));
 
         cuadroEspecieTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEspecieLetras.png"))); // NOI18N
@@ -569,7 +560,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(cuadroEspecieTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, -1, -1));
 
         cuadroPropietarioNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroPropietarioNM.setText("jTextField9");
         jPanel4.add(cuadroPropietarioNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 691, 440, 35));
 
         cuadroPropietarioTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaPopietarioLetras.png"))); // NOI18N
@@ -581,7 +571,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(cuadroPropietarioTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 690, -1, -1));
 
         cuadroRazaNM.setBackground(new java.awt.Color(204, 204, 255));
-        cuadroRazaNM.setText("jTextField5");
         jPanel4.add(cuadroRazaNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 397, 440, 35));
 
         cuadroRazaTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaRazaLetras.png"))); // NOI18N
@@ -613,81 +602,75 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 540));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(1024, 800));
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(1040, 600));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField11.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField11.setText("jTextField3");
-        jPanel5.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 256, 440, 35));
+        cuadroNombreLNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cuadroNombreLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 256, 440, 35));
 
         cuadroNombreTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaNombreLetras.png"))); // NOI18N
         jPanel5.add(cuadroNombreTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(246, 250, 120, 40));
 
-        jTextField12.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField12.setText("jTextField4");
-        jPanel5.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 323, 440, 35));
+        cuadroApellidosLNC.setBackground(new java.awt.Color(204, 204, 255));
+        cuadroApellidosLNC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuadroApellidosLNCActionPerformed(evt);
+            }
+        });
+        jPanel5.add(cuadroApellidosLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 323, 440, 35));
 
         cuadroApellidosTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteApellido.png"))); // NOI18N
         jPanel5.add(cuadroApellidosTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 318, 140, 40));
 
-        jTextField13.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel5.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 399, 440, 35));
+        cuadroDNILNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cuadroDNILNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 399, 440, 35));
 
         cuadroDNITNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteDNILetras.png"))); // NOI18N
         jPanel5.add(cuadroDNITNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 398, 60, 30));
 
-        jTextField14.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField14.setText("jTextField6");
-        jPanel5.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 473, 440, 35));
+        cuadroTelefonoLNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cuadroTelefonoLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 473, 440, 35));
 
         cuadroTelefonoTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteTelefonoLetras.png"))); // NOI18N
         jPanel5.add(cuadroTelefonoTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 468, 140, 40));
 
-        jTextField15.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField15.setText("jTextField7");
-        jPanel5.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 548, 440, 35));
+        cuadroDireccionLNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cuadroDireccionLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 548, 440, 35));
 
         cuadroDireccionTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteDireccionLetras.png"))); // NOI18N
         jPanel5.add(cuadroDireccionTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 544, 140, 40));
 
-        jTextField16.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField16.setText("jTextField8");
-        jPanel5.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 624, 440, 35));
+        cuadroPoblacionLNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cuadroPoblacionLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 624, 440, 35));
 
         cuadroPoblacionTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClientePoblacionLetras.png"))); // NOI18N
         jPanel5.add(cuadroPoblacionTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 621, -1, 40));
 
-        jTextField17.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField17.setText("jTextField9");
-        jPanel5.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 690, 440, 35));
+        cudroCPostalLNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cudroCPostalLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 690, 440, 35));
 
         cuadroCPostalTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteCPostalLetras.png"))); // NOI18N
         jPanel5.add(cuadroCPostalTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 686, 150, 40));
 
-        jTextField18.setBackground(new java.awt.Color(204, 204, 255));
-        jTextField18.setText("jTextField10");
-        jPanel5.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 760, 440, 35));
+        cuadroEmailLNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cuadroEmailLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 760, 440, 35));
 
         cuadroEmailTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteEmailLetras.png"))); // NOI18N
         jPanel5.add(cuadroEmailTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 756, 100, 40));
 
-        jLabel5.setText("jLabel5");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardar.png"))); // NOI18N
+        botonGuardarGNC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel5MousePressed(evt);
+                botonGuardarGNCMousePressed(evt);
             }
         });
-        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 863, 230, 50));
-
-        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardar.png"))); // NOI18N
-        botonGuardarGNC.setText("jLabel1");
-        jPanel5.add(botonGuardarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 860, 240, 60));
+        jPanel5.add(botonGuardarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 860, -1, -1));
 
         botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditar.png"))); // NOI18N
         jPanel5.add(botonEditarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 860, 240, 60));
@@ -697,7 +680,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(jPanel5);
 
-        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
+        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         ventanaBusquedaMascota.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1045,41 +1028,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	ventanaClienteNuevo.setVisible(true);
     }//GEN-LAST:event_cuadroNuevoClienteMousePressed
 
-    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-
-	dni = jTextField13.getText();
-	nombre = jTextField11.getText();
-	apellido = jTextField12.getText();
-	telefono = Integer.valueOf(jTextField14.getText());
-	direccion = jTextField15.getText();
-	postal = Integer.valueOf(jTextField17.getText());
-	email = jTextField18.getText();
-	poblacion = jTextField16.getText();
-
-	insertaDatosCliente(dni, nombre, apellido, telefono, direccion, postal, poblacion, email);
-
-    }//GEN-LAST:event_jLabel5MousePressed
-
     private void botonGuardarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarNMMousePressed
-	chip = Integer.valueOf(cuadroChipNM.getText());
-	nombreM = cuadroNombreNM.getText();
-	sexo = Integer.valueOf(cuadroSexoNM.getText());
-	especie = cuadroEspecieNM.getText();
-	raza = cuadroRazaNM.getText();
-	nacimiento = cuadroFNacimientoNM.getText();
-	cliente = cuadroPropietarioNM.getText();
+	Mascota mascota = new Mascota();
+	
+	mascota.chip = Integer.valueOf(cuadroChipNM.getText());
+	mascota.nombre = cuadroNombreNM.getText();
+	mascota.sexo = Integer.valueOf(cuadroSexoNM.getText());
+	mascota.especie = cuadroEspecieNM.getText();
+	mascota.raza = cuadroRazaNM.getText();
+	mascota.fecha_nacimiento = cuadroFNacimientoNM.getText();
+	mascota.cliente = cuadroPropietarioNM.getText();
 
 	//System.out.println(nacimiento);
-	insertaDatosMascota(chip, nombreM, sexo, especie, raza, nacimiento, cliente);
+	insertaDatosMascota(mascota);
     }//GEN-LAST:event_botonGuardarNMMousePressed
 
     private void insertaCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMousePressed
-	fechaCita = "1999-11-11";
-	descripcion = "Descripción de prueba";
-	mascota = 2;
-	veterinario = "00000004V";
+	Cita cita = new Cita();
 
-	insertaDatosCita(fechaCita, descripcion, mascota, veterinario);
+	cita.fecha_cita = "1999-11-11";
+	cita.descripcion = "Descripcion de prueba";
+	cita.mascota = 2;
+	cita.veterinario = "00000004V";
+
+	insertaDatosCita(cita);
     }//GEN-LAST:event_insertaCitaMousePressed
 
     private void botonBuscarBMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarBMMouseClicked
@@ -1187,6 +1159,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1MousePressed
 
+    private void cuadroApellidosLNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuadroApellidosLNCActionPerformed
+	// TODO add your handling code here:
+    }//GEN-LAST:event_cuadroApellidosLNCActionPerformed
+
+    private void botonGuardarGNCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarGNCMousePressed
+	Cliente cliente = new Cliente();
+
+	cliente.dni = cuadroDNILNC.getText();
+	cliente.nombre = cuadroNombreLNC.getText();
+	cliente.apellido = cuadroApellidosLNC.getText();
+	cliente.telefono = Integer.valueOf(cuadroTelefonoLNC.getText());
+	cliente.direccion = cuadroDireccionLNC.getText();
+	cliente.cp = Integer.valueOf(cudroCPostalLNC.getText());
+	cliente.email = cuadroEmailLNC.getText();
+	cliente.poblacion = cuadroPoblacionLNC.getText();
+
+	insertaDatosCliente(cliente);
+    }//GEN-LAST:event_botonGuardarGNCMousePressed
+
+    private void cuadroFotoNMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuadroFotoNMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuadroFotoNMActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1231,6 +1226,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel botonGuardarGNC;
     private javax.swing.JLabel botonGuardarNM;
     private javax.swing.JLabel buscarMascota;
+    private javax.swing.JTextField cuadroApellidosLNC;
     private javax.swing.JLabel cuadroApellidosTNC;
     private javax.swing.JTextField cuadroBusquedaCliente;
     private javax.swing.JLabel cuadroCPostal;
@@ -1247,14 +1243,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroClienteT;
     private javax.swing.JLabel cuadroDNI;
     private javax.swing.JLabel cuadroDNIF;
+    private javax.swing.JTextField cuadroDNILNC;
     private javax.swing.JLabel cuadroDNIT;
     private javax.swing.JLabel cuadroDNITNC;
     private javax.swing.JLabel cuadroDireccion;
     private javax.swing.JLabel cuadroDireccionF;
+    private javax.swing.JTextField cuadroDireccionLNC;
     private javax.swing.JLabel cuadroDireccionT;
     private javax.swing.JLabel cuadroDireccionTNC;
     private javax.swing.JLabel cuadroEmail;
     private javax.swing.JLabel cuadroEmailF;
+    private javax.swing.JTextField cuadroEmailLNC;
     private javax.swing.JLabel cuadroEmailT;
     private javax.swing.JLabel cuadroEmailTNC;
     private javax.swing.JLabel cuadroEspecie;
@@ -1274,6 +1273,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroNombre1;
     private javax.swing.JLabel cuadroNombreApellidos;
     private javax.swing.JLabel cuadroNombreApellidosF;
+    private javax.swing.JTextField cuadroNombreLNC;
     private javax.swing.JTextField cuadroNombreNM;
     private javax.swing.JLabel cuadroNombreTNC;
     private javax.swing.JLabel cuadroNombreTNM;
@@ -1281,6 +1281,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroNuevoCliente;
     private javax.swing.JLabel cuadroPoblacion;
     private javax.swing.JLabel cuadroPoblacionF;
+    private javax.swing.JTextField cuadroPoblacionLNC;
     private javax.swing.JLabel cuadroPoblacionT;
     private javax.swing.JLabel cuadroPoblacionTNC;
     private javax.swing.JTextField cuadroPropietarioNM;
@@ -1297,9 +1298,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroSexoTNM;
     private javax.swing.JLabel cuadroTelefono;
     private javax.swing.JLabel cuadroTelefonoF;
+    private javax.swing.JTextField cuadroTelefonoLNC;
     private javax.swing.JLabel cuadroTelefonoT;
     private javax.swing.JLabel cuadroTelefonoTNC;
     private javax.swing.JTextField cuadroTextoBM;
+    private javax.swing.JTextField cudroCPostalLNC;
     private javax.swing.JLabel fondoBM;
     private javax.swing.JLabel fondoClientes;
     private javax.swing.JLabel fondoMascotas;
@@ -1309,7 +1312,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel insertaCita;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1320,14 +1322,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
     private javax.swing.JScrollPane scrollTablaBusquedaMascota;
     private javax.swing.JTable tablaBusquedaMascota;
     private javax.swing.JTable tablaCitas;

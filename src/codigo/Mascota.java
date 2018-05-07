@@ -13,7 +13,7 @@ public class Mascota {
 
     public int chip = 0;
     public String nombre = "";
-    public int Sexo = 0;
+    public int sexo = 0;
     public String especie = "";
     public String raza = "";
     public String fecha_nacimiento = "";
