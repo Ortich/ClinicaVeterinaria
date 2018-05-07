@@ -51,7 +51,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     String raza;
     String nacimiento;
     String cliente;
-    
+
     //Variables de datos citas
     int id;
     String fechaCita;
@@ -109,6 +109,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    cuadroCliente.setText(m.cliente);
 	    escribeCitas(_chip);
 	}
+	escribeCitas(_chip);
     }
 
     /**
@@ -138,7 +139,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Escribe los datos de las citas de la mascota seleccionada en una tabla de citas.
     private void escribeCitas(int _chip) {
-
+	DefaultTableModel model = (DefaultTableModel) tablaCitas.getModel();
+	model.getDataVector().removeAllElements();
+	for (int i = 0; i < listaCita.size(); i++) {
+	    if (listaCita.get(i).mascota == _chip) {
+		Veterinario vet = null;
+		for (int j = 0; j < listaVeterinario.size(); j++) {
+		    if(listaVeterinario.get(j).dni.equals(listaCita.get(i).veterinario)){
+			vet = listaVeterinario.get(j);
+			break;
+		    }
+		}
+		model.addRow(new Object[]{listaCita.get(i).fecha_cita, listaCita.get(i).descripcion, vet.nombre + " " + vet.apellido});
+	    }
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -308,27 +322,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    e.getMessage();
 	}
     }
-    
-   //Método para modificar los datos ya insertados en la BBDD. 
-    
-    public void cambiaDatosMascota(int chip, String nombreM, int sexo, String especie, String raza, String nacimiento, String cliente){
-        try {
+
+    //Método para modificar los datos ya insertados en la BBDD. 
+    public void cambiaDatosMascota(int chip, String nombreM, int sexo, String especie, String raza, String nacimiento, String cliente) {
+	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
 	    estado = conexion.createStatement();
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
-            
-            String sql="UPDATE clinicaufvet.mascota "
-                     +" SET nombre='"+nombreM+"',sexo="+sexo+",especie='"+especie+"',raza='"+raza+"',fecha_nacimiento='"+nacimiento+"',cliente='"+cliente+"'" 
-                     +" WHERE chip="+chip+"";
-            
+
+	    String sql = "UPDATE clinicaufvet.mascota "
+		    + " SET nombre='" + nombreM + "',sexo=" + sexo + ",especie='" + especie + "',raza='" + raza + "',fecha_nacimiento='" + nacimiento + "',cliente='" + cliente + "'"
+		    + " WHERE chip=" + chip + "";
+
 	    estado.executeUpdate(sql);
-            System.out.println("funciona");
+	    System.out.println("funciona");
 	} catch (Exception e) {
 	    e.getMessage();
-            System.out.println("no funciona");
+	    System.out.println("no funciona");
 	}
-    
+
     }
 
     /**
@@ -350,6 +363,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
 	conexionBBDD();
 	escribeDatosMascota(0);
+	escribeCitas(1);
 
     }
 
@@ -418,7 +432,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaCitas = new javax.swing.JTable();
         huella = new javax.swing.JLabel();
         cuadroNuevaMascota = new javax.swing.JLabel();
         cuadroNombre = new javax.swing.JLabel();
@@ -752,18 +766,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(1002, 700));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Fecha", "Detalles", "Veterinario"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaCitas);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 800, 510, 110));
 
@@ -782,7 +796,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombre.setText("NOMBRE MASCOTA");
-        jPanel1.add(cuadroNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, 350, 90));
+        cuadroNombre.setPreferredSize(new java.awt.Dimension(384, 114));
+        jPanel1.add(cuadroNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
 
         cuadroNombre1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombre1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro2.png"))); // NOI18N
@@ -790,7 +805,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroRaza.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroRaza.setText("RAZA");
-        jPanel1.add(cuadroRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 600, 150, 30));
+        cuadroRaza.setPreferredSize(new java.awt.Dimension(169, 45));
+        jPanel1.add(cuadroRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, -1, -1));
 
         cuadroRazaF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
         jPanel1.add(cuadroRazaF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, -1, -1));
@@ -800,7 +816,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroEspecie.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroEspecie.setText("ESPECIE");
-        jPanel1.add(cuadroEspecie, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 540, 150, 30));
+        cuadroEspecie.setPreferredSize(new java.awt.Dimension(169, 45));
+        jPanel1.add(cuadroEspecie, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
 
         cuadroEspecieF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
         jPanel1.add(cuadroEspecieF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
@@ -810,7 +827,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroSexo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroSexo.setText("SEXO");
-        jPanel1.add(cuadroSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 660, 150, 30));
+        cuadroSexo.setPreferredSize(new java.awt.Dimension(169, 45));
+        jPanel1.add(cuadroSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 650, -1, -1));
 
         cuadroSexoF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
         jPanel1.add(cuadroSexoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 650, -1, -1));
@@ -820,9 +838,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroNacimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNacimiento.setText("FECHA NACIMIENTO");
-        jPanel1.add(cuadroNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, 160, 30));
+        cuadroNacimiento.setPreferredSize(new java.awt.Dimension(169, 45));
+        jPanel1.add(cuadroNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 530, -1, -1));
 
+        cuadroNacimientoF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNacimientoF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
+        cuadroNacimientoF.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(cuadroNacimientoF, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 530, -1, -1));
 
         cuadroNacimientoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasFNacimiento.png"))); // NOI18N
@@ -830,7 +851,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroChip.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroChip.setText("Nº CHIP");
-        jPanel1.add(cuadroChip, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 600, 150, 30));
+        cuadroChip.setPreferredSize(new java.awt.Dimension(169, 45));
+        jPanel1.add(cuadroChip, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 590, -1, -1));
 
         cuadroChipF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
         jPanel1.add(cuadroChipF, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 590, -1, -1));
@@ -840,7 +862,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroCliente.setText("PROPIETARIO");
-        jPanel1.add(cuadroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 660, 150, 30));
+        cuadroCliente.setPreferredSize(new java.awt.Dimension(169, 45));
+        jPanel1.add(cuadroCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 650, -1, -1));
 
         cuadroClienteF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro3.png"))); // NOI18N
         jPanel1.add(cuadroClienteF, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 650, -1, -1));
@@ -1009,7 +1032,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 930));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1047,7 +1070,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	cliente = cuadroPropietarioNM.getText();
 
 	//System.out.println(nacimiento);
-
 	insertaDatosMascota(chip, nombreM, sexo, especie, raza, nacimiento, cliente);
     }//GEN-LAST:event_botonGuardarNMMousePressed
 
@@ -1078,18 +1100,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void botonEditarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMousePressed
 	//Botón que cambia los datos en la ventana de mascotas. Obtenemos los datos que hemos sacado de la ventana principal
-        // Y los guardamos en las variables que vamos a usar en el método.
-        
-        chip = Integer.valueOf(cuadroChipNM.getText());
+	// Y los guardamos en las variables que vamos a usar en el método.
+
+	chip = Integer.valueOf(cuadroChipNM.getText());
 	nombreM = cuadroNombreNM.getText();
 	sexo = Integer.valueOf(cuadroSexoNM.getText());
 	especie = cuadroEspecieNM.getText();
 	raza = cuadroRazaNM.getText();
 	nacimiento = cuadroFNacimientoNM.getText();
 	cliente = cuadroPropietarioNM.getText();
-        
-        
-        cambiaDatosMascota(chip,nombreM,sexo,especie,raza,nacimiento,cliente);
+
+	cambiaDatosMascota(chip, nombreM, sexo, especie, raza, nacimiento, cliente);
     }//GEN-LAST:event_botonEditarNMMousePressed
 
     private void cuadroFotoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroFotoTNMMousePressed
@@ -1135,37 +1156,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cuadroBusquedaClienteKeyPressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-    //Obtenemos los datos y los guardamos en variables.
-        String chip2 = cuadroChip.getText();
-        nombreM = cuadroNombre.getText();
+	//Obtenemos los datos y los guardamos en variables.
+	String chip2 = cuadroChip.getText();
+	nombreM = cuadroNombre.getText();
 
-        if (cuadroSexo.getText().equals("hermafrodita")) {
-            sexo = 2;
-        } else if (cuadroSexo.getText().equals("macho")) {
-            sexo = 1;
-        } else if (cuadroSexo.getText().equals("hembra")) {
-            sexo = 0;
-        }
-        especie = cuadroEspecie.getText();
-        raza = cuadroRaza.getText();
-        nacimiento = cuadroNacimiento.getText();
-        cliente = cuadroCliente.getText();
+	if (cuadroSexo.getText().equals("hermafrodita")) {
+	    sexo = 2;
+	} else if (cuadroSexo.getText().equals("macho")) {
+	    sexo = 1;
+	} else if (cuadroSexo.getText().equals("hembra")) {
+	    sexo = 0;
+	}
+	especie = cuadroEspecie.getText();
+	raza = cuadroRaza.getText();
+	nacimiento = cuadroNacimiento.getText();
+	cliente = cuadroCliente.getText();
 
-     //Abrimos la ventana de inserción de datos.
-     
-       ventanaMascotaNueva.setVisible(true);
-       
-      cuadroNombreNM.setText(nombreM);
-      cuadroEspecieNM.setText(especie);
-      cuadroRazaNM.setText(raza);
-      cuadroSexoNM.setText(String.valueOf(sexo));
-      cuadroFNacimientoNM.setText(nacimiento);
-      cuadroPropietarioNM.setText(cliente);
-      cuadroChipNM.setText(chip2);
-       
-      //Método que nos va a permitir modificar datos en la BBDD.
- 
-    
+	//Abrimos la ventana de inserción de datos.
+	ventanaMascotaNueva.setVisible(true);
+
+	cuadroNombreNM.setText(nombreM);
+	cuadroEspecieNM.setText(especie);
+	cuadroRazaNM.setText(raza);
+	cuadroSexoNM.setText(String.valueOf(sexo));
+	cuadroFNacimientoNM.setText(nacimiento);
+	cuadroPropietarioNM.setText(cliente);
+	cuadroChipNM.setText(chip2);
+
+	//Método que nos va a permitir modificar datos en la BBDD.
+
     }//GEN-LAST:event_jButton1MousePressed
 
     /**
@@ -1301,7 +1320,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
@@ -1312,6 +1330,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField18;
     private javax.swing.JScrollPane scrollTablaBusquedaMascota;
     private javax.swing.JTable tablaBusquedaMascota;
+    private javax.swing.JTable tablaCitas;
     private javax.swing.JDialog ventanaBusquedaMascota;
     private javax.swing.JDialog ventanaClienteNuevo;
     private javax.swing.JDialog ventanaMascotaNueva;
