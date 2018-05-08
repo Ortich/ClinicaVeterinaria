@@ -762,7 +762,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel6.add(mascotaCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 100, 40));
 
         labelMascotaCitas.setBackground(new java.awt.Color(204, 204, 255));
-        labelMascotaCitas.setText("jTextField1");
         jPanel6.add(labelMascotaCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 84, 186, 33));
 
         cajaMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
@@ -773,7 +772,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel6.add(descripcionCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 130, 40));
 
         labelDescripcionCitas.setBackground(new java.awt.Color(204, 204, 255));
-        labelDescripcionCitas.setText("jTextField1");
         jPanel6.add(labelDescripcionCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 144, 186, 33));
 
         cajaDescripcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
@@ -784,7 +782,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel6.add(fechaCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 70, 40));
 
         labelFechasCitas.setBackground(new java.awt.Color(204, 204, 255));
-        labelFechasCitas.setText("jTextField1");
         jPanel6.add(labelFechasCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 204, 186, 33));
 
         cajaFechas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
@@ -803,6 +800,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel6.add(cajaVeterinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 200, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+        });
         jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 170, 40));
 
         fondoCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/pgBusquedaCitas.png"))); // NOI18N
@@ -1255,6 +1257,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void cuadroFotoNMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuadroFotoNMActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cuadroFotoNMActionPerformed
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        Cita cita = new Cita();
+	cita.mascota = Integer.valueOf(labelMascotaCitas.getText());
+	cita.descripcion = labelDescripcionCitas.getText();
+	cita.fecha_cita = labelFechasCitas.getText();
+	cita.veterinario = labelVeterinarioCitas.getText();
+	insertaDatosCita(cita);
+	
+    }//GEN-LAST:event_jLabel1MousePressed
 
     /**
      * @param args the command line arguments
