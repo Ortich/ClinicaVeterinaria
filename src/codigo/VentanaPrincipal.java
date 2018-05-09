@@ -506,97 +506,123 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cuadroFNacimientoNM.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.add(cuadroFNacimientoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 547, 440, 35));
+        cuadroFNacimientoNM.setMinimumSize(new java.awt.Dimension(440, 35));
+        cuadroFNacimientoNM.setPreferredSize(new java.awt.Dimension(440, 35));
+        jPanel4.add(cuadroFNacimientoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 540, -1, -1));
 
+        cuadroFNAciemientoTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroFNAciemientoTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaNacimientoLetras.png"))); // NOI18N
+        cuadroFNAciemientoTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroFNAciemientoTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroFNAciemientoTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroFNAciemientoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, -1, -1));
+        jPanel4.add(cuadroFNAciemientoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 540, -1, -1));
 
         cuadroFotoNM.setBackground(new java.awt.Color(204, 204, 255));
+        cuadroFotoNM.setPreferredSize(new java.awt.Dimension(440, 35));
         cuadroFotoNM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cuadroFotoNMActionPerformed(evt);
             }
         });
-        jPanel4.add(cuadroFotoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 760, 441, 30));
+        jPanel4.add(cuadroFotoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 750, -1, -1));
 
+        cuadroFotoTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroFotoTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaFotoLetras.png"))); // NOI18N
+        cuadroFotoTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroFotoTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroFotoTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroFotoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 760, -1, -1));
+        jPanel4.add(cuadroFotoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 750, -1, -1));
 
         cuadroChipNM.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.add(cuadroChipNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 625, 440, 35));
+        cuadroChipNM.setPreferredSize(new java.awt.Dimension(440, 35));
+        jPanel4.add(cuadroChipNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 610, -1, -1));
 
+        cuadroChipTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroChipTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaChipLetras.png"))); // NOI18N
+        cuadroChipTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroChipTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroChipTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroChipTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 630, -1, -1));
+        jPanel4.add(cuadroChipTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 610, -1, -1));
 
         cuadroSexoNM.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.add(cuadroSexoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 472, 440, 35));
+        cuadroSexoNM.setPreferredSize(new java.awt.Dimension(440, 35));
+        jPanel4.add(cuadroSexoNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, -1, -1));
 
+        cuadroSexoTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroSexoTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaSexoLetras.png"))); // NOI18N
+        cuadroSexoTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroSexoTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroSexoTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroSexoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, -1, -1));
+        jPanel4.add(cuadroSexoTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 470, -1, -1));
 
         cuadroNombreNM.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.add(cuadroNombreNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 254, 440, 35));
+        cuadroNombreNM.setPreferredSize(new java.awt.Dimension(440, 35));
+        jPanel4.add(cuadroNombreNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, -1, -1));
 
+        cuadroNombreTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroNombreTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaNombreLetras.png"))); // NOI18N
+        cuadroNombreTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroNombreTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroNombreTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroNombreTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, -1, -1));
+        jPanel4.add(cuadroNombreTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, -1));
 
         cuadroEspecieNM.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.add(cuadroEspecieNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 323, 440, 35));
+        cuadroEspecieNM.setPreferredSize(new java.awt.Dimension(440, 35));
+        jPanel4.add(cuadroEspecieNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, -1, -1));
 
+        cuadroEspecieTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroEspecieTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEspecieLetras.png"))); // NOI18N
+        cuadroEspecieTNM.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        cuadroEspecieTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroEspecieTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroEspecieTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroEspecieTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, -1, -1));
+        jPanel4.add(cuadroEspecieTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, -1, -1));
 
         cuadroPropietarioNM.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.add(cuadroPropietarioNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(369, 691, 440, 35));
+        cuadroPropietarioNM.setPreferredSize(new java.awt.Dimension(440, 35));
+        jPanel4.add(cuadroPropietarioNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 680, -1, -1));
 
+        cuadroPropietarioTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroPropietarioTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaPopietarioLetras.png"))); // NOI18N
+        cuadroPropietarioTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroPropietarioTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroPropietarioTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroPropietarioTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 690, -1, -1));
+        jPanel4.add(cuadroPropietarioTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 680, -1, -1));
 
         cuadroRazaNM.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.add(cuadroRazaNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 397, 440, 35));
+        cuadroRazaNM.setPreferredSize(new java.awt.Dimension(440, 35));
+        jPanel4.add(cuadroRazaNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 400, -1, -1));
 
+        cuadroRazaTNM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cuadroRazaTNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaRazaLetras.png"))); // NOI18N
+        cuadroRazaTNM.setPreferredSize(new java.awt.Dimension(194, 35));
         cuadroRazaTNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroRazaTNMMousePressed(evt);
             }
         });
-        jPanel4.add(cuadroRazaTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, -1, -1));
+        jPanel4.add(cuadroRazaTNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, -1, -1));
 
         botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardar.png"))); // NOI18N
         botonGuardarNM.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -714,7 +740,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(jPanel5);
 
-        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        ventanaClienteNuevo.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1040));
 
         ventanaBusquedaMascota.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1013,6 +1039,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroBusquedaCliente.setBackground(new java.awt.Color(204, 204, 255));
         cuadroBusquedaCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cuadroBusquedaCliente.setText("BUSCAR CLIENTE");
+        cuadroBusquedaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cuadroBusquedaClienteMousePressed(evt);
+            }
+        });
         cuadroBusquedaCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cuadroBusquedaClienteKeyPressed(evt);
@@ -1096,11 +1127,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         cuadroCPostal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroCPostal.setText("CÓDIGO POSTAL");
-        cuadroCPostal.setPreferredSize(new java.awt.Dimension(198, 43));
+        cuadroCPostal.setPreferredSize(new java.awt.Dimension(189, 43));
         jPanel2.add(cuadroCPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 665, -1, -1));
 
         cuadroCPostalF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cuadroCPostalF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteCPostal.png"))); // NOI18N
+        cuadroCPostalF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteDNI.png"))); // NOI18N
         jPanel2.add(cuadroCPostalF, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 665, -1, -1));
 
         cuadroCPostalT.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1135,7 +1166,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1375,6 +1406,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    cuadroTextoBM.setText("");
 	}
     }//GEN-LAST:event_cuadroTextoBMMousePressed
+
+    private void cuadroBusquedaClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroBusquedaClienteMousePressed
+        if(cuadroBusquedaCliente.getText().equals("BUSCAR CLIENTE")){
+	    cuadroBusquedaCliente.setText("");
+	}
+    }//GEN-LAST:event_cuadroBusquedaClienteMousePressed
 
     /**
      * @param args the command line arguments
