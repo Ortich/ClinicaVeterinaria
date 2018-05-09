@@ -1038,7 +1038,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="630" y="220" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="650" y="220" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1346,7 +1346,7 @@
                 <Component class="javax.swing.JLabel" name="buscarMascota">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagenes/Mascotas/pgMascotasEditarMascota.png"/>
+                      <Image iconType="3" name="/imagenes/Mascotas/pgClienteBotonBuscarMascota.png"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -1355,20 +1355,23 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="160" y="220" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="140" y="220" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JLabel" name="editarMascota">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="boton secreto de marta"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/imagenes/Mascotas/pgMascotasEditarMascota.png"/>
+                    </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MousePressed"/>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editarMascotaMousePressed"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="editarMascotaMouseReleased"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="430" y="240" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="400" y="220" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1437,7 +1440,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="620" y="220" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="640" y="220" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1724,13 +1727,19 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton2">
+                <Component class="javax.swing.JLabel" name="cuadroEditarCliente">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="boton secreto de marta"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/imagenes/Cliente/pgClienteBotonEditarCliente.png"/>
+                    </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cuadroEditarClienteMousePressed"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cuadroEditarClienteMouseReleased"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="430" y="240" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="390" y="220" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>

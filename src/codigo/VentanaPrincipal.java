@@ -468,7 +468,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         insertaCita = new javax.swing.JLabel();
         borrarCita = new javax.swing.JLabel();
         buscarMascota = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        editarMascota = new javax.swing.JLabel();
         fondoMascotas = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         cuadroBusquedaCliente = new javax.swing.JTextField();
@@ -493,7 +493,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroEmail = new javax.swing.JLabel();
         cuadroEmailF = new javax.swing.JLabel();
         cuadroEmailT = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        cuadroEditarCliente = new javax.swing.JLabel();
         fondoClientes = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
@@ -904,7 +904,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cuadroNuevaMascotaMouseReleased(evt);
             }
         });
-        jPanel1.add(cuadroNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, -1, -1));
+        jPanel1.add(cuadroNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
 
         cuadroNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombre.setText("NOMBRE MASCOTA");
@@ -1008,7 +1008,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(borrarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 744, 170, -1));
 
-        buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png"))); // NOI18N
+        buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascota.png"))); // NOI18N
         buscarMascota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buscarMascotaMousePressed(evt);
@@ -1017,15 +1017,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 buscarMascotaMouseReleased(evt);
             }
         });
-        jPanel1.add(buscarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
+        jPanel1.add(buscarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
 
-        jButton1.setText("boton secreto de marta");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png"))); // NOI18N
+        editarMascota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton1MousePressed(evt);
+                editarMascotaMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                editarMascotaMouseReleased(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
+        jPanel1.add(editarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, -1, -1));
 
         fondoMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotas.png"))); // NOI18N
         fondoMascotas.setMaximumSize(new java.awt.Dimension(400, 400));
@@ -1060,7 +1063,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cuadroNuevoClienteMouseReleased(evt);
             }
         });
-        jPanel2.add(cuadroNuevoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, -1, -1));
+        jPanel2.add(cuadroNuevoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 220, -1, -1));
 
         cuadroNombreApellidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombreApellidos.setText("NOMBRE Y APELLIDOS");
@@ -1153,8 +1156,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroEmailT.setPreferredSize(new java.awt.Dimension(150, 30));
         jPanel2.add(cuadroEmailT, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 750, -1, -1));
 
-        jButton2.setText("boton secreto de marta");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
+        cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarCliente.png"))); // NOI18N
+        cuadroEditarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cuadroEditarClienteMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cuadroEditarClienteMouseReleased(evt);
+            }
+        });
+        jPanel2.add(cuadroEditarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
 
         fondoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgCliente.png"))); // NOI18N
         jPanel2.add(fondoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -15, 1010, 1000));
@@ -1276,7 +1287,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cuadroFNAciemientoTNMMousePressed
 
     private void buscarMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMousePressed
-	buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaP.png")));
+	buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascotaP.png")));
 	ventanaBusquedaMascota.setVisible(true);
     }//GEN-LAST:event_buscarMascotaMousePressed
 
@@ -1285,38 +1296,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    escribeDatosCliente(cuadroBusquedaCliente.getText());
 	}
     }//GEN-LAST:event_cuadroBusquedaClienteKeyPressed
-
-    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-	//Obtenemos los datos y los guardamos en variables.
-	String chip2 = cuadroChip.getText();
-	nombreM = cuadroNombre.getText();
-
-	if (cuadroSexo.getText().equals("hermafrodita")) {
-	    sexo = 2;
-	} else if (cuadroSexo.getText().equals("macho")) {
-	    sexo = 1;
-	} else if (cuadroSexo.getText().equals("hembra")) {
-	    sexo = 0;
-	}
-	especie = cuadroEspecie.getText();
-	raza = cuadroRaza.getText();
-	nacimiento = cuadroNacimiento.getText();
-	cliente = cuadroCliente.getText();
-
-	//Abrimos la ventana de inserción de datos.
-	ventanaMascotaNueva.setVisible(true);
-
-	cuadroNombreNM.setText(nombreM);
-	cuadroEspecieNM.setText(especie);
-	cuadroRazaNM.setText(raza);
-	cuadroSexoNM.setText(String.valueOf(sexo));
-	cuadroFNacimientoNM.setText(nacimiento);
-	cuadroPropietarioNM.setText(cliente);
-	cuadroChipNM.setText(chip2);
-
-	//Método que nos va a permitir modificar datos en la BBDD.
-
-    }//GEN-LAST:event_jButton1MousePressed
 
     private void cuadroApellidosLNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuadroApellidosLNCActionPerformed
 	// TODO add your handling code here:
@@ -1354,7 +1333,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_insertarCitaICMousePressed
 
     private void buscarMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMouseReleased
-       buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png")));
+       buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascota.png")));
     }//GEN-LAST:event_buscarMascotaMouseReleased
 
     private void cuadroNuevaMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMouseReleased
@@ -1412,6 +1391,50 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    cuadroBusquedaCliente.setText("");
 	}
     }//GEN-LAST:event_cuadroBusquedaClienteMousePressed
+
+    private void editarMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMascotaMousePressed
+        editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaP.png")));
+	//Obtenemos los datos y los guardamos en variables.
+	String chip2 = cuadroChip.getText();
+	nombreM = cuadroNombre.getText();
+
+	if (cuadroSexo.getText().equals("hermafrodita")) {
+	    sexo = 2;
+	} else if (cuadroSexo.getText().equals("macho")) {
+	    sexo = 1;
+	} else if (cuadroSexo.getText().equals("hembra")) {
+	    sexo = 0;
+	}
+	especie = cuadroEspecie.getText();
+	raza = cuadroRaza.getText();
+	nacimiento = cuadroNacimiento.getText();
+	cliente = cuadroCliente.getText();
+
+	//Abrimos la ventana de inserción de datos.
+	ventanaMascotaNueva.setVisible(true);
+
+	cuadroNombreNM.setText(nombreM);
+	cuadroEspecieNM.setText(especie);
+	cuadroRazaNM.setText(raza);
+	cuadroSexoNM.setText(String.valueOf(sexo));
+	cuadroFNacimientoNM.setText(nacimiento);
+	cuadroPropietarioNM.setText(cliente);
+	cuadroChipNM.setText(chip2);
+
+	//Método que nos va a permitir modificar datos en la BBDD.
+    }//GEN-LAST:event_editarMascotaMousePressed
+
+    private void editarMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMascotaMouseReleased
+        editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png")));
+    }//GEN-LAST:event_editarMascotaMouseReleased
+
+    private void cuadroEditarClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMousePressed
+         cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteP.png")));
+    }//GEN-LAST:event_cuadroEditarClienteMousePressed
+
+    private void cuadroEditarClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMouseReleased
+        cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarCliente.png")));
+    }//GEN-LAST:event_cuadroEditarClienteMouseReleased
 
     /**
      * @param args the command line arguments
@@ -1486,6 +1509,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField cuadroDireccionLNC;
     private javax.swing.JLabel cuadroDireccionT;
     private javax.swing.JLabel cuadroDireccionTNC;
+    private javax.swing.JLabel cuadroEditarCliente;
     private javax.swing.JLabel cuadroEmail;
     private javax.swing.JLabel cuadroEmailF;
     private javax.swing.JTextField cuadroEmailLNC;
@@ -1539,6 +1563,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField cuadroTextoBM;
     private javax.swing.JTextField cudroCPostalLNC;
     private javax.swing.JLabel descripcionCitasTexto;
+    private javax.swing.JLabel editarMascota;
     private javax.swing.JLabel fechaCitasTexto;
     private javax.swing.JLabel fondoBM;
     private javax.swing.JLabel fondoCitas;
@@ -1549,8 +1574,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel huella;
     private javax.swing.JLabel insertaCita;
     private javax.swing.JLabel insertarCitaIC;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
