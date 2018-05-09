@@ -354,6 +354,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	ventanaBusquedaMascota.setSize(480, 390);
 	ventanaBusquedaMascota.setResizable(false);
 
+	
 	conexionBBDD();
 	escribeDatosMascota(0);
 	escribeCitas(1);
@@ -434,7 +435,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         veterinarioCitasTexto = new javax.swing.JLabel();
         labelVeterinarioCitas = new javax.swing.JTextField();
         cajaVeterinario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        insertarCitaIC = new javax.swing.JLabel();
         fondoCitas = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -602,6 +603,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 botonGuardarNMMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botonGuardarNMMouseReleased(evt);
+            }
         });
         jPanel4.add(botonGuardarNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 860, -1, -1));
 
@@ -609,6 +613,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonEditarNM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 botonEditarNMMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botonEditarNMMouseReleased(evt);
             }
         });
         jPanel4.add(botonEditarNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 860, -1, -1));
@@ -685,10 +692,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 botonGuardarGNCMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botonGuardarGNCMouseReleased(evt);
+            }
         });
         jPanel5.add(botonGuardarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 860, -1, -1));
 
         botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditar.png"))); // NOI18N
+        botonEditarGNC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botonEditarGNCMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                botonEditarGNCMouseReleased(evt);
+            }
+        });
         jPanel5.add(botonEditarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 860, 240, 60));
 
         fondoNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosCliente.png"))); // NOI18N
@@ -709,6 +727,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaBusquedaMascota.getContentPane().add(botonBuscarBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, -1));
 
         cuadroTextoBM.setText("Nombre Mascota");
+        cuadroTextoBM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cuadroTextoBMMousePressed(evt);
+            }
+        });
         cuadroTextoBM.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cuadroTextoBMKeyPressed(evt);
@@ -799,13 +822,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cajaVeterinario.setText("jLabel1");
         jPanel6.add(cajaVeterinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 200, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png"))); // NOI18N
+        insertarCitaIC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
+                insertarCitaICMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                insertarCitaICMouseReleased(evt);
             }
         });
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 170, 40));
+        jPanel6.add(insertarCitaIC, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 170, 40));
 
         fondoCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/pgBusquedaCitas.png"))); // NOI18N
         jPanel6.add(fondoCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 410));
@@ -847,6 +873,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroNuevaMascota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroNuevaMascotaMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cuadroNuevaMascotaMouseReleased(evt);
             }
         });
         jPanel1.add(cuadroNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, -1, -1));
@@ -936,16 +965,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 insertaCitaMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                insertaCitaMouseReleased(evt);
+            }
         });
         jPanel1.add(insertaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 744, 170, -1));
 
         borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrar.png"))); // NOI18N
+        borrarCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                borrarCitaMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                borrarCitaMouseReleased(evt);
+            }
+        });
         jPanel1.add(borrarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 744, 170, -1));
 
         buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png"))); // NOI18N
         buscarMascota.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buscarMascotaMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                buscarMascotaMouseReleased(evt);
             }
         });
         jPanel1.add(buscarMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
@@ -981,6 +1024,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroNuevoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 cuadroNuevoClienteMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cuadroNuevoClienteMouseReleased(evt);
             }
         });
         jPanel2.add(cuadroNuevoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, -1, -1));
@@ -1095,14 +1141,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cuadroNuevaMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMousePressed
+	cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascotaP.png")));
 	ventanaMascotaNueva.setVisible(true);
     }//GEN-LAST:event_cuadroNuevaMascotaMousePressed
 
     private void cuadroNuevoClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevoClienteMousePressed
+	cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoClienteP.png")));
 	ventanaClienteNuevo.setVisible(true);
     }//GEN-LAST:event_cuadroNuevoClienteMousePressed
 
     private void botonGuardarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarNMMousePressed
+	botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardarP.png")));
 	Mascota mascota = new Mascota();
 	
 	mascota.chip = Integer.valueOf(cuadroChipNM.getText());
@@ -1118,7 +1167,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonGuardarNMMousePressed
 
     private void insertaCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMousePressed
-        ventanaInsercionCitas.setVisible(true);
+        insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarP.png")));
+	ventanaInsercionCitas.setVisible(true);
 
 //	Cita cita = new Cita();
 //
@@ -1147,6 +1197,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarBMMousePressed
 
     private void botonEditarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMousePressed
+	botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditarP.png")));
 	//Botón que cambia los datos en la ventana de mascotas. Obtenemos los datos que hemos sacado de la ventana principal
 	// Y los guardamos en las variables que vamos a usar en el método.
 
@@ -1194,6 +1245,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cuadroFNAciemientoTNMMousePressed
 
     private void buscarMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMousePressed
+	buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaP.png")));
 	ventanaBusquedaMascota.setVisible(true);
     }//GEN-LAST:event_buscarMascotaMousePressed
 
@@ -1240,6 +1292,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cuadroApellidosLNCActionPerformed
 
     private void botonGuardarGNCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarGNCMousePressed
+	botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardarP.png")));
 	Cliente cliente = new Cliente();
 
 	cliente.dni = cuadroDNILNC.getText();
@@ -1258,15 +1311,70 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cuadroFotoNMActionPerformed
 
-    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-        Cita cita = new Cita();
+    private void insertarCitaICMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarCitaICMousePressed
+        insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarP.png")));
+	Cita cita = new Cita();
 	cita.mascota = Integer.valueOf(labelMascotaCitas.getText());
 	cita.descripcion = labelDescripcionCitas.getText();
 	cita.fecha_cita = labelFechasCitas.getText();
 	cita.veterinario = labelVeterinarioCitas.getText();
 	insertaDatosCita(cita);
 	
-    }//GEN-LAST:event_jLabel1MousePressed
+    }//GEN-LAST:event_insertarCitaICMousePressed
+
+    private void buscarMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMouseReleased
+       buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png")));
+    }//GEN-LAST:event_buscarMascotaMouseReleased
+
+    private void cuadroNuevaMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMouseReleased
+        cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascota.png")));
+    }//GEN-LAST:event_cuadroNuevaMascotaMouseReleased
+
+    private void insertaCitaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMouseReleased
+        insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png")));
+    }//GEN-LAST:event_insertaCitaMouseReleased
+
+    private void borrarCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMousePressed
+        borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarP.png")));
+    }//GEN-LAST:event_borrarCitaMousePressed
+
+    private void borrarCitaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMouseReleased
+        borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrar.png")));
+    }//GEN-LAST:event_borrarCitaMouseReleased
+
+    private void cuadroNuevoClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevoClienteMouseReleased
+        cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoCliente.png")));
+    }//GEN-LAST:event_cuadroNuevoClienteMouseReleased
+
+    private void botonEditarNMMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMouseReleased
+        botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditar.png")));
+    }//GEN-LAST:event_botonEditarNMMouseReleased
+
+    private void botonGuardarNMMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarNMMouseReleased
+        botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardar.png")));
+    }//GEN-LAST:event_botonGuardarNMMouseReleased
+
+    private void botonEditarGNCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarGNCMousePressed
+        botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditarP.png")));
+    }//GEN-LAST:event_botonEditarGNCMousePressed
+
+    private void botonEditarGNCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarGNCMouseReleased
+        botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditar.png")));
+    }//GEN-LAST:event_botonEditarGNCMouseReleased
+
+    private void botonGuardarGNCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarGNCMouseReleased
+        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardar.png")));
+    }//GEN-LAST:event_botonGuardarGNCMouseReleased
+
+    private void insertarCitaICMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarCitaICMouseReleased
+        insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png")));
+    }//GEN-LAST:event_insertarCitaICMouseReleased
+
+    private void cuadroTextoBMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroTextoBMMousePressed
+        if(cuadroTextoBM.getText().equals("Nombre Mascota")){
+	    cuadroTextoBM.setText("");
+	}
+    }//GEN-LAST:event_cuadroTextoBMMousePressed
 
     /**
      * @param args the command line arguments
@@ -1403,9 +1511,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel fondoNuevaMascota;
     private javax.swing.JLabel huella;
     private javax.swing.JLabel insertaCita;
+    private javax.swing.JLabel insertarCitaIC;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
