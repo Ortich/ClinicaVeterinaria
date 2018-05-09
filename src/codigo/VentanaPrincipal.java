@@ -336,6 +336,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
 
     }
+    
+    //Método para separar nombre y apellidos.
+    public String getNombre(String cadena){
+        String nombre="";
+       
+        
+        for(int i=0;i<cadena.length()-1;i++ ){
+            if(cadena.charAt(i)!= ' '){
+                nombre=nombre+cadena.charAt(i);
+            }else{
+            return nombre;
+            }
+        }
+        
+        return nombre;
+    }
+    
+    public String getApellido(String cadena){   
+        String apellido="";
+        
+        for(int i=cadena.length()-1;i>0;i-- ){
+            if(cadena.charAt(i)!= ' '){
+                apellido=cadena.charAt(i)+apellido;
+            }else{
+            return apellido;
+            }
+        }
+        
+        return apellido;
+    }
 
     /**
      * Creates new form VentanaPrincipal
@@ -407,7 +437,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroDireccionTNC = new javax.swing.JLabel();
         cuadroPoblacionLNC = new javax.swing.JTextField();
         cuadroPoblacionTNC = new javax.swing.JLabel();
-        cudroCPostalLNC = new javax.swing.JTextField();
+        cuadroCPostalLNC = new javax.swing.JTextField();
         cuadroCPostalTNC = new javax.swing.JLabel();
         cuadroEmailLNC = new javax.swing.JTextField();
         cuadroEmailTNC = new javax.swing.JLabel();
@@ -701,8 +731,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroPoblacionTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClientePoblacionLetras.png"))); // NOI18N
         jPanel5.add(cuadroPoblacionTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 621, -1, 40));
 
-        cudroCPostalLNC.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel5.add(cudroCPostalLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 690, 440, 35));
+        cuadroCPostalLNC.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.add(cuadroCPostalLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 690, 440, 35));
 
         cuadroCPostalTNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgClienteCPostalLetras.png"))); // NOI18N
         jPanel5.add(cuadroCPostalTNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 686, 150, 40));
@@ -1310,7 +1340,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	cliente.apellido = cuadroApellidosLNC.getText();
 	cliente.telefono = Integer.valueOf(cuadroTelefonoLNC.getText());
 	cliente.direccion = cuadroDireccionLNC.getText();
-	cliente.cp = Integer.valueOf(cudroCPostalLNC.getText());
+	cliente.cp = Integer.valueOf(cuadroCPostalLNC.getText());
 	cliente.email = cuadroEmailLNC.getText();
 	cliente.poblacion = cuadroPoblacionLNC.getText();
 
@@ -1430,6 +1460,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void cuadroEditarClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMousePressed
          cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteP.png")));
+        //Obtenemos los datos de cliente.
+        String nombreApellidos=cuadroNombreApellidos.getText();
+        
+         dni=cuadroDNI.getText();
+         nombre=getNombre(nombreApellidos);
+         apellido=getApellido(nombreApellidos);
+         String telefono=cuadroTelefono.getText();
+         direccion=cuadroDireccion.getText();
+         String postal=cuadroCPostal.getText();
+         poblacion=cuadroPoblacion.getText();
+         email=cuadroEmail.getText();
+         
+         
+         ventanaClienteNuevo.setVisible(true);
+         
+         cuadroNombreLNC.setText(nombre);
+         cuadroApellidosLNC.setText(apellido);
+         cuadroDNILNC.setText(dni);
+         cuadroTelefonoLNC.setText(telefono);
+         cuadroDireccionLNC.setText(direccion);
+         cuadroCPostalLNC.setText(postal);
+         cuadroPoblacionLNC.setText(poblacion);
+         cuadroEmailLNC.setText(email);
     }//GEN-LAST:event_cuadroEditarClienteMousePressed
 
     private void cuadroEditarClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMouseReleased
@@ -1489,6 +1542,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField cuadroBusquedaCliente;
     private javax.swing.JLabel cuadroCPostal;
     private javax.swing.JLabel cuadroCPostalF;
+    private javax.swing.JTextField cuadroCPostalLNC;
     private javax.swing.JLabel cuadroCPostalT;
     private javax.swing.JLabel cuadroCPostalTNC;
     private javax.swing.JLabel cuadroChip;
@@ -1561,7 +1615,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroTelefonoT;
     private javax.swing.JLabel cuadroTelefonoTNC;
     private javax.swing.JTextField cuadroTextoBM;
-    private javax.swing.JTextField cudroCPostalLNC;
     private javax.swing.JLabel descripcionCitasTexto;
     private javax.swing.JLabel editarMascota;
     private javax.swing.JLabel fechaCitasTexto;
