@@ -93,6 +93,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    try {
 		if (m.img > 0 && m.img < 9) {
 		    fotoAnimal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fotosAnimales/"+ m.img +".png")));
+		}else{
+		    fotoAnimal.setIcon(null);
 		}
 	    } catch (Exception e) {
 	    }
