@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -257,8 +258,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
                 estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + _mascota.chip + ",'" + _mascota.nombre + "', " + _mascota.sexo + ", '" + _mascota.especie + "','" + _mascota.raza + "','" + _mascota.fecha_nacimiento + "','" + _mascota.cliente + "')");
                 listaMascota.add(_mascota);
+                
+                datosCorrectosVNM.setVisible(true);
+                datosCorrectosLMN.setVisible(true);
+                datosCorrectosLMN.setText("Los datos se han insertado correctamente");
+                
+        
             } catch (Exception e) {
                 e.getMessage();
+                datosCorrectosVNM.setVisible(true);
+                datosCorrectosLMN.setVisible(true);
+                datosCorrectosLMN.setText("No se han podido insertar los datos");
             }
         }
     }
@@ -275,9 +285,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
                 estado.executeUpdate("INSERT INTO clinicaufvet.cita VALUES("+contadorCita+",'" + _cita.fecha_cita + "', '" + _cita.descripcion + "', " + _cita.mascota + ",'" + _cita.veterinario + "')");
                 listaCita.add(_cita);
-                System.out.println("algo");
+                
+                datosCitasV.setVisible(true);
+                datosCitasL.setVisible(true);
+                datosCitasL.setText("La cita se ha insertado correctamente");
+                
             } catch (Exception e) {
                 e.getMessage();
+                datosCitasV.setVisible(true);
+                datosCitasL.setVisible(true);
+                datosCitasL.setText("No se ha podido insertar la cita");
             }
         }
     }
@@ -293,8 +310,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
                 estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + _cliente.dni + "','" + _cliente.nombre + "', '" + _cliente.apellido + "', '" + _cliente.direccion + "'," + _cliente.cp + "," + _cliente.telefono + ",'" + _cliente.poblacion + "','" + _cliente.email + "')");
                 listaCliente.add(_cliente);
+                
+                mensajeDatosVNC.setVisible(true);
+                mensajeDatosLNC.setVisible(true);
+                mensajeDatosLNC.setText("Los datos se han insertado correctamente");
             } catch (Exception e) {
                 e.getMessage();
+                mensajeDatosVNC.setVisible(true);
+                mensajeDatosLNC.setVisible(true);
+                mensajeDatosLNC.setText("No se han podido insertar los datos");
             }
         }
     }
@@ -310,9 +334,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             estado.executeUpdate(sql);
             System.out.println("funciona");
+            
+            datosCorrectosVNM.setVisible(true);
+                datosCorrectosLMN.setVisible(true);
+                datosCorrectosLMN.setText("Los datos se han cambiado correctamente");
         } catch (Exception e) {
             e.getMessage();
             System.out.println("no funciona");
+            
+            datosCorrectosVNM.setVisible(true);
+                datosCorrectosLMN.setVisible(true);
+                datosCorrectosLMN.setText("No se han podido cambiar los datos");
         }
 
     }
@@ -329,9 +361,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             estado.executeUpdate(sql);
             System.out.println("funciona");
+            
+            mensajeDatosVNC.setVisible(true);
+                mensajeDatosLNC.setVisible(true);
+                mensajeDatosLNC.setText("Los datos se han cambiado correctamente");
         } catch (Exception e) {
             e.getMessage();
             System.out.println("no funciona");
+            
+            mensajeDatosVNC.setVisible(true);
+                mensajeDatosLNC.setVisible(true);
+                mensajeDatosLNC.setText("No se han podido cambiar los datos");
         }
 
     }
@@ -353,6 +393,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         ventanaBusquedaMascota.setSize(480, 390);
         ventanaBusquedaMascota.setResizable(false);
+        
+        datosCorrectosVNM.setVisible(false);
+        datosCorrectosLMN.setVisible(false);
+        
+        mensajeDatosVNC.setVisible(false);
+        mensajeDatosLNC.setVisible(false);
+        
+        datosCitasV.setVisible(false);
+        datosCitasL.setVisible(false);
 
         conexionBBDD();
         escribeDatosMascota(0);
@@ -371,6 +420,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaMascotaNueva = new javax.swing.JDialog();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
+        datosCorrectosLMN = new javax.swing.JLabel();
+        datosCorrectosVNM = new javax.swing.JLabel();
         cuadroFNacimientoNM = new javax.swing.JTextField();
         cuadroFNAciemientoTNM = new javax.swing.JLabel();
         cuadroFotoNM = new javax.swing.JTextField();
@@ -393,6 +444,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaClienteNuevo = new javax.swing.JDialog();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
+        mensajeDatosLNC = new javax.swing.JLabel();
+        mensajeDatosVNC = new javax.swing.JLabel();
         cuadroNombreLNC = new javax.swing.JTextField();
         cuadroNombreTNC = new javax.swing.JLabel();
         cuadroApellidosLNC = new javax.swing.JTextField();
@@ -421,6 +474,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fondoBM = new javax.swing.JLabel();
         ventanaInsercionCitas = new javax.swing.JDialog();
         jPanel6 = new javax.swing.JPanel();
+        datosCitasL = new javax.swing.JLabel();
+        datosCitasV = new javax.swing.JLabel();
         mascotaCitasTexto = new javax.swing.JLabel();
         labelMascotaCitas = new javax.swing.JTextField();
         cajaMascotas = new javax.swing.JLabel();
@@ -501,6 +556,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane3.setPreferredSize(new java.awt.Dimension(1040, 600));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        datosCorrectosLMN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel4.add(datosCorrectosLMN, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 744, 230, 50));
+
+        datosCorrectosVNM.setBackground(new java.awt.Color(255, 255, 255));
+        datosCorrectosVNM.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        datosCorrectosVNM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        datosCorrectosVNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro1.png"))); // NOI18N
+        jPanel4.add(datosCorrectosVNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 740, 230, 60));
 
         cuadroFNacimientoNM.setBackground(new java.awt.Color(204, 204, 255));
         cuadroFNacimientoNM.setMinimumSize(new java.awt.Dimension(440, 35));
@@ -656,6 +720,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.add(botonEditarNM, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 860, -1, -1));
 
         fondoNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascota.png"))); // NOI18N
+        fondoNuevaMascota.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fondoNuevaMascotaMousePressed(evt);
+            }
+        });
         jPanel4.add(fondoNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1004, 1006));
 
         jScrollPane3.setViewportView(jPanel4);
@@ -668,6 +737,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane4.setPreferredSize(new java.awt.Dimension(1040, 600));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        mensajeDatosLNC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel5.add(mensajeDatosLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 750, 230, 60));
+
+        mensajeDatosVNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro1.png"))); // NOI18N
+        mensajeDatosVNC.setText("jLabel1");
+        jPanel5.add(mensajeDatosVNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 750, 240, 60));
 
         cuadroNombreLNC.setBackground(new java.awt.Color(204, 204, 255));
         jPanel5.add(cuadroNombreLNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 256, 440, 35));
@@ -757,6 +833,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.add(botonEditarGNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 860, -1, 60));
 
         fondoNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosCliente.png"))); // NOI18N
+        fondoNC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fondoNCMousePressed(evt);
+            }
+        });
         jPanel5.add(fondoNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 1000, 1000));
 
         jScrollPane4.setViewportView(jPanel5);
@@ -830,6 +911,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        datosCitasL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel6.add(datosCitasL, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 230, 60));
+
+        datosCitasV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasCuadro1.png"))); // NOI18N
+        jPanel6.add(datosCitasV, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, -1, 60));
+
         mascotaCitasTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/mascotaCita.png"))); // NOI18N
         jPanel6.add(mascotaCitasTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 100, 40));
 
@@ -888,6 +975,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel6.add(insertarCitaIC, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 170, 40));
 
         fondoCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Auxiliares/pgBusquedaCitas.png"))); // NOI18N
+        fondoCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                fondoCitasMousePressed(evt);
+            }
+        });
         jPanel6.add(fondoCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 410));
 
         ventanaInsercionCitas.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 520));
@@ -1610,6 +1702,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png")));
     }//GEN-LAST:event_insertarCitaICMouseExited
 
+    private void fondoNCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoNCMousePressed
+        mensajeDatosLNC.setVisible(false);
+        mensajeDatosVNC.setVisible(false);
+    }//GEN-LAST:event_fondoNCMousePressed
+
+    private void fondoNuevaMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoNuevaMascotaMousePressed
+        datosCorrectosLMN.setVisible(false);
+        datosCorrectosVNM.setVisible(false);
+    }//GEN-LAST:event_fondoNuevaMascotaMousePressed
+
+    private void fondoCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoCitasMousePressed
+        datosCitasL.setVisible(false);
+        datosCitasV.setVisible(false);
+    }//GEN-LAST:event_fondoCitasMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1736,6 +1843,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cuadroTelefonoT;
     private javax.swing.JLabel cuadroTelefonoTNC;
     private javax.swing.JTextField cuadroTextoBM;
+    private javax.swing.JLabel datosCitasL;
+    private javax.swing.JLabel datosCitasV;
+    private javax.swing.JLabel datosCorrectosLMN;
+    private javax.swing.JLabel datosCorrectosVNM;
     private javax.swing.JLabel descripcionCitasTexto;
     private javax.swing.JLabel editarMascota;
     private javax.swing.JLabel fechaCitasTexto;
@@ -1763,6 +1874,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField labelMascotaCitas;
     private javax.swing.JTextField labelVeterinarioCitas;
     private javax.swing.JLabel mascotaCitasTexto;
+    private javax.swing.JLabel mensajeDatosLNC;
+    private javax.swing.JLabel mensajeDatosVNC;
     private javax.swing.JScrollPane scrollTablaBusquedaMascota;
     private javax.swing.JTable tablaBusquedaMascota;
     private javax.swing.JTable tablaCitas;
