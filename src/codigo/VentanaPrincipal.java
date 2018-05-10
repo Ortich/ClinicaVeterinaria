@@ -356,7 +356,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         conexionBBDD();
         escribeDatosMascota(0);
-        escribeCitas(1);
 
     }
 
@@ -494,7 +493,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cuadroEmailT = new javax.swing.JLabel();
         cuadroEditarCliente = new javax.swing.JLabel();
         fondoClientes = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
 
         ventanaMascotaNueva.setSize(new java.awt.Dimension(1020, 850));
         ventanaMascotaNueva.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1244,9 +1242,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Cliente", jPanel2);
 
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jTabbedPane2.addTab("Tienda?", jPanel3);
-
         jScrollPane2.setViewportView(jTabbedPane2);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -1755,7 +1750,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel insertarCitaIC;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
