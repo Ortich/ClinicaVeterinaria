@@ -18,4 +18,5 @@ public class Mascota {
     public String raza = "";
     public String fecha_nacimiento = "";
     public String cliente = "";
+    public int img = 0;
 }

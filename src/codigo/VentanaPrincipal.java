@@ -5,13 +5,19 @@
  */
 package codigo;
 
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -48,16 +54,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @return - String
      */
     private String devuelveSexo(int n) {
-        switch (n) {
-            case 0:
-                return "Hembra";
-            case 1:
-                return "Macho";
-            case 2:
-                return "Hermafrodita";
-            default:
-                return "No determinado";
-        }
+	switch (n) {
+	    case 0:
+		return "Hembra";
+	    case 1:
+		return "Macho";
+	    case 2:
+		return "Hermafrodita";
+	    default:
+		return "No determinado";
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -69,24 +75,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param _chip - int
      */
     private void escribeDatosMascota(int _chip) {
-        Mascota m = null;
-        for (int i = 0; i < listaMascota.size(); i++) {
-            if (listaMascota.get(i).chip == _chip) {
-                m = listaMascota.get(i);
-                break;
-            }
-        }
-        if (m != null) {
-            cuadroChip.setText(String.format("%015d", m.chip));
-            cuadroNombre.setText(m.nombre);
-            cuadroSexo.setText(devuelveSexo(m.sexo));
-            cuadroEspecie.setText(m.especie);
-            cuadroRaza.setText(m.raza);
-            cuadroNacimiento.setText(m.fecha_nacimiento);
-            cuadroCliente.setText(m.cliente);
-            escribeCitas(_chip);
-        }
-        escribeCitas(_chip);
+	Mascota m = null;
+	for (int i = 0; i < listaMascota.size(); i++) {
+	    if (listaMascota.get(i).chip == _chip) {
+		m = listaMascota.get(i);
+		break;
+	    }
+	}
+	if (m != null) {
+	    cuadroChip.setText(String.format("%015d", m.chip));
+	    cuadroNombre.setText(m.nombre);
+	    cuadroSexo.setText(devuelveSexo(m.sexo));
+	    cuadroEspecie.setText(m.especie);
+	    cuadroRaza.setText(m.raza);
+	    cuadroNacimiento.setText(m.fecha_nacimiento);
+	    cuadroCliente.setText(m.cliente);
+	    try {
+		if (m.img > 0 && m.img < 9) {
+		    fotoAnimal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fotosAnimales/"+ m.img +".png")));
+		}
+	    } catch (Exception e) {
+	    }
+	    escribeCitas(_chip);
+	}
+	escribeCitas(_chip);
     }
 
     /**
@@ -95,52 +107,52 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param dni - String
      */
     private void escribeDatosCliente(String _dni) {
-        Cliente c = null;
-        for (int i = 0; i < listaCliente.size(); i++) {
-            if (listaCliente.get(i).dni.equals(_dni)) {
-                c = listaCliente.get(i);
-                break;
-            }
-        }
+	Cliente c = null;
+	for (int i = 0; i < listaCliente.size(); i++) {
+	    if (listaCliente.get(i).dni.equals(_dni)) {
+		c = listaCliente.get(i);
+		break;
+	    }
+	}
 
-        if (c != null) {
-            cuadroNombreApellidos.setText(c.nombre + " " + c.apellido);
-            cuadroDNI.setText(c.dni);
-            cuadroTelefono.setText(String.valueOf(c.telefono));
-            cuadroDireccion.setText(c.direccion);
-            cuadroPoblacion.setText(c.poblacion);
-            cuadroCPostal.setText(String.valueOf(c.cp));
-            cuadroEmail.setText(c.email);
+	if (c != null) {
+	    cuadroNombreApellidos.setText(c.nombre + " " + c.apellido);
+	    cuadroDNI.setText(c.dni);
+	    cuadroTelefono.setText(String.valueOf(c.telefono));
+	    cuadroDireccion.setText(c.direccion);
+	    cuadroPoblacion.setText(c.poblacion);
+	    cuadroCPostal.setText(String.valueOf(c.cp));
+	    cuadroEmail.setText(c.email);
 
-            //
-            cuadroNombreLNC.setText(c.nombre);
-            cuadroApellidosLNC.setText(c.apellido);
-            cuadroDNILNC.setText(c.dni);
-            cuadroTelefonoLNC.setText(String.valueOf(c.telefono));
-            cuadroDireccionLNC.setText(c.direccion);
-            cuadroCPostalLNC.setText(String.valueOf(c.cp));
-            cuadroPoblacionLNC.setText(c.poblacion);
-            cuadroEmailLNC.setText(c.email);
+	    //
+	    cuadroNombreLNC.setText(c.nombre);
+	    cuadroApellidosLNC.setText(c.apellido);
+	    cuadroDNILNC.setText(c.dni);
+	    cuadroTelefonoLNC.setText(String.valueOf(c.telefono));
+	    cuadroDireccionLNC.setText(c.direccion);
+	    cuadroCPostalLNC.setText(String.valueOf(c.cp));
+	    cuadroPoblacionLNC.setText(c.poblacion);
+	    cuadroEmailLNC.setText(c.email);
 
-        }
+	}
     }
 
     // Escribe los datos de las citas de la mascota seleccionada en una tabla de citas.
     private void escribeCitas(int _chip) {
-        DefaultTableModel model = (DefaultTableModel) tablaCitas.getModel();
-        model.getDataVector().removeAllElements();
-        for (int i = 0; i < listaCita.size(); i++) {
-            if (listaCita.get(i).mascota == _chip) {
-                Veterinario vet = null;
-                for (int j = 0; j < listaVeterinario.size(); j++) {
-                    if (listaVeterinario.get(j).dni.equals(listaCita.get(i).veterinario)) {
-                        vet = listaVeterinario.get(j);
-                        break;
-                    }
-                }
-                model.addRow(new Object[]{listaCita.get(i).fecha_cita, listaCita.get(i).descripcion, vet.nombre + " " + vet.apellido});
-            }
-        }
+	DefaultTableModel model = (DefaultTableModel) tablaCitas.getModel();
+	model.getDataVector().removeAllElements();
+	for (int i = 0; i < listaCita.size(); i++) {
+	    if (listaCita.get(i).mascota == _chip) {
+		Veterinario vet = null;
+		for (int j = 0; j < listaVeterinario.size(); j++) {
+		    if (listaVeterinario.get(j).dni.equals(listaCita.get(i).veterinario)) {
+			vet = listaVeterinario.get(j);
+			break;
+		    }
+		}
+		model.addRow(new Object[]{listaCita.get(i).fecha_cita, listaCita.get(i).descripcion, vet.nombre + " " + vet.apellido});
+	    }
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -153,26 +165,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param busqueda - String
      */
     public void buscaMascota(String busqueda) {
-        DefaultTableModel model = (DefaultTableModel) tablaBusquedaMascota.getModel();
-        model.getDataVector().removeAllElements();
-        for (int i = 0; i < listaMascota.size(); i++) {
-            if (listaMascota.get(i).nombre.contains(busqueda)) {
-                try {
-                    String nombreCliente = "";
-                    String apellidoCliente = "";
-                    String dniCliente = listaMascota.get(i).cliente.toString();
-                    for (int j = 0; j < listaCliente.size(); j++) {
-                        if (listaCliente.get(j).dni.toString().equals(dniCliente)) {
-                            nombreCliente = listaCliente.get(j).nombre;
-                            apellidoCliente = listaCliente.get(j).apellido;
-                        }
-                    }
-                    model.addRow(new Object[]{listaMascota.get(i).chip, listaMascota.get(i).nombre, nombreCliente + " " + apellidoCliente});
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
-            }
-        }
+	DefaultTableModel model = (DefaultTableModel) tablaBusquedaMascota.getModel();
+	model.getDataVector().removeAllElements();
+	for (int i = 0; i < listaMascota.size(); i++) {
+	    if (listaMascota.get(i).nombre.contains(busqueda)) {
+		try {
+		    String nombreCliente = "";
+		    String apellidoCliente = "";
+		    String dniCliente = listaMascota.get(i).cliente.toString();
+		    for (int j = 0; j < listaCliente.size(); j++) {
+			if (listaCliente.get(j).dni.toString().equals(dniCliente)) {
+			    nombreCliente = listaCliente.get(j).nombre;
+			    apellidoCliente = listaCliente.get(j).apellido;
+			}
+		    }
+		    model.addRow(new Object[]{listaMascota.get(i).chip, listaMascota.get(i).nombre, nombreCliente + " " + apellidoCliente});
+		} catch (Exception e) {
+		    System.err.println(e.getMessage());
+		}
+	    }
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -183,68 +195,69 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * ArrayList.
      */
     public void conexionBBDD() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
-            estado = conexion.createStatement();
+	try {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
+	    estado = conexion.createStatement();
 
-            /* ·························· Mascotas ·························· */
-            resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-            while (resultadoConsulta.next()) {
-                Mascota m = new Mascota();
-                m.chip = resultadoConsulta.getInt(1);
-                m.nombre = resultadoConsulta.getString(2);
-                m.sexo = resultadoConsulta.getInt(3);
-                m.especie = resultadoConsulta.getString(4);
-                m.raza = resultadoConsulta.getString(5);
-                m.fecha_nacimiento = resultadoConsulta.getString(6);
-                m.cliente = resultadoConsulta.getString(7);
-                listaMascota.add(m);
-            }
+	    /* ·························· Mascotas ·························· */
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+	    while (resultadoConsulta.next()) {
+		Mascota m = new Mascota();
+		m.chip = resultadoConsulta.getInt(1);
+		m.nombre = resultadoConsulta.getString(2);
+		m.sexo = resultadoConsulta.getInt(3);
+		m.especie = resultadoConsulta.getString(4);
+		m.raza = resultadoConsulta.getString(5);
+		m.fecha_nacimiento = resultadoConsulta.getString(6);
+		m.cliente = resultadoConsulta.getString(7);
+		m.img = resultadoConsulta.getInt(8);
+		listaMascota.add(m);
+	    }
 
-            /* ·························· Clientes ·························· */
-            resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
-            while (resultadoConsulta.next()) {
-                Cliente c = new Cliente();
-                c.dni = resultadoConsulta.getString(1);
-                c.nombre = resultadoConsulta.getString(2);
-                c.apellido = resultadoConsulta.getString(3);
-                c.direccion = resultadoConsulta.getString(4);
-                c.cp = resultadoConsulta.getInt(5);
-                c.telefono = resultadoConsulta.getInt(6);
-                c.poblacion = resultadoConsulta.getString(7);
-                c.email = resultadoConsulta.getString(8);
-                listaCliente.add(c);
-            }
+	    /* ·························· Clientes ·························· */
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
+	    while (resultadoConsulta.next()) {
+		Cliente c = new Cliente();
+		c.dni = resultadoConsulta.getString(1);
+		c.nombre = resultadoConsulta.getString(2);
+		c.apellido = resultadoConsulta.getString(3);
+		c.direccion = resultadoConsulta.getString(4);
+		c.cp = resultadoConsulta.getInt(5);
+		c.telefono = resultadoConsulta.getInt(6);
+		c.poblacion = resultadoConsulta.getString(7);
+		c.email = resultadoConsulta.getString(8);
+		listaCliente.add(c);
+	    }
 
-            /* ························ Veterinarios ························ */
-            resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.veterinario");
-            while (resultadoConsulta.next()) {
-                Veterinario v = new Veterinario();
-                v.dni = resultadoConsulta.getString(1);
-                v.nombre = resultadoConsulta.getString(2);
-                v.apellido = resultadoConsulta.getString(3);
-                v.pass = resultadoConsulta.getString(4);
-                listaVeterinario.add(v);
-            }
+	    /* ························ Veterinarios ························ */
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.veterinario");
+	    while (resultadoConsulta.next()) {
+		Veterinario v = new Veterinario();
+		v.dni = resultadoConsulta.getString(1);
+		v.nombre = resultadoConsulta.getString(2);
+		v.apellido = resultadoConsulta.getString(3);
+		v.pass = resultadoConsulta.getString(4);
+		listaVeterinario.add(v);
+	    }
 
-            /* ··························· Citas ···························· */
-            resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
-            while (resultadoConsulta.next()) {
-                Cita cita = new Cita();
-                cita.id = resultadoConsulta.getInt(1);
-                cita.fecha_cita = resultadoConsulta.getString(2);
-                cita.descripcion = resultadoConsulta.getString(3);
-                cita.mascota = resultadoConsulta.getInt(4);
-                cita.veterinario = resultadoConsulta.getString(5);
-                listaCita.add(cita);
-                if(contadorCita < cita.id){
-                    contadorCita = cita.id;
-                }
-            }
-        } catch (Exception e) {
-            e.getMessage();
-        }
+	    /* ··························· Citas ···························· */
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+	    while (resultadoConsulta.next()) {
+		Cita cita = new Cita();
+		cita.id = resultadoConsulta.getInt(1);
+		cita.fecha_cita = resultadoConsulta.getString(2);
+		cita.descripcion = resultadoConsulta.getString(3);
+		cita.mascota = resultadoConsulta.getInt(4);
+		cita.veterinario = resultadoConsulta.getString(5);
+		listaCita.add(cita);
+		if (contadorCita < cita.id) {
+		    contadorCita = cita.id;
+		}
+	    }
+	} catch (Exception e) {
+	    e.getMessage();
+	}
     }
 
     /**
@@ -253,24 +266,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param _mascota - Mascota(Objeto)
      */
     public void insertaDatosMascota(Mascota _mascota) {
-        if (_mascota != null) {
-            try {
-                resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
-                estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + _mascota.chip + ",'" + _mascota.nombre + "', " + _mascota.sexo + ", '" + _mascota.especie + "','" + _mascota.raza + "','" + _mascota.fecha_nacimiento + "','" + _mascota.cliente + "')");
-                listaMascota.add(_mascota);
-                
-                datosCorrectosVNM.setVisible(true);
-                datosCorrectosLMN.setVisible(true);
-                datosCorrectosLMN.setText("Los datos se han insertado correctamente");
-                
-        
-            } catch (Exception e) {
-                e.getMessage();
-                datosCorrectosVNM.setVisible(true);
-                datosCorrectosLMN.setVisible(true);
-                datosCorrectosLMN.setText("No se han podido insertar los datos");
-            }
-        }
+	if (_mascota != null) {
+	    try {
+		resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.mascota");
+		estado.executeUpdate("INSERT INTO clinicaufvet.mascota VALUES(" + _mascota.chip + ",'" + _mascota.nombre + "', " + _mascota.sexo + ", '" + _mascota.especie + "','" + _mascota.raza + "','" + _mascota.fecha_nacimiento + "','" + _mascota.cliente + "','" + _mascota.img + "')");
+		listaMascota.add(_mascota);
+
+		datosCorrectosVNM.setVisible(true);
+		datosCorrectosLMN.setVisible(true);
+		datosCorrectosLMN.setText("Los datos se han insertado correctamente");
+
+	    } catch (Exception e) {
+		e.getMessage();
+		datosCorrectosVNM.setVisible(true);
+		datosCorrectosLMN.setVisible(true);
+		datosCorrectosLMN.setText("No se han podido insertar los datos");
+	    }
+	}
     }
 
     /**
@@ -279,24 +291,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param _cita - Cita(Objeto)
      */
     public void insertaDatosCita(Cita _cita) {
-        if (_cita != null) {
-            try {
-                contadorCita++;
-                resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
-                estado.executeUpdate("INSERT INTO clinicaufvet.cita VALUES("+contadorCita+",'" + _cita.fecha_cita + "', '" + _cita.descripcion + "', " + _cita.mascota + ",'" + _cita.veterinario + "')");
-                listaCita.add(_cita);
-                
-                datosCitasV.setVisible(true);
-                datosCitasL.setVisible(true);
-                datosCitasL.setText("La cita se ha insertado correctamente");
-                
-            } catch (Exception e) {
-                e.getMessage();
-                datosCitasV.setVisible(true);
-                datosCitasL.setVisible(true);
-                datosCitasL.setText("No se ha podido insertar la cita");
-            }
-        }
+	if (_cita != null) {
+	    try {
+		contadorCita++;
+		resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+		estado.executeUpdate("INSERT INTO clinicaufvet.cita VALUES(" + contadorCita + ",'" + _cita.fecha_cita + "', '" + _cita.descripcion + "', " + _cita.mascota + ",'" + _cita.veterinario + "')");
+		listaCita.add(_cita);
+
+		datosCitasV.setVisible(true);
+		datosCitasL.setVisible(true);
+		datosCitasL.setText("La cita se ha insertado correctamente");
+
+	    } catch (Exception e) {
+		e.getMessage();
+		datosCitasV.setVisible(true);
+		datosCitasL.setVisible(true);
+		datosCitasL.setText("No se ha podido insertar la cita");
+	    }
+	}
     }
 
     /**
@@ -305,106 +317,104 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * @param _cliente - Cliente(Objeto)
      */
     private void insertaDatosCliente(Cliente _cliente) {
-        if (_cliente != null) {
-            try {
-                resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
-                estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + _cliente.dni + "','" + _cliente.nombre + "', '" + _cliente.apellido + "', '" + _cliente.direccion + "'," + _cliente.cp + "," + _cliente.telefono + ",'" + _cliente.poblacion + "','" + _cliente.email + "')");
-                listaCliente.add(_cliente);
-                
-                mensajeDatosVNC.setVisible(true);
-                mensajeDatosLNC.setVisible(true);
-                mensajeDatosLNC.setText("Los datos se han insertado correctamente");
-            } catch (Exception e) {
-                e.getMessage();
-                mensajeDatosVNC.setVisible(true);
-                mensajeDatosLNC.setVisible(true);
-                mensajeDatosLNC.setText("No se han podido insertar los datos");
-            }
-        }
+	if (_cliente != null) {
+	    try {
+		resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cliente");
+		estado.executeUpdate("INSERT INTO clinicaufvet.cliente VALUES('" + _cliente.dni + "','" + _cliente.nombre + "', '" + _cliente.apellido + "', '" + _cliente.direccion + "'," + _cliente.cp + "," + _cliente.telefono + ",'" + _cliente.poblacion + "','" + _cliente.email + "')");
+		listaCliente.add(_cliente);
+
+		mensajeDatosVNC.setVisible(true);
+		mensajeDatosLNC.setVisible(true);
+		mensajeDatosLNC.setText("Los datos se han insertado correctamente");
+	    } catch (Exception e) {
+		e.getMessage();
+		mensajeDatosVNC.setVisible(true);
+		mensajeDatosLNC.setVisible(true);
+		mensajeDatosLNC.setText("No se han podido insertar los datos");
+	    }
+	}
     }
 
     // Método para modificar los datos ya insertados en la BBDD. 
     public void cambiaDatosMascota(Mascota m) {
-        try {
-            resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+	try {
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
 
-            String sql = "UPDATE clinicaufvet.mascota "
-                    + " SET nombre='" + m.nombre + "',sexo=" + m.sexo + ",especie='" + m.especie + "',raza='" + m.raza + "',fecha_nacimiento='" + m.fecha_nacimiento + "',cliente='" + m.cliente + "'"
-                    + " WHERE chip=" + m.chip + "";
+	    String sql = "UPDATE clinicaufvet.mascota "
+		    + " SET nombre='" + m.nombre + "',sexo=" + m.sexo + ",especie='" + m.especie + "',raza='" + m.raza + "',fecha_nacimiento='" + m.fecha_nacimiento + "',cliente='" + m.cliente + "',img='"+ m.img +"'"
+		    + " WHERE chip=" + m.chip + "";
 
-            estado.executeUpdate(sql);
-            System.out.println("funciona");
-            
-            datosCorrectosVNM.setVisible(true);
-                datosCorrectosLMN.setVisible(true);
-                datosCorrectosLMN.setText("Los datos se han cambiado correctamente");
-        } catch (Exception e) {
-            e.getMessage();
-            System.out.println("no funciona");
-            
-            datosCorrectosVNM.setVisible(true);
-                datosCorrectosLMN.setVisible(true);
-                datosCorrectosLMN.setText("No se han podido cambiar los datos");
-        }
+	    estado.executeUpdate(sql);
+	    System.out.println("funciona");
+
+	    datosCorrectosVNM.setVisible(true);
+	    datosCorrectosLMN.setVisible(true);
+	    datosCorrectosLMN.setText("Los datos se han cambiado correctamente");
+	} catch (Exception e) {
+	    e.getMessage();
+	    System.out.println("no funciona");
+
+	    datosCorrectosVNM.setVisible(true);
+	    datosCorrectosLMN.setVisible(true);
+	    datosCorrectosLMN.setText("No se han podido cambiar los datos");
+	}
 
     }
-    
+
     //Método para modificar los datos de cliente ya insertados en la BBDD.
-    
     public void cambiaDatosCliente(Cliente c) {
-        try {
-            resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+	try {
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
 
-            String sql = "UPDATE clinicaufvet.cliente "
-                    + " SET nombre='" + c.nombre + "',apellido='" + c.apellido + "',dni='" + c.dni + "',direccion='" + c.direccion + "',cp=" + c.cp + ",telefono=" + c.telefono + ",poblacion='"+c.poblacion+"',email='"+c.email+"'"
-                    + " WHERE dni='" + c.dni + "'";
+	    String sql = "UPDATE clinicaufvet.cliente "
+		    + " SET nombre='" + c.nombre + "',apellido='" + c.apellido + "',dni='" + c.dni + "',direccion='" + c.direccion + "',cp=" + c.cp + ",telefono=" + c.telefono + ",poblacion='" + c.poblacion + "',email='" + c.email + "'"
+		    + " WHERE dni='" + c.dni + "'";
 
-            estado.executeUpdate(sql);
-            System.out.println("funciona");
-            
-            mensajeDatosVNC.setVisible(true);
-                mensajeDatosLNC.setVisible(true);
-                mensajeDatosLNC.setText("Los datos se han cambiado correctamente");
-        } catch (Exception e) {
-            e.getMessage();
-            System.out.println("no funciona");
-            
-            mensajeDatosVNC.setVisible(true);
-                mensajeDatosLNC.setVisible(true);
-                mensajeDatosLNC.setText("No se han podido cambiar los datos");
-        }
+	    estado.executeUpdate(sql);
+	    System.out.println("funciona");
+
+	    mensajeDatosVNC.setVisible(true);
+	    mensajeDatosLNC.setVisible(true);
+	    mensajeDatosLNC.setText("Los datos se han cambiado correctamente");
+	} catch (Exception e) {
+	    e.getMessage();
+	    System.out.println("no funciona");
+
+	    mensajeDatosVNC.setVisible(true);
+	    mensajeDatosLNC.setVisible(true);
+	    mensajeDatosLNC.setText("No se han podido cambiar los datos");
+	}
 
     }
- 
 
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
-        initComponents();
-        this.setSize(1035, 700);
-        this.setResizable(false);
+	initComponents();
+	this.setSize(1035, 700);
+	this.setResizable(false);
 
-        ventanaMascotaNueva.setSize(1030, 700);
-        ventanaMascotaNueva.setResizable(false);
+	ventanaMascotaNueva.setSize(1030, 700);
+	ventanaMascotaNueva.setResizable(false);
 
-        ventanaClienteNuevo.setSize(1035, 700);
-        ventanaClienteNuevo.setResizable(false);
+	ventanaClienteNuevo.setSize(1035, 700);
+	ventanaClienteNuevo.setResizable(false);
 
-        ventanaBusquedaMascota.setSize(480, 390);
-        ventanaBusquedaMascota.setResizable(false);
-        
-        datosCorrectosVNM.setVisible(false);
-        datosCorrectosLMN.setVisible(false);
-        
-        mensajeDatosVNC.setVisible(false);
-        mensajeDatosLNC.setVisible(false);
-        
-        datosCitasV.setVisible(false);
-        datosCitasL.setVisible(false);
+	ventanaBusquedaMascota.setSize(480, 390);
+	ventanaBusquedaMascota.setResizable(false);
 
-        conexionBBDD();
-        escribeDatosMascota(0);
+	datosCorrectosVNM.setVisible(false);
+	datosCorrectosLMN.setVisible(false);
+
+	mensajeDatosVNC.setVisible(false);
+	mensajeDatosLNC.setVisible(false);
+
+	datosCitasV.setVisible(false);
+	datosCitasL.setVisible(false);
+
+	conexionBBDD();
+	escribeDatosMascota(0);
 
     }
 
@@ -496,6 +506,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCitas = new javax.swing.JTable();
         huella = new javax.swing.JLabel();
+        fotoAnimal = new javax.swing.JLabel();
         cuadroNuevaMascota = new javax.swing.JLabel();
         cuadroNombre = new javax.swing.JLabel();
         cuadroNombre1 = new javax.swing.JLabel();
@@ -552,8 +563,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaMascotaNueva.setSize(new java.awt.Dimension(1020, 850));
         ventanaMascotaNueva.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jScrollPane3.setHorizontalScrollBar(null);
         jScrollPane3.setOpaque(false);
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(1040, 600));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(1000, 600));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -729,7 +741,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 1080));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1014,6 +1026,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         huella.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/huella.png"))); // NOI18N
         huella.setText("jLabel22");
         jPanel1.add(huella, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 90, 90));
+
+        fotoAnimal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        fotoAnimal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        fotoAnimal.setPreferredSize(new java.awt.Dimension(157, 166));
+        jPanel1.add(fotoAnimal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, -1));
 
         cuadroNuevaMascota.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascota.png"))); // NOI18N
@@ -1343,35 +1360,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cuadroNuevaMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMousePressed
-        cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascotaP.png")));
-        ventanaMascotaNueva.setVisible(true);
+	cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascotaP.png")));
+	ventanaMascotaNueva.setVisible(true);
     }//GEN-LAST:event_cuadroNuevaMascotaMousePressed
 
     private void cuadroNuevoClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevoClienteMousePressed
-        cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoClienteP.png")));
-        ventanaClienteNuevo.setVisible(true);
+	cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoClienteP.png")));
+	ventanaClienteNuevo.setVisible(true);
     }//GEN-LAST:event_cuadroNuevoClienteMousePressed
 
     private void botonGuardarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarNMMousePressed
-        botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardarP.png")));
-        Mascota mascota = new Mascota();
+	botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardarP.png")));
+	Mascota mascota = new Mascota();
 
-        mascota.chip = Integer.valueOf(cuadroChipNM.getText());
-        mascota.nombre = cuadroNombreNM.getText();
-        mascota.sexo = Integer.valueOf(cuadroSexoNM.getText());
-        mascota.especie = cuadroEspecieNM.getText();
-        mascota.raza = cuadroRazaNM.getText();
-        mascota.fecha_nacimiento = cuadroFNacimientoNM.getText();
-        mascota.cliente = cuadroPropietarioNM.getText();
+	mascota.chip = Integer.valueOf(cuadroChipNM.getText());
+	mascota.nombre = cuadroNombreNM.getText();
+	mascota.sexo = Integer.valueOf(cuadroSexoNM.getText());
+	mascota.especie = cuadroEspecieNM.getText();
+	mascota.raza = cuadroRazaNM.getText();
+	mascota.fecha_nacimiento = cuadroFNacimientoNM.getText();
+	mascota.cliente = cuadroPropietarioNM.getText();
+	mascota.img = Integer.valueOf(cuadroFotoNM.getText());
 
-        //System.out.println(nacimiento);
-        insertaDatosMascota(mascota);
+	//System.out.println(nacimiento);
+	insertaDatosMascota(mascota);
     }//GEN-LAST:event_botonGuardarNMMousePressed
 
     private void insertaCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMousePressed
-        insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarP.png")));
-        labelMascotaCitas.setText(cuadroChip.getText());
-        ventanaInsercionCitas.setVisible(true);
+	insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarP.png")));
+	labelMascotaCitas.setText(cuadroChip.getText());
+	ventanaInsercionCitas.setVisible(true);
 
 //	Cita cita = new Cita();
 //
@@ -1384,373 +1402,374 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_insertaCitaMousePressed
 
     private void botonBuscarBMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBuscarBMMouseClicked
-        buscaMascota(cuadroTextoBM.getText());
+	buscaMascota(cuadroTextoBM.getText());
     }//GEN-LAST:event_botonBuscarBMMouseClicked
 
     private void cuadroTextoBMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cuadroTextoBMKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            buscaMascota(cuadroTextoBM.getText());
-        }
+	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	    buscaMascota(cuadroTextoBM.getText());
+	}
     }//GEN-LAST:event_cuadroTextoBMKeyPressed
 
     private void botonAceptarBMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAceptarBMMousePressed
-        TableModel model = (TableModel) tablaBusquedaMascota.getModel();
-        int chip = Integer.valueOf(model.getValueAt((tablaBusquedaMascota.getSelectedRow()), 0).toString());
-        escribeDatosMascota(chip);
+	TableModel model = (TableModel) tablaBusquedaMascota.getModel();
+	int chip = Integer.valueOf(model.getValueAt((tablaBusquedaMascota.getSelectedRow()), 0).toString());
+	escribeDatosMascota(chip);
     }//GEN-LAST:event_botonAceptarBMMousePressed
 
     private void botonEditarNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMousePressed
-        botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditarP.png")));
-        //Botón que cambia los datos en la ventana de mascotas. Obtenemos los datos que hemos sacado de la ventana principal
-        // Y los guardamos en las variables que vamos a usar en el método.
+	botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditarP.png")));
+	//Botón que cambia los datos en la ventana de mascotas. Obtenemos los datos que hemos sacado de la ventana principal
+	// Y los guardamos en las variables que vamos a usar en el método.
 
-        Mascota m = null;
-        for(int i = 0; i < listaMascota.size(); i++){
-            if(listaMascota.get(i).chip == Integer.valueOf(cuadroChipNM.getText())){
-                m = listaMascota.get(i);
-                break;
-            }
-        }
-        
-        m.nombre = cuadroNombreNM.getText();
-        m.chip = Integer.valueOf(cuadroChipNM.getText());
-        m.cliente = cuadroPropietarioNM.getText();
-        m.especie = cuadroEspecieNM.getText();
-        m.fecha_nacimiento = cuadroFNacimientoNM.getText();
-        m.raza = cuadroRazaNM.getText();
-        m.sexo = Integer.valueOf(cuadroSexoNM.getText());
-        
-        cambiaDatosMascota(m);
-        escribeDatosMascota(m.chip);
+	Mascota m = null;
+	for (int i = 0; i < listaMascota.size(); i++) {
+	    if (listaMascota.get(i).chip == Integer.valueOf(cuadroChipNM.getText())) {
+		m = listaMascota.get(i);
+		break;
+	    }
+	}
+
+	m.nombre = cuadroNombreNM.getText();
+	m.chip = Integer.valueOf(cuadroChipNM.getText());
+	m.cliente = cuadroPropietarioNM.getText();
+	m.especie = cuadroEspecieNM.getText();
+	m.fecha_nacimiento = cuadroFNacimientoNM.getText();
+	m.raza = cuadroRazaNM.getText();
+	m.sexo = Integer.valueOf(cuadroSexoNM.getText());
+	m.img = Integer.valueOf(cuadroFotoNM.getText());
+
+	cambiaDatosMascota(m);
+	escribeDatosMascota(m.chip);
     }//GEN-LAST:event_botonEditarNMMousePressed
 
     private void cuadroFotoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroFotoTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroFotoTNMMousePressed
 
     private void cuadroPropietarioTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroPropietarioTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroPropietarioTNMMousePressed
 
     private void cuadroEspecieTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEspecieTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroEspecieTNMMousePressed
 
     private void cuadroNombreTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNombreTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroNombreTNMMousePressed
 
     private void cuadroSexoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroSexoTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroSexoTNMMousePressed
 
     private void cuadroChipTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroChipTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroChipTNMMousePressed
 
     private void cuadroRazaTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroRazaTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroRazaTNMMousePressed
 
     private void cuadroFNAciemientoTNMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroFNAciemientoTNMMousePressed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroFNAciemientoTNMMousePressed
 
     private void buscarMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMousePressed
-        buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascotaP.png")));
-        ventanaBusquedaMascota.setVisible(true);
+	buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascotaP.png")));
+	ventanaBusquedaMascota.setVisible(true);
     }//GEN-LAST:event_buscarMascotaMousePressed
 
     private void cuadroBusquedaClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cuadroBusquedaClienteKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            escribeDatosCliente(cuadroBusquedaCliente.getText());
-        }
+	if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	    escribeDatosCliente(cuadroBusquedaCliente.getText());
+	}
     }//GEN-LAST:event_cuadroBusquedaClienteKeyPressed
 
     private void cuadroApellidosLNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuadroApellidosLNCActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroApellidosLNCActionPerformed
 
     private void botonGuardarGNCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarGNCMousePressed
-        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardarP.png")));
-        Cliente cliente = new Cliente();
+	botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardarP.png")));
+	Cliente cliente = new Cliente();
 
-        cliente.dni = cuadroDNILNC.getText();
-        cliente.nombre = cuadroNombreLNC.getText();
-        cliente.apellido = cuadroApellidosLNC.getText();
-        cliente.telefono = Integer.valueOf(cuadroTelefonoLNC.getText());
-        cliente.direccion = cuadroDireccionLNC.getText();
-        cliente.cp = Integer.valueOf(cuadroCPostalLNC.getText());
-        cliente.email = cuadroEmailLNC.getText();
-        cliente.poblacion = cuadroPoblacionLNC.getText();
+	cliente.dni = cuadroDNILNC.getText();
+	cliente.nombre = cuadroNombreLNC.getText();
+	cliente.apellido = cuadroApellidosLNC.getText();
+	cliente.telefono = Integer.valueOf(cuadroTelefonoLNC.getText());
+	cliente.direccion = cuadroDireccionLNC.getText();
+	cliente.cp = Integer.valueOf(cuadroCPostalLNC.getText());
+	cliente.email = cuadroEmailLNC.getText();
+	cliente.poblacion = cuadroPoblacionLNC.getText();
 
-        insertaDatosCliente(cliente);
+	insertaDatosCliente(cliente);
     }//GEN-LAST:event_botonGuardarGNCMousePressed
 
     private void cuadroFotoNMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuadroFotoNMActionPerformed
-        // TODO add your handling code here:
+	// TODO add your handling code here:
     }//GEN-LAST:event_cuadroFotoNMActionPerformed
 
     private void insertarCitaICMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarCitaICMousePressed
-        insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarP.png")));
-        
-        Cita cita = new Cita();
-        cita.mascota = Integer.valueOf(labelMascotaCitas.getText());
-        cita.descripcion = labelDescripcionCitas.getText();
-        cita.fecha_cita = labelFechasCitas.getText();
-        cita.veterinario = labelVeterinarioCitas.getText();
-        insertaDatosCita(cita);
-        escribeDatosMascota(cita.mascota);
-        escribeCitas(cita.mascota);
+	insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarP.png")));
+
+	Cita cita = new Cita();
+	cita.mascota = Integer.valueOf(labelMascotaCitas.getText());
+	cita.descripcion = labelDescripcionCitas.getText();
+	cita.fecha_cita = labelFechasCitas.getText();
+	cita.veterinario = labelVeterinarioCitas.getText();
+	insertaDatosCita(cita);
+	escribeDatosMascota(cita.mascota);
+	escribeCitas(cita.mascota);
 
     }//GEN-LAST:event_insertarCitaICMousePressed
 
     private void buscarMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMouseReleased
-        buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascotaH.png")));
+	buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascotaH.png")));
     }//GEN-LAST:event_buscarMascotaMouseReleased
 
     private void cuadroNuevaMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMouseReleased
-        cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascota.png")));
+	cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascota.png")));
     }//GEN-LAST:event_cuadroNuevaMascotaMouseReleased
 
     private void insertaCitaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMouseReleased
-        insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
+	insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
     }//GEN-LAST:event_insertaCitaMouseReleased
 
     private void borrarCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMousePressed
-        borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarP.png")));
+	borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarP.png")));
     }//GEN-LAST:event_borrarCitaMousePressed
 
     private void borrarCitaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMouseReleased
-        borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarH.png")));
+	borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarH.png")));
     }//GEN-LAST:event_borrarCitaMouseReleased
 
     private void cuadroNuevoClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevoClienteMouseReleased
-        cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoClienteH.png")));
+	cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoClienteH.png")));
     }//GEN-LAST:event_cuadroNuevoClienteMouseReleased
 
     private void botonEditarNMMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMouseReleased
-        botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditarH.png")));
+	botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditarH.png")));
     }//GEN-LAST:event_botonEditarNMMouseReleased
 
     private void botonGuardarNMMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarNMMouseReleased
-        botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardarH.png")));
+	botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardarH.png")));
     }//GEN-LAST:event_botonGuardarNMMouseReleased
 
     private void botonEditarGNCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarGNCMousePressed
-        botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditarP.png")));
-        //
-        Cliente c = null;
-        for(int i = 0; i < listaCliente.size(); i++){
-            if(listaCliente.get(i).dni.equals(cuadroDNILNC.getText())){
-                c = listaCliente.get(i);
-                break;
-            }
-        }
-        
-        c.apellido = cuadroApellidosLNC.getText();
-        c.cp = Integer.valueOf(cuadroCPostalLNC.getText());
-        c.direccion = cuadroDireccionLNC.getText();
-        c.dni = cuadroDNILNC.getText();
-        c.email = cuadroEmailLNC.getText();
-        c.nombre = cuadroNombreLNC.getText();
-        c.poblacion = cuadroPoblacionLNC.getText();
-        c.telefono = Integer.valueOf(cuadroTelefonoLNC.getText());
-        
-        cambiaDatosCliente(c);
-        escribeDatosCliente(c.dni);
+	botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditarP.png")));
+	//
+	Cliente c = null;
+	for (int i = 0; i < listaCliente.size(); i++) {
+	    if (listaCliente.get(i).dni.equals(cuadroDNILNC.getText())) {
+		c = listaCliente.get(i);
+		break;
+	    }
+	}
+
+	c.apellido = cuadroApellidosLNC.getText();
+	c.cp = Integer.valueOf(cuadroCPostalLNC.getText());
+	c.direccion = cuadroDireccionLNC.getText();
+	c.dni = cuadroDNILNC.getText();
+	c.email = cuadroEmailLNC.getText();
+	c.nombre = cuadroNombreLNC.getText();
+	c.poblacion = cuadroPoblacionLNC.getText();
+	c.telefono = Integer.valueOf(cuadroTelefonoLNC.getText());
+
+	cambiaDatosCliente(c);
+	escribeDatosCliente(c.dni);
     }//GEN-LAST:event_botonEditarGNCMousePressed
 
     private void botonEditarGNCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarGNCMouseReleased
-        botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditarH.png")));
+	botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditarH.png")));
     }//GEN-LAST:event_botonEditarGNCMouseReleased
 
     private void botonGuardarGNCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarGNCMouseReleased
-        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardarH.png")));
+	botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardarH.png")));
     }//GEN-LAST:event_botonGuardarGNCMouseReleased
 
     private void insertarCitaICMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarCitaICMouseReleased
-        insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
+	insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
     }//GEN-LAST:event_insertarCitaICMouseReleased
 
     private void cuadroTextoBMMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroTextoBMMousePressed
-        if (cuadroTextoBM.getText().equals("Nombre Mascota")) {
-            cuadroTextoBM.setText("");
-        }
+	if (cuadroTextoBM.getText().equals("Nombre Mascota")) {
+	    cuadroTextoBM.setText("");
+	}
     }//GEN-LAST:event_cuadroTextoBMMousePressed
 
     private void cuadroBusquedaClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroBusquedaClienteMousePressed
-        if (cuadroBusquedaCliente.getText().equals("BUSCAR CLIENTE")) {
-            cuadroBusquedaCliente.setText("");
-        }
+	if (cuadroBusquedaCliente.getText().equals("BUSCAR CLIENTE")) {
+	    cuadroBusquedaCliente.setText("");
+	}
     }//GEN-LAST:event_cuadroBusquedaClienteMousePressed
 
     private void editarMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMascotaMousePressed
-        editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaP.png")));
-        //Abrimos la ventana de inserción de datos.
-        ventanaMascotaNueva.setVisible(true);
+	editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaP.png")));
+	//Abrimos la ventana de inserción de datos.
+	ventanaMascotaNueva.setVisible(true);
 
-        //Método que nos va a permitir modificar datos en la BBDD.
+	//Método que nos va a permitir modificar datos en la BBDD.
     }//GEN-LAST:event_editarMascotaMousePressed
 
     private void editarMascotaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMascotaMouseReleased
-        editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaH.png")));
+	editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaH.png")));
     }//GEN-LAST:event_editarMascotaMouseReleased
 
     private void cuadroEditarClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMousePressed
-        cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteP.png")));
-        //Abrimos la ventana de insercion de clientes
-        ventanaClienteNuevo.setVisible(true);
+	cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteP.png")));
+	//Abrimos la ventana de insercion de clientes
+	ventanaClienteNuevo.setVisible(true);
     }//GEN-LAST:event_cuadroEditarClienteMousePressed
 
     private void cuadroEditarClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMouseReleased
-        cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteH.png")));
+	cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteH.png")));
     }//GEN-LAST:event_cuadroEditarClienteMouseReleased
 
     private void buscarMascotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMouseEntered
-        buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascotaH.png")));
+	buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascotaH.png")));
     }//GEN-LAST:event_buscarMascotaMouseEntered
 
     private void buscarMascotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMascotaMouseExited
-        buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascota.png")));
+	buscarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgClienteBotonBuscarMascota.png")));
     }//GEN-LAST:event_buscarMascotaMouseExited
 
     private void editarMascotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMascotaMouseEntered
-        editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaH.png")));
+	editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascotaH.png")));
     }//GEN-LAST:event_editarMascotaMouseEntered
 
     private void editarMascotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarMascotaMouseExited
-        editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png")));
+	editarMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasEditarMascota.png")));
     }//GEN-LAST:event_editarMascotaMouseExited
 
     private void cuadroNuevaMascotaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMouseEntered
-        cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascotaH.png")));
+	cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascotaH.png")));
     }//GEN-LAST:event_cuadroNuevaMascotaMouseEntered
 
     private void cuadroNuevaMascotaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevaMascotaMouseExited
-        cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascota.png")));
+	cuadroNuevaMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasNuevaMascota.png")));
     }//GEN-LAST:event_cuadroNuevaMascotaMouseExited
 
     private void borrarCitaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMouseEntered
-        borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarH.png")));
+	borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarH.png")));
     }//GEN-LAST:event_borrarCitaMouseEntered
 
     private void borrarCitaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMouseExited
-        borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrar.png")));
+	borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrar.png")));
     }//GEN-LAST:event_borrarCitaMouseExited
 
     private void insertaCitaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMouseEntered
-        insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
+	insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
     }//GEN-LAST:event_insertaCitaMouseEntered
 
     private void insertaCitaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertaCitaMouseExited
-        insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png")));
+	insertaCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png")));
     }//GEN-LAST:event_insertaCitaMouseExited
 
     private void cuadroEditarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMouseEntered
-        cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteH.png")));
+	cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarClienteH.png")));
     }//GEN-LAST:event_cuadroEditarClienteMouseEntered
 
     private void cuadroEditarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroEditarClienteMouseExited
-        cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarCliente.png")));
+	cuadroEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonEditarCliente.png")));
     }//GEN-LAST:event_cuadroEditarClienteMouseExited
 
     private void cuadroNuevoClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevoClienteMouseEntered
-        cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoClienteH.png")));
+	cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoClienteH.png")));
     }//GEN-LAST:event_cuadroNuevoClienteMouseEntered
 
     private void cuadroNuevoClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuadroNuevoClienteMouseExited
-        cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoCliente.png")));
+	cuadroNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cliente/pgClienteBotonNuevoCliente.png")));
     }//GEN-LAST:event_cuadroNuevoClienteMouseExited
 
     private void botonEditarNMMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMouseEntered
-        botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditarH.png")));
+	botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditarH.png")));
     }//GEN-LAST:event_botonEditarNMMouseEntered
 
     private void botonEditarNMMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarNMMouseExited
-        botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditar.png")));
+	botonEditarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaEditar.png")));
     }//GEN-LAST:event_botonEditarNMMouseExited
 
     private void botonGuardarNMMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarNMMouseEntered
-        botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardarH.png")));
+	botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardarH.png")));
     }//GEN-LAST:event_botonGuardarNMMouseEntered
 
     private void botonGuardarNMMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarNMMouseExited
-        botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardar.png")));
+	botonGuardarNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevaMascota/pgDatosMascotaGuardar.png")));
     }//GEN-LAST:event_botonGuardarNMMouseExited
 
     private void botonEditarGNCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarGNCMouseEntered
-        botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditarH.png")));
+	botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditarH.png")));
     }//GEN-LAST:event_botonEditarGNCMouseEntered
 
     private void botonEditarGNCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarGNCMouseExited
-        botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditar.png")));
+	botonEditarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaEditar.png")));
     }//GEN-LAST:event_botonEditarGNCMouseExited
 
     private void botonGuardarGNCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarGNCMouseEntered
-        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardarH.png")));
+	botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardarH.png")));
     }//GEN-LAST:event_botonGuardarGNCMouseEntered
 
     private void botonGuardarGNCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarGNCMouseExited
-        botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardar.png")));
+	botonGuardarGNC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/NuevoCliente/pgDatosMascotaGuardar.png")));
     }//GEN-LAST:event_botonGuardarGNCMouseExited
 
     private void insertarCitaICMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarCitaICMouseEntered
-        insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
+	insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertarH.png")));
     }//GEN-LAST:event_insertarCitaICMouseEntered
 
     private void insertarCitaICMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertarCitaICMouseExited
-        insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png")));
+	insertarCitaIC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasInsertar.png")));
     }//GEN-LAST:event_insertarCitaICMouseExited
 
     private void fondoNCMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoNCMousePressed
-        mensajeDatosLNC.setVisible(false);
-        mensajeDatosVNC.setVisible(false);
+	mensajeDatosLNC.setVisible(false);
+	mensajeDatosVNC.setVisible(false);
     }//GEN-LAST:event_fondoNCMousePressed
 
     private void fondoNuevaMascotaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoNuevaMascotaMousePressed
-        datosCorrectosLMN.setVisible(false);
-        datosCorrectosVNM.setVisible(false);
+	datosCorrectosLMN.setVisible(false);
+	datosCorrectosVNM.setVisible(false);
     }//GEN-LAST:event_fondoNuevaMascotaMousePressed
 
     private void fondoCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoCitasMousePressed
-        datosCitasL.setVisible(false);
-        datosCitasV.setVisible(false);
+	datosCitasL.setVisible(false);
+	datosCitasV.setVisible(false);
     }//GEN-LAST:event_fondoCitasMousePressed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	/* Set the Nimbus look and feel */
+	//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+	/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+	 */
+	try {
+	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+		if ("Nimbus".equals(info.getName())) {
+		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		    break;
+		}
+	    }
+	} catch (ClassNotFoundException ex) {
+	    java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	} catch (InstantiationException ex) {
+	    java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	} catch (IllegalAccessException ex) {
+	    java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	    java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	//</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
+	/* Create and display the form */
+	java.awt.EventQueue.invokeLater(new Runnable() {
+	    public void run() {
+		new VentanaPrincipal().setVisible(true);
+	    }
+	});
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1857,6 +1876,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel fondoMascotas;
     private javax.swing.JLabel fondoNC;
     private javax.swing.JLabel fondoNuevaMascota;
+    private javax.swing.JLabel fotoAnimal;
     private javax.swing.JLabel huella;
     private javax.swing.JLabel insertaCita;
     private javax.swing.JLabel insertarCitaIC;
