@@ -66,6 +66,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     }
 
+    /**
+     * Cambia el titulo de la ventana principal dependiendo de la pestaña
+     * seleccionada.
+     */
+    private void cambiaTitulo() {
+	if (jTabbedPane2.getSelectedIndex() == 0) {
+	    this.setTitle("Clinica UFVet - Mascota");
+	} else if (jTabbedPane2.getSelectedIndex() == 1) {
+	    this.setTitle("Clinica UFVet - Cliente");
+	}
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     /////                  Metodos de Escritura de Datos                   /////
     ////////////////////////////////////////////////////////////////////////////
@@ -92,15 +104,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	    cuadroCliente.setText(m.cliente);
 	    try {
 		if (m.img > 0 && m.img < 9) {
-		    fotoAnimal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fotosAnimales/"+ m.img +".png")));
-		}else{
+		    fotoAnimal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fotosAnimales/" + m.img + ".png")));
+		} else {
 		    fotoAnimal.setIcon(null);
 		}
 	    } catch (Exception e) {
 	    }
 	    escribeCitas(_chip);
 	}
-	escribeCitas(_chip);
     }
 
     /**
@@ -111,7 +122,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void escribeDatosCliente(String _dni) {
 	Cliente c = null;
 	for (int i = 0; i < listaCliente.size(); i++) {
-	    if (listaCliente.get(i).dni.equals(_dni)) {
+	    if (listaCliente.get(i).dni.toUpperCase().equals(_dni.toUpperCase())) {
 		c = listaCliente.get(i);
 		break;
 	    }
@@ -139,7 +150,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     }
 
-    // Escribe los datos de las citas de la mascota seleccionada en una tabla de citas.
+    /**
+     * Escribe los datos de las citas de la mascota con el chip pasado como
+     * parametro.
+     *
+     * @param _chip - int
+     */
     private void escribeCitas(int _chip) {
 	DefaultTableModel model = (DefaultTableModel) tablaCitas.getModel();
 	model.getDataVector().removeAllElements();
@@ -170,13 +186,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	DefaultTableModel model = (DefaultTableModel) tablaBusquedaMascota.getModel();
 	model.getDataVector().removeAllElements();
 	for (int i = 0; i < listaMascota.size(); i++) {
-	    if (listaMascota.get(i).nombre.contains(busqueda)) {
+	    if (listaMascota.get(i).nombre.toUpperCase().contains(busqueda.toUpperCase())) {
 		try {
 		    String nombreCliente = "";
 		    String apellidoCliente = "";
-		    String dniCliente = listaMascota.get(i).cliente.toString();
+		    String dniCliente = listaMascota.get(i).cliente.toString().toUpperCase();
 		    for (int j = 0; j < listaCliente.size(); j++) {
-			if (listaCliente.get(j).dni.toString().equals(dniCliente)) {
+			if (listaCliente.get(j).dni.toString().toUpperCase().equals(dniCliente)) {
 			    nombreCliente = listaCliente.get(j).nombre;
 			    apellidoCliente = listaCliente.get(j).apellido;
 			}
@@ -337,13 +353,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
     }
 
-    // Método para modificar los datos ya insertados en la BBDD. 
+    /**
+     * Modifica los datos de una mascota.
+     *
+     * @param m - Mascota(Objeto)
+     */
     public void cambiaDatosMascota(Mascota m) {
 	try {
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
 
 	    String sql = "UPDATE clinicaufvet.mascota "
-		    + " SET nombre='" + m.nombre + "',sexo=" + m.sexo + ",especie='" + m.especie + "',raza='" + m.raza + "',fecha_nacimiento='" + m.fecha_nacimiento + "',cliente='" + m.cliente + "',img='"+ m.img +"'"
+		    + " SET nombre='" + m.nombre + "',sexo=" + m.sexo + ",especie='" + m.especie + "',raza='" + m.raza + "',fecha_nacimiento='" + m.fecha_nacimiento + "',cliente='" + m.cliente + "',img='" + m.img + "'"
 		    + " WHERE chip=" + m.chip + "";
 
 	    estado.executeUpdate(sql);
@@ -363,7 +383,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }
 
-    //Método para modificar los datos de cliente ya insertados en la BBDD.
+    /**
+     * Modifica los datos de un cliente.
+     *
+     * @param c - Cliente(Objeto)
+     */
     public void cambiaDatosCliente(Cliente c) {
 	try {
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
@@ -388,28 +412,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
 
     }
-    
-    //Método para borrar citas
-    
-    public void borraCitas(int mascota, String fecha) {
+
+    /**
+     * Borra una cita.
+     *
+     * @param _cita - Cita(Objeto)
+     */
+    public void borraCitas(Cita _cita) {
 	try {
 	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
 
 	    String sql = "DELETE FROM clinicaufvet.cita "
-		    + " WHERE fecha_cita='"+fecha+"' AND mascota="+mascota+"";
+		    + " WHERE fecha_cita='" + _cita.fecha_cita + "' AND mascota=" + _cita.mascota + "";
 
 	    estado.executeUpdate(sql);
-            
-	    System.out.println("funciona");
-           
+	    listaCita.remove(_cita);
+	    System.out.println("funciona" + _cita.descripcion);
 
-	    
 	} catch (Exception e) {
 	    e.getMessage();
 	    System.out.println("no funciona");
-            
 
-	    
 	}
 
     }
@@ -439,12 +462,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
 	datosCitasV.setVisible(false);
 	datosCitasL.setVisible(false);
+	try {
+	    this.setIconImage(new ImageIcon(ImageIO.read(getClass().getResource("/imagenes/Auxiliares/logo.png"))).getImage());
+	} catch (Exception e) {
+	    this.setIconImage(null);
+	}
+	cambiaTitulo();
+	ventanaBusquedaMascota.setTitle("Clinica UFVet - Busqueda Mascota");
+	ventanaClienteNuevo.setTitle("Clinica UFVet - Añadir o Editar Cliente");
+	ventanaMascotaNueva.setTitle("Clinica UFVet - Añadir o Editar Mascota");
+	ventanaInsercionCitas.setTitle("Clinica UFVet - Nueva Cita");
 
 	conexionBBDD();
-	escribeDatosMascota(0);
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -770,7 +804,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jPanel4);
 
-        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 1080));
+        ventanaMascotaNueva.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         ventanaClienteNuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1033,16 +1067,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane2.setPreferredSize(new java.awt.Dimension(1030, 680));
 
         jTabbedPane2.setMinimumSize(new java.awt.Dimension(1012, 700));
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
 
         jPanel1.setMinimumSize(new java.awt.Dimension(1002, 700));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Fecha", "Detalles", "Veterinario"
@@ -1055,7 +1091,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaCitas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 800, 510, 900));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 800, 510, 110));
 
         huella.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/huella.png"))); // NOI18N
         huella.setText("jLabel22");
@@ -1394,7 +1430,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1030));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1578,21 +1614,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void borrarCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMousePressed
 	borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarP.png")));
-        //
-        Cita cita=new Cita();
-        
-        DefaultTableModel model=(DefaultTableModel) tablaCitas.getModel();
-        //
-        int filaSeleccionada=tablaCitas.getSelectedRow();
-        model.removeRow(filaSeleccionada);
-        
-        String fecha=jLabel1.getText();
-        int mascota=Integer.valueOf(jLabel2.getText());
-        
+	//
+	Cita cita = new Cita();
+	DefaultTableModel model = (DefaultTableModel) tablaCitas.getModel();
+	//
+	int filaSeleccionada = tablaCitas.getSelectedRow();
+	model.removeRow(filaSeleccionada);
 
-        borraCitas(mascota,fecha);
-        
-        
+	String fecha = jLabel1.getText();
+	int mascota = Integer.valueOf(jLabel2.getText());
+
+	for (int i = 0; i < listaCita.size(); i++) {
+	    if (listaCita.get(i).fecha_cita.equals(jLabel1.getText()) && listaCita.get(i).mascota == Integer.valueOf((jLabel2.getText()))) {
+		cita = listaCita.get(i);
+	    }
+	}
+	borraCitas(cita);
     }//GEN-LAST:event_borrarCitaMousePressed
 
     private void borrarCitaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMouseReleased
@@ -1793,12 +1830,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_fondoCitasMousePressed
 
     private void tablaCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCitasMousePressed
-        DefaultTableModel model=(DefaultTableModel)tablaCitas.getModel();
-        int filaSeleccionada=tablaCitas.getSelectedRow();
-        
-        jLabel1.setText(model.getValueAt(filaSeleccionada,0).toString());
-        jLabel2.setText(cuadroChip.getText());
+	DefaultTableModel model = (DefaultTableModel) tablaCitas.getModel();
+	int filaSeleccionada = tablaCitas.getSelectedRow();
+
+	jLabel1.setText(model.getValueAt(filaSeleccionada, 0).toString());
+	jLabel2.setText(cuadroChip.getText());
     }//GEN-LAST:event_tablaCitasMousePressed
+
+    private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
+	cambiaTitulo();
+    }//GEN-LAST:event_jTabbedPane2MouseClicked
 
     /**
      * @param args the command line arguments
