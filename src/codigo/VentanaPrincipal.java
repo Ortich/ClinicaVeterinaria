@@ -437,6 +437,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    
     /**
      * Creates new form VentanaPrincipal
      */
@@ -477,7 +479,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     /**
      * This method is called from within the constructor to initialize the form.

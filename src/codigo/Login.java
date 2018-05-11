@@ -54,6 +54,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
 	initComponents();
 
+	this.setTitle("Clinica UFVet - Login");
+	
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
