@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -53,6 +55,12 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
 	initComponents();
+	
+	try {
+	    this.setIconImage(new ImageIcon(ImageIO.read(getClass().getResource("/imagenes/Auxiliares/logo.png"))).getImage());
+	} catch (Exception e) {
+	    this.setIconImage(null);
+	}
 
 	this.setTitle("Clinica UFVet - Login");
 	
