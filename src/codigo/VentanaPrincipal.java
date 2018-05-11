@@ -388,6 +388,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	}
 
     }
+    
+    //Método para borrar citas
+    
+    public void borraCitas(int mascota, String fecha) {
+	try {
+	    resultadoConsulta = estado.executeQuery("SELECT * FROM clinicaufvet.cita");
+
+	    String sql = "DELETE FROM clinicaufvet.cita "
+		    + " WHERE fecha_cita='"+fecha+"' AND mascota="+mascota+"";
+
+	    estado.executeUpdate(sql);
+            
+	    System.out.println("funciona");
+           
+
+	    
+	} catch (Exception e) {
+	    e.getMessage();
+	    System.out.println("no funciona");
+            
+
+	    
+	}
+
+    }
 
     /**
      * Creates new form VentanaPrincipal
@@ -536,6 +561,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         buscarMascota = new javax.swing.JLabel();
         editarMascota = new javax.swing.JLabel();
         fondoMascotas = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         cuadroBusquedaCliente = new javax.swing.JTextField();
         cuadroNuevoCliente = new javax.swing.JLabel();
@@ -1021,9 +1048,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 "Fecha", "Detalles", "Veterinario"
             }
         ));
+        tablaCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaCitasMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCitas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 800, 510, 110));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 800, 510, 900));
 
         huella.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/huella.png"))); // NOI18N
         huella.setText("jLabel22");
@@ -1204,6 +1236,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fondoMascotas.setMaximumSize(new java.awt.Dimension(400, 400));
         jPanel1.add(fondoMascotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 970));
 
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 880, 70, 40));
+
+        jLabel2.setText("jLabel2");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 830, 70, 40));
+
         jTabbedPane2.addTab("Mascota", jPanel1);
 
         jPanel2.setMinimumSize(new java.awt.Dimension(1010, 700));
@@ -1356,7 +1394,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTabbedPane2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1030));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1540,6 +1578,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void borrarCitaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMousePressed
 	borrarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Mascotas/pgMascotasBorrarP.png")));
+        //
+        Cita cita=new Cita();
+        
+        DefaultTableModel model=(DefaultTableModel) tablaCitas.getModel();
+        //
+        int filaSeleccionada=tablaCitas.getSelectedRow();
+        model.removeRow(filaSeleccionada);
+        
+        String fecha=jLabel1.getText();
+        int mascota=Integer.valueOf(jLabel2.getText());
+        
+
+        borraCitas(mascota,fecha);
+        
+        
     }//GEN-LAST:event_borrarCitaMousePressed
 
     private void borrarCitaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrarCitaMouseReleased
@@ -1739,6 +1792,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 	datosCitasV.setVisible(false);
     }//GEN-LAST:event_fondoCitasMousePressed
 
+    private void tablaCitasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCitasMousePressed
+        DefaultTableModel model=(DefaultTableModel)tablaCitas.getModel();
+        int filaSeleccionada=tablaCitas.getSelectedRow();
+        
+        jLabel1.setText(model.getValueAt(filaSeleccionada,0).toString());
+        jLabel2.setText(cuadroChip.getText());
+    }//GEN-LAST:event_tablaCitasMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1882,6 +1943,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel huella;
     private javax.swing.JLabel insertaCita;
     private javax.swing.JLabel insertarCitaIC;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
