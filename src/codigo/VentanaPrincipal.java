@@ -1121,6 +1121,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(cuadroNuevaMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
 
+        cuadroNombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cuadroNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cuadroNombre.setText("NOMBRE MASCOTA");
         cuadroNombre.setPreferredSize(new java.awt.Dimension(384, 114));

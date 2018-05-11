@@ -28,8 +28,8 @@ public class Login extends javax.swing.JFrame {
     private Connection conexion;
     ArrayList<Veterinario> listaVeterinario = new ArrayList();
     boolean usuarioExiste = false;
-    
-    private void iniciaPrograma(){
+
+    private void iniciaPrograma() {
 	labelUserError.setText("");
 	labelPassError.setText("");
 	usuarioExiste = false;
@@ -40,22 +40,22 @@ public class Login extends javax.swing.JFrame {
 		    VentanaPrincipal m = new VentanaPrincipal();
 		    m.setVisible(true);
 		    this.setVisible(false);
-		}else{
+		} else {
 		    labelPassError.setText("Contraseña incorrecta");
 		}
 		usuarioExiste = true;
-	    }else if(!usuarioExiste){
+	    } else if (!usuarioExiste) {
 		labelUserError.setText("Usuario incorrecto");
 	    }
 	}
     }
-    
+
     /**
      * Creates new form Login
      */
     public Login() {
 	initComponents();
-	
+
 	try {
 	    this.setIconImage(new ImageIcon(ImageIO.read(getClass().getResource("/imagenes/Auxiliares/logo.png"))).getImage());
 	} catch (Exception e) {
@@ -63,7 +63,7 @@ public class Login extends javax.swing.JFrame {
 	}
 
 	this.setTitle("Clinica UFVet - Login");
-	
+
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clinicaufvet", "root", "root");
